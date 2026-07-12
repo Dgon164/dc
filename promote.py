@@ -78,6 +78,7 @@ def main():
         ("cache battery", ["test_cache.py"], os.path.join(DC, "isaac_store"), None),
         ("leaf battery", ["test_leaf.py"], os.path.join(DC, "isaac_store"), None),
         ("server battery", ["test_server.py"], os.path.join(DC, "isaac_store"), None),
+        ("scrubber battery", ["test_scrubber.py"], os.path.join(DC, "isaac_store"), None),
     ]
     results, failed = [], False
     for name, cmd, cwd, expect in gates:
