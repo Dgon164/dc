@@ -95,6 +95,8 @@ def main():
          os.path.join(DC, "isaac_store"), None),
         ("report battery", ["test_report.py"],
          os.path.join(DC, "isaac_store"), None),
+        ("speech battery", ["test_speech.py"],
+         os.path.join(DC, "isaac_store"), None),
     ]
     results, failed = [], False
     for name, cmd, cwd, expect in gates:
