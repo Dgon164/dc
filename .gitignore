@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.isaacpack
+*.isaacpack.tmp
+journal.jsonl
+data/
+packs/
