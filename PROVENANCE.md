@@ -1,8 +1,8 @@
 # PROVENANCE — what is live, and where it came from
 
-- promoted: 2026-07-12 10:50:43
-- research commit: isaac-paperclip @ e0d7bba
-- copied: PAPERCLIP_MANUAL.md, alpha.py, demos, discovery_battery_results.csv, docs, experiments, gauntlet_results.csv, isaac.py, isaac_store, requirements.txt, research, spatial, standalone, ui, worker.py
+- promoted: 2026-07-12 10:56:49
+- research commit: isaac-paperclip @ 2c66ec7
+- copied: PAPERCLIP_MANUAL.md, alpha.py, askisaac.py, demos, discovery_battery_results.csv, docs, experiments, gauntlet_results.csv, isaac.py, isaac_store, requirements.txt, research, spatial, standalone, ui, worker.py
 - gates:
   - engine suite: PASS — One file. One class. One operation.
   - store battery: PASS — BATTERY: 29 passed, 0 failed of 29
@@ -19,3 +19,4 @@
   - provenance battery: PASS — BATTERY: 13 passed, 0 failed of 13
   - seeker battery: PASS — BATTERY: 11 passed, 0 failed of 11
   - retention battery: PASS — BATTERY: 10 passed, 0 failed of 10
+  - report battery: PASS — BATTERY: 11 passed, 0 failed of 11
