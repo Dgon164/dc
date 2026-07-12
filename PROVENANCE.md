@@ -1,8 +1,8 @@
 # PROVENANCE — what is live, and where it came from
 
-- promoted: 2026-07-12 12:56:42
-- research commit: isaac-paperclip @ 8763c25
-- copied: PAPERCLIP_MANUAL.md, alpha.py, askisaac.py, demos, discovery_battery_results.csv, docs, experiments, gauntlet_results.csv, isaac.py, isaac_store, requirements.txt, research, spatial, standalone, ui, worker.py
+- promoted: 2026-07-12 13:07:30
+- research commit: isaac-paperclip @ bcef656
+- copied: PAPERCLIP_MANUAL.md, alpha.py, askisaac.py, demos, discovery_battery_results.csv, docs, experiments, face.py, gauntlet_results.csv, isaac.py, isaac_store, requirements.txt, research, spatial, standalone, ui, worker.py
 - gates:
   - engine suite: PASS — One file. One class. One operation.
   - store battery: PASS — BATTERY: 29 passed, 0 failed of 29
@@ -22,3 +22,4 @@
   - report battery: PASS — BATTERY: 11 passed, 0 failed of 11
   - speech battery: PASS — BATTERY: 20 passed, 0 failed of 20
   - learned-speech battery: PASS — BATTERY: 20 passed, 0 failed of 20
+  - face battery: PASS — BATTERY: 7 passed, 0 failed of 7
