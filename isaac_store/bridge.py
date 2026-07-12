@@ -17,12 +17,14 @@ from collections import defaultdict
 
 from .codec import register_module
 
-# The engine lives in the R&D repo (isaac-paperclip); dc is the
-# business repo. Resolution: ISAAC_ENGINE env var, else the sibling
-# checkout next to this repo (Documents/isaac-paperclip/isaac.py).
-_DC_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-PAPERCLIP_ISAAC = os.environ.get("ISAAC_ENGINE") or os.path.join(
-    os.path.dirname(_DC_ROOT), "isaac-paperclip", "isaac.py")
+# Both repos are self-contained (research=paperclip, live=dc): the
+# engine normally sits at this package's parent. Resolution order:
+# ISAAC_ENGINE env var > same-repo isaac.py > sibling isaac-paperclip.
+_REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+_LOCAL_ENGINE = os.path.join(_REPO_ROOT, "isaac.py")
+PAPERCLIP_ISAAC = os.environ.get("ISAAC_ENGINE") or (
+    _LOCAL_ENGINE if os.path.exists(_LOCAL_ENGINE)
+    else os.path.join(os.path.dirname(_REPO_ROOT), "isaac-paperclip", "isaac.py"))
 _NET_MAPPED = ("doors", "door_tags", "meta", "door_counts", "preds")
 
 

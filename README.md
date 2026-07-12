@@ -1,8 +1,25 @@
 # dc — the datacenter
 
-The **business segment** of the Isaac project: persistence, orchestration,
-serving, and privacy infrastructure. Research and development (the engine
-itself) lives in the sibling repo, **isaac-paperclip**.
+**The LIVE repo.** Research happens in the sibling repo
+(**isaac-paperclip**); dc is the live mirror of its blessed state —
+everything Isaac needs to run in production, duplicated here by
+promotion (owner model, 2026-07-12: "research and live").
+
+## The promotion rule
+
+**Never hand-edit promoted files in dc.** Edit in research, then:
+
+```
+python promote.py
+```
+
+The script copies the research tree in, runs EVERY gate (engine suite
+11/11 + all four store batteries) from dc against dc's own copies, and
+refuses the promotion if anything fails (git restores the last good
+live state). On success it stamps `PROVENANCE.md` with the research
+commit, timestamp, and gate results — so what is live is always
+traceable to what was proven. dc-only files (this README, promote.py,
+PROVENANCE.md, .gitignore) are never overwritten.
 
 Plain files and stdlib only. **No databases** (owner constraint). No pickle
 for new saves. No hand-rolled crypto, ever.
