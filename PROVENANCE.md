@@ -1,7 +1,7 @@
 # PROVENANCE — what is live, and where it came from
 
-- promoted: 2026-07-12 13:57:46
-- research commit: isaac-paperclip @ 207ba2d
+- promoted: 2026-07-12 14:10:35
+- research commit: isaac-paperclip @ 2aa2d05
 - copied: PAPERCLIP_MANUAL.md, alpha.py, askisaac.py, demos, discovery_battery_results.csv, docs, experiments, face.py, gauntlet_results.csv, isaac.py, isaac_store, requirements.txt, research, spatial, standalone, ui, worker.py
 - gates:
   - engine suite: PASS — One file. One class. One operation.
@@ -27,3 +27,4 @@
   - structural battery: PASS — BATTERY: 12 passed, 0 failed of 12
   - remote battery: PASS — BATTERY: 16 passed, 0 failed of 16
   - triangulation battery: PASS — BATTERY: 11 passed, 0 failed of 11
+  - education battery: PASS — BATTERY: 10 passed, 0 failed of 10
