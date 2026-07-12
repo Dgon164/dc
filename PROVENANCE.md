@@ -1,7 +1,7 @@
 # PROVENANCE — what is live, and where it came from
 
-- promoted: 2026-07-12 07:32:39
-- research commit: isaac-paperclip @ e08dd49
+- promoted: 2026-07-12 07:39:52
+- research commit: isaac-paperclip @ 3757d4d
 - copied: PAPERCLIP_MANUAL.md, alpha.py, demos, discovery_battery_results.csv, docs, experiments, gauntlet_results.csv, isaac.py, isaac_store, requirements.txt, research, spatial, standalone, ui, worker.py
 - gates:
   - engine suite: PASS — One file. One class. One operation.
