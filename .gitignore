@@ -5,3 +5,4 @@ __pycache__/
 journal.jsonl
 data/
 packs/
+ops.jsonl
