@@ -82,6 +82,7 @@ def main():
         ("learning battery", ["test_learning.py"], os.path.join(DC, "isaac_store"), None),
         ("skills battery", ["test_skills.py"], os.path.join(DC, "isaac_store"), None),
         ("ops battery", ["test_ops.py"], os.path.join(DC, "isaac_store"), None),
+        ("multicore battery", ["test_multicore.py"], os.path.join(DC, "isaac_store"), None),
     ]
     results, failed = [], False
     for name, cmd, cwd, expect in gates:
