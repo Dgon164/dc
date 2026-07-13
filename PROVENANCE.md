@@ -1,7 +1,7 @@
 # PROVENANCE — what is live, and where it came from
 
-- promoted: 2026-07-12 18:43:06
-- research commit: isaac-paperclip @ 0e75522
+- promoted: 2026-07-12 18:56:58
+- research commit: isaac-paperclip @ 28c6d9e
 - copied: PAPERCLIP_MANUAL.md, alpha.py, askisaac.py, demos, discovery_battery_results.csv, docs, experiments, face.py, gauntlet_results.csv, isaac.py, isaac_store, requirements.txt, research, spatial, standalone, ui, worker.py
 - gates:
   - engine suite: PASS — One file. One class. One operation.
@@ -33,4 +33,4 @@
   - task battery: PASS — TASK BATTERY: 8/8 checks passed
   - rule battery: PASS — RULE BATTERY: 11/11 checks passed
   - rounding battery: PASS — ROUNDING BATTERY: 7/7 checks passed
-  - sparring battery: PASS — SPARRING BATTERY: 8/8 checks passed
+  - sparring battery: PASS — SPARRING BATTERY: 12/12 checks passed
