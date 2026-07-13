@@ -121,6 +121,8 @@ def main():
          os.path.join(DC, "experiments"), None),
         ("rounding battery", ["rounding_battery.py"],
          os.path.join(DC, "experiments"), None),
+        ("sparring battery", ["test_sparring.py"],
+         os.path.join(DC, "isaac_store"), None),
     ]
     results, failed = [], False
     for name, cmd, cwd, expect in gates:
