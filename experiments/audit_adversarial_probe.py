@@ -411,6 +411,14 @@ def v3():
 
 
 # ---------------------------------------------------------------- V4
+def _ar1(rng, n, rho, sig):
+    e = np.empty(n)
+    e[0] = rng.normal(0, sig)
+    for i in range(1, n):
+        e[i] = rho * e[i - 1] + rng.normal(0, sig * math.sqrt(1 - rho**2))
+    return e
+
+
 def v4():
     say("=" * 72)
     say("V4  NEWS-vs-ERROR under correlated AR(1) noise -- "
@@ -421,37 +429,63 @@ def v4():
     x1 = rng.uniform(0, 10, n)
     x1[0] = 5.95            # the adversarial one-off's seat, planted
     rho, sig = 0.8, 0.1     # AR(1) serially correlated noise
-    e = np.empty(n)
-    e[0] = rng.normal(0, sig)
-    for i in range(1, n):
-        e[i] = rho * e[i - 1] + rng.normal(0, sig * math.sqrt(1 - rho**2))
-    y = 2.0 * x0 + e
+    e_ar = _ar1(rng, n, rho, sig)
+    e_iid = np.random.default_rng(43).normal(0, sig, n)  # twin's noise
     qs = np.quantile(x1, [0.25, 0.5, 0.75])
     say(f"  x1 sample quartile edges: {qs.round(3).tolist()} "
         f"(band [6.2,6.8) must sit inside one bin: "
         f"{qs[1] < 6.2 and 6.8 <= qs[2]})")
     band = (x1 >= 6.2) & (x1 < 6.8)
     band_rows = set(np.where(band)[0].tolist())
-    y[band] += 6.0                              # recurring regime: NEWS
     elig = np.where((~band) & ((x1 < 4.8) | (x1 >= 7.7)))[0]
     oneoff = sorted(rng.choice(elig[elig != 0], size=4,
                                replace=False).tolist())
-    for k, i in enumerate(oneoff):
-        y[i] += (13.0, -11.0, 16.0, -14.0)[k]   # one-off: ERROR
-    y[0] += 12.0        # adversarial one-off INSIDE the band's bin
     say(f"  planted: {len(band_rows)} band rows (+6.0, x1 in "
-        f"[6.2,6.8)); one-offs at rows {oneoff} (out-of-bin) and "
-        f"row 0 (x1=5.95, in-bin, does NOT recur)")
-    rep = audit_csv(["x0", "x1", "y"], np.column_stack([x0, x1, y]),
-                    resolutions={"y": sig}, fname="v4.csv")
-    t = rep["tables"][0]
-    say(f"  status {t['flags_status'][:40]!r}; law "
-        f"{t['law']['verdict']} {t['law'].get('equation', '')!r}")
-    named = [(k, v, round(e_, 3)) for k, v, e_ in t["news_factors"]]
-    say(f"  news factors named: {named}")
-    cls = {}
-    for f in cand_flags(t):
-        cls[f["row"]] = f["kind"]
+        f"[6.2,6.8)); one-offs at rows {oneoff} (out-of-bin, "
+        f"+13/-11/+16/-14) and row 0 (x1=5.95, in-bin, +12, does "
+        f"NOT recur)")
+
+    def build(eps, with_band=True, with_oneoffs=True):
+        y = 2.0 * x0 + eps.copy()
+        if with_band:
+            y[band] += 6.0                      # recurring regime: NEWS
+        if with_oneoffs:
+            for k, i in enumerate(oneoff):
+                y[i] += (13.0, -11.0, 16.0, -14.0)[k]   # ERROR
+            y[0] += 12.0    # adversarial one-off INSIDE the band's bin
+        return y
+
+    def run(y, tag):
+        rep = audit_csv(["x0", "x1", "y"],
+                        np.column_stack([x0, x1, y]),
+                        resolutions={"y": sig}, fname=f"{tag}.csv")
+        t = rep["tables"][0]
+        cls = {f["row"]: f["kind"] for f in cand_flags(t)}
+        news_rows = {i for i, k in cls.items() if k == "NEWS-CANDIDATE"}
+        err_rows = {i for i, k in cls.items() if k == "ERROR-CANDIDATE"}
+        m = dict(
+            refused=t["flags_status"].startswith("refused"),
+            status=t["flags_status"], law=t["law"], cls=cls,
+            n_rec=len(news_rows & band_rows) / len(band_rows),
+            n_pre=(len(news_rows & band_rows) / len(news_rows)
+                   if news_rows else float("nan")),
+            e_rec=len(err_rows & set(oneoff)) / len(oneoff),
+            e_pre=(len(err_rows & set(oneoff)) / len(err_rows)
+                   if err_rows else float("nan")),
+            clean_fp=len((news_rows | err_rows)
+                         - band_rows - set(oneoff) - {0}),
+            x1_named=any(k == "x1" for k, v, _ in t["news_factors"]),
+            factors=[(k, v, round(e_, 3))
+                     for k, v, e_ in t["news_factors"]],
+            adv=cls.get(0, "unflagged"))
+        return m
+
+    # -- the attacked world: plants under AR(1) noise --
+    m = run(build(e_ar), "v4")
+    say(f"  MAIN (AR rho=0.8): status {m['status'][:90]!r}")
+    say(f"    law {m['law']['verdict']} "
+        f"{m['law'].get('equation', '')!r}")
+    say(f"    news factors named: {m['factors']}")
     planted = {}
     for i in range(n):
         planted[i] = ("NEWS(band)" if i in band_rows else
@@ -459,53 +493,59 @@ def v4():
                       "ERROR(in-bin one-off)" if i == 0 else "CLEAN")
     mat = {}
     for i in range(n):
-        got = cls.get(i, "unflagged")
-        key = (planted[i], got)
+        key = (planted[i], m["cls"].get(i, "unflagged"))
         mat[key] = mat.get(key, 0) + 1
-    say("  CONFUSION MATRIX (planted -> audited):")
+    say("    CONFUSION MATRIX (planted -> audited):")
     for p in ("NEWS(band)", "ERROR(one-off)", "ERROR(in-bin one-off)",
               "CLEAN"):
         row = {g: c for (pp, g), c in mat.items() if pp == p}
-        say(f"    {p:22s} {row}")
-    news_rows = {i for i, k in cls.items() if k == "NEWS-CANDIDATE"}
-    err_rows = {i for i, k in cls.items() if k == "ERROR-CANDIDATE"}
-    n_rec = len(news_rows & band_rows) / len(band_rows)
-    n_pre = (len(news_rows & band_rows) / len(news_rows)
-             if news_rows else float("nan"))
-    e_rec = len(err_rows & set(oneoff)) / len(oneoff)
-    e_pre = (len(err_rows & set(oneoff)) / len(err_rows)
-             if err_rows else float("nan"))
-    clean_fp = len((news_rows | err_rows)
-                   - band_rows - set(oneoff) - {0})
-    x1_named = any(k == "x1" for k, v, _ in t["news_factors"])
-    adv = cls.get(0, "unflagged")
-    say(f"  news recall {n_rec:.3f} precision {n_pre:.3f}; error "
-        f"recall {e_rec:.3f} precision {e_pre:.3f}; clean-row false "
-        f"flags {clean_fp}; x1 factor named: {x1_named}")
-    say(f"  adversarial in-bin one-off (row 0): audited as {adv} "
-        f"(truth: one-off ERROR; P4 predicted NEWS by bin membership)")
-    # control: same correlated noise, nothing planted
-    rng2 = np.random.default_rng(42)
-    e2 = np.empty(n)
-    e2[0] = rng2.normal(0, sig)
-    for i in range(1, n):
-        e2[i] = rho * e2[i - 1] + rng2.normal(
-            0, sig * math.sqrt(1 - rho**2))
-    y2 = 2.0 * x0 + e2
-    repc = audit_csv(["x0", "x1", "y"],
-                     np.column_stack([x0, x1, y2]),
-                     resolutions={"y": sig}, fname="v4c.csv")
-    tcc = repc["tables"][0]
-    nfc = len(cand_flags(tcc))
-    say(f"  control (correlated noise, no plants): {nfc} flags, "
-        f"factors {tcc['news_factors']}")
-    ev = (f"news recall {n_rec:.3f}/precision {n_pre:.3f}, error "
-          f"recall {e_rec:.3f}/precision {e_pre:.3f}, clean FP "
-          f"{clean_fp}, x1 named {x1_named}, in-bin one-off -> {adv}, "
+        say(f"      {p:22s} {row}")
+    say(f"    news recall {m['n_rec']:.3f} precision {m['n_pre']:.3f};"
+        f" error recall {m['e_rec']:.3f} precision {m['e_pre']:.3f}; "
+        f"clean-row false flags {m['clean_fp']}; x1 named "
+        f"{m['x1_named']}; in-bin one-off -> {m['adv']}")
+
+    # -- attribution twin A: SAME plants, iid noise (rho=0) --
+    ma = run(build(e_iid), "v4iid")
+    say(f"  TWIN A (iid, same plants): status {ma['status'][:60]!r}; "
+        f"law {ma['law']['verdict']} {ma['law'].get('equation','')!r}")
+    say(f"    news recall {ma['n_rec']:.3f} precision "
+        f"{ma['n_pre']:.3f}; error recall {ma['e_rec']:.3f}; clean FP "
+        f"{ma['clean_fp']}; x1 named {ma['x1_named']}; factors "
+        f"{ma['factors']}; in-bin one-off -> {ma['adv']}")
+    # -- attribution twin B: AR noise, band only, no one-offs --
+    mb = run(build(e_ar, with_oneoffs=False), "v4band")
+    say(f"  TWIN B (AR, band only): status {mb['status'][:60]!r}; "
+        f"law {mb['law']['verdict']} {mb['law'].get('equation','')!r}")
+    say(f"    news recall {mb['n_rec']:.3f}; x1 named "
+        f"{mb['x1_named']}; factors {mb['factors']}")
+    # -- null control: correlated noise, nothing planted --
+    e2 = _ar1(np.random.default_rng(42), n, rho, sig)
+    mc = run(build(e2, with_band=False, with_oneoffs=False), "v4null")
+    nfc = len(mc["cls"])
+    say(f"  CONTROL (AR noise, no plants): {nfc} flags, status "
+        f"{mc['status'][:40]!r}, factors {mc['factors']}")
+
+    ev = (f"MAIN news recall {m['n_rec']:.3f}, error recall "
+          f"{m['e_rec']:.3f}, x1 named {m['x1_named']}, refused="
+          f"{m['refused']}; TWIN A (iid) news recall {ma['n_rec']:.3f}"
+          f", x1 named {ma['x1_named']}, in-bin one-off -> {ma['adv']}"
+          f"; TWIN B (band only) news recall {mb['n_rec']:.3f}; "
           f"control flags {nfc}")
-    if (n_rec >= 0.8 and x1_named and e_rec >= 0.75 and clean_fp <= 3
-            and nfc <= 1):
-        v = "PARTIAL" if adv == "NEWS-CANDIDATE" else "WORKS"
+    if m["refused"]:
+        ev += (" -- the AR-noise world was NOT classified: discover() "
+               "absorbed plant structure into the law's form "
+               f"({m['law'].get('equation', '')!r}), inflating clean "
+               "residuals until the mad gate self-disqualified; the "
+               "refusal's why blames the floor, but the floor (0.1) "
+               "was truthfully told -- a MISDIAGNOSED refusal whose "
+               "ASK is already answered; note the records ledger "
+               "carries law+floor lines but NO refusal line, and "
+               "counts read 'unflagged'")
+        v = "BROKEN" if not ma["refused"] else "HONEST-REFUSAL"
+    elif (m["n_rec"] >= 0.8 and m["x1_named"] and m["e_rec"] >= 0.75
+            and m["clean_fp"] <= 3 and nfc <= 1):
+        v = "PARTIAL" if m["adv"] == "NEWS-CANDIDATE" else "WORKS"
         if v == "PARTIAL":
             ev += (" -- classification is BY BIN MEMBERSHIP, not "
                    "per-row recurrence: one planted one-off sharing "
