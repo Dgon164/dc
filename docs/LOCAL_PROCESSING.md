@@ -116,6 +116,30 @@ the pass has a work order:
    remainder -> consolidation). Foveated attention for the
    crystallizer: periphery samples, fovea resolves, and the
    periphery never pretends to be the fovea.
+   **OWNER REFINEMENT 3 (same day): the PREGROUPING layer at
+   ingestion — "an initial scan, just stick like with like; pregroup
+   the groups of 100 as needed... you don't need to always compare a
+   with b: figure out what a is, what b is, then compare the final
+   interpretation of a vs b with a few specific examples for
+   refinement."** This answers where the chunks COME FROM: not
+   arbitrary blocks but likeness buckets from a cheap single-pass
+   coarse-signature scan at intake (O(n log n), no pairwise work) —
+   manufacturing the locality every tier below exploits (dense merge
+   yield within, provably-empty blocks across). LAW: pregrouping is
+   a SCHEDULING HYPOTHESIS, never a verdict — sloppy grouping costs
+   time, not truth, because the proof tiers still check everything
+   signatures cannot rule out; the equivalence battery stays
+   passable by construction. The two-level comparison in native
+   vocabulary: within-group crystallize (the group's interpretation
+   IS its crystal, earned through the ordinary nulls at n~100);
+   across groups compare CRYSTALS not members; refinement = tier-3
+   samples aimed by the crystal comparison; a group merge is an
+   ordinary supersession with receipts. DRIFT GUARD (build in from
+   day one): membership is provisional — an item that fits its own
+   group's crystal poorly is re-bucketed and re-judged (the owner's
+   "swapping"); membership is a supersedable claim with evidence.
+   Precedents, named: record-linkage BLOCKING; pre-attentive
+   perceptual grouping (like-with-like before recognition).
 2. **_capture broadcast** — O(n^2 * d), unconditional, runs up to
    TWICE per discover() since accounting added a residual capture.
    Optimization queued 07-03.
