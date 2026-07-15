@@ -615,8 +615,21 @@ def main():
           f"r2={res['r2']:.4f}  train maxerr {merr:.4g}  "
           f"exact={merr < TOL}")
     blended_minted = bool(whole and whole["minted"])
-    blend_ev = (f"whole binding: "
-                f"{'MINTED (' + str(whole['mint_path']) + ')' if blended_minted else 'refused: ' + str(whole['reason'] if whole else 'none')}; "
+    if whole is None:
+        whole_desc = "no binding attempted"
+    elif whole["reason"]:
+        whole_desc = f"REFUSED ({whole['reason']})"
+    elif not whole["minted"]:
+        whole_desc = (f"not minted — trim kept {whole['n_kept']}/{whole['n']}"
+                      f" >= min_keep {whole['min_keep']} (collapse guard did"
+                      f" NOT fire, contra P5); engine "
+                      f"{whole['engine_verdict']} train_maxerr "
+                      f"{whole['engine_train_maxerr']:.4g}, duel maxerr "
+                      f"{whole['duel_train_maxerr']:.4g} — the EXACTNESS "
+                      f"gates refused")
+    else:
+        whole_desc = f"MINTED ({whole['mint_path']})"
+    blend_ev = (f"whole binding: {whole_desc}; "
                 f"raw-discover diag: {res['verdict']} train_maxerr "
                 f"{merr:.4g}")
     if blended_minted:
