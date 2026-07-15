@@ -79,6 +79,22 @@ the pass has a work order:
    epistemics) and COMPLETENESS (a hot change that makes a cold x
    cold merge newly true must still be found — dirtying propagates
    through the reverse index; planted world required).
+   **OWNER REFINEMENT (same day): hierarchical block pruning —
+   "you do 100x100, then you do 8x8; you do the 100x100 chunks as a
+   single."** Within-chunk exact work + chunk-vs-chunk as single
+   units, descending into a cross-block only when the chunk-level
+   check cannot rule it out. 800^2=640k checks -> 8*100^2 + 8^2
+   ~ 80k (~8x); recursed, ~n log n (the Barnes-Hut shape). SOUNDNESS
+   CONDITION (what makes pruning provable, not heuristic): the chunk
+   signature must be a conservative OVER-approximation of its
+   members (e.g. union of member doors) — empty signature overlap
+   then PROVES no member pair can pass min_shared, so the skipped
+   block is proof-backed; the coarse pass only rules out, never
+   decides. Isaac-native framing: a chunk-as-single is a COMPOSITE —
+   the crystallizer indexing with its own hierarchy, groups before
+   members. Composed with the dirty-set rule: dirty nodes -> dirty
+   chunks -> incremental signature update -> 8x8 only on dirty
+   rows/cols -> descend survivors; clean x clean blocks untouched.
 2. **_capture broadcast** — O(n^2 * d), unconditional, runs up to
    TWICE per discover() since accounting added a residual capture.
    Optimization queued 07-03.
