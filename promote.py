@@ -127,6 +127,8 @@ def main():
          os.path.join(DC, "experiments"), None),
         ("tools battery", ["tools_battery.py"],
          os.path.join(DC, "experiments"), None),
+        ("order battery", ["order_battery.py"],
+         os.path.join(DC, "experiments"), None),
         ("audit battery", ["test_audit.py"],
          os.path.join(DC, "isaac_store"), None),
         ("sparring battery", ["test_sparring.py"],
