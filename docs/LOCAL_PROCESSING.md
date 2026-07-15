@@ -140,6 +140,29 @@ the pass has a work order:
    "swapping"); membership is a supersedable claim with evidence.
    Precedents, named: record-linkage BLOCKING; pre-attentive
    perceptual grouping (like-with-like before recognition).
+   **OWNER REFINEMENT 4 (same day, in processing with another
+   session): OUTLIER EJECTION — "rather than trying to force
+   something in, if it doesn't fit, it doesn't fit. mark it as
+   outlier. if it's kind of like a but doesn't fit a, and it
+   definitely is not b, it could be c. maybe c is a superset of a
+   and something else."** Absorption-of-misfits is the same failure
+   shape the campaign measured at the verdict tier (plant-absorbed
+   laws, additive impostors); ejection is the cure at group level.
+   Three obligations: (1) outlier is a VERDICT WITH A RECEIPT (what
+   it failed in A, what ruled out B, distances in the group's own
+   currency) — the receipt is the evidence C will be minted from;
+   (2) the pile is a NURSERY, MINED not stored: mine_commonality
+   over outlier receipts periodically — a shared differential
+   signature past the null MINTS C (frontier-miner self-assembly,
+   aimed at ingestion); audit charter applies — outliers counted,
+   never silently passed, and a pile that only grows is itself a
+   finding; (3) C-as-superset is the proven C2b lattice move
+   (penguin: excluded from the subgroup, retained by the parent) —
+   exclusion without destruction, parent minted from what the
+   receipts say the ejected DO share, through the ordinary p_chance
+   gates. Payoff: ejection keeps crystals SHARP, which makes the
+   crystal-vs-crystal tier more decisive — honesty and speed are
+   the same policy here.
 2. **_capture broadcast** — O(n^2 * d), unconditional, runs up to
    TWICE per discover() since accounting added a residual capture.
    Optimization queued 07-03.
