@@ -95,6 +95,27 @@ the pass has a work order:
    members. Composed with the dirty-set rule: dirty nodes -> dirty
    chunks -> incremental signature update -> 8x8 only on dirty
    rows/cols -> descend survivors; clean x clean blocks untouched.
+   **OWNER REFINEMENT 2 (same day): significance-weighted sampled
+   descent — "if you really really need, do say 20 from each group
+   identified as significant; maybe 30 from the first, 5 from the
+   second, 25 from the third."** LAW BOUNDARY, said out loud: tiers
+   0-1 are PROOFS (lossless), sampling is EVIDENCE (lossy) — two
+   sanctioned uses only: (a) TRIAGE, lossless — sampled merge-density
+   estimates ORDER the full descents, never replace them; (b)
+   BUDGETED ANSWER — the sampled pass carries the order_matters
+   badge shape ("no counterexample in N sampled pairs — absence,
+   not proof"), stamps its coverage (never a silent pass; unexplored
+   remainder counted, audit charter), and queues the remainder for
+   idle consolidation which finishes it EXACTLY — sampling moves
+   WHEN full truth arrives, never WHETHER. Weights are measured,
+   not hand-set (tests-over-thresholds): signature-overlap mass,
+   dirty fraction, recent merge YIELD per chunk (use-counter shape).
+   The stack, top to bottom: 0 dirty-set (proof) / 1 block
+   signatures (proof) / 2 full descent, hot+small blocks (exact) /
+   3 weighted samples, cold+big blocks (evidence, badged,
+   remainder -> consolidation). Foveated attention for the
+   crystallizer: periphery samples, fovea resolves, and the
+   periphery never pretends to be the fovea.
 2. **_capture broadcast** — O(n^2 * d), unconditional, runs up to
    TWICE per discover() since accounting added a residual capture.
    Optimization queued 07-03.
