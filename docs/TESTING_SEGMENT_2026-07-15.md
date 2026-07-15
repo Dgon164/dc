@@ -216,6 +216,40 @@ one).
 8. Interpreter-execution attack list — BLOCKED here until
    `interpreter_handoff/` enters the repo.
 
+## ═══ ADDENDUM (same session): THE RESERVOIR INSTRUMENT — owner
+## proposal, probe-proven (experiments/reservoir_surprise_probe.py, 13/13)
+Owner theory: "the difference that makes a difference — nothing in
+our system distinguishes unknowns; high projection adds weights, it
+literally changes two things to be not the same and they contribute
+differently; the mini nets should resolve what part of something is
+contributing." PROVEN. A random-features reservoir (weights FROZEN
+BEFORE DATA — a ruler that cannot be captured by what it judges;
+pure numpy; ~24ms/verdict at n=60) pointed at law residuals:
+- GRAMMAR-FREE SURPRISE: additive-hole residual screams 9/10 at
+  n=60 (capture ~+0.65 vs null99 ~0); blended-conditional UNDERSTOOD
+  (r2 0.9972) screams at n=48; false alarms 0/20 at both scales.
+- THE BEND-CATCH (prediction falsified in the instrument's favor,
+  kept): near-miss +-1 poisoning screams 4/5 — the poison BENDS the
+  admitted form and the bend is x-structured. The campaign's worst
+  silent failure is detectable after all.
+- ATTRIBUTION (the owner's theory verbatim): channel ablation through
+  the frozen net names exactly {x2} on a marginal world and exactly
+  {x1,x3} on a PURE-INTERACTION world where the marginal-correlation
+  baseline names NOTHING (max |corr| 0.068 vs thr 0.163) — two
+  things that look the same, contributing differently, told apart.
+  Null = matched decoy channels riding the same fit (the
+  scrambled-pairing move). Measured resolution: naming needs ~2x the
+  rows detection needs (blended: screams at 48, names at 96).
+- TIEBREAKER: scream > capture-margin > parsimony picks the true
+  form 3/3 at the measured accuracy tie.
+Three instrument bugs were found by the probe's own discipline and
+kept as wrong-kepts in the docstring (single-split overfit; capacity
+starvation; mis-matched attribution null). Proposed engine home: the
+verdict rewrite ships §2b with TWO legs — the atom replay as specced
++ the reservoir meter as the grammar-free second leg — and the duel
+gains the scream/margin/parsimony order. Research-first port + its
+own battery, per the promotion law.
+
 ## Hygiene
 This record + 12 probe files committed on
 `claude/isaac-dc-local-setup-2e51bt`; nothing promoted was edited;
