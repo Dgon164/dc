@@ -61,8 +61,24 @@ Named debts, all previously recorded, none new — collected here so
 the pass has a work order:
 1. **Crystallizer scaling** — O(n^2) by design, measured worse
    (O(n^3)-O(n^4) with the get_predecessors full scan; knee at ~800
-   nodes). Carried suspect since 07-03, unaddressed. The single
-   biggest engine hot spot.
+   nodes). Carried suspect since 07-03; the reverse-index promotion
+   (66x at language scale) cured the inner scan for language — the
+   general organ still owes it. The single biggest engine hot spot.
+   **OWNER DESIGN (2026-07-15, on the sheet): tiered working sets —
+   "keep different sets of cache... quick access nodes, chunked
+   recall nodes, and swapping between them; do 100 ops, then the
+   next 100, and you don't do an 800x800x800 check."** Sharpened to
+   the dirty-set rule: a pair needs re-checking ONLY if a member
+   changed since the last pass (LiveCache's delta discipline moved
+   inside the engine) — cold x cold unchanged pairs are skipped,
+   not deferred; recency (L1 ~100 hot nodes) is the index of where
+   new work can exist; L2 warm chunks run as batched consolidation
+   (idle-time work); L3 = the pack's seek-on-demand (built). Two
+   battery obligations before any port: EQUIVALENCE (tiered vs full
+   crystallizer -> byte-identical nets; scheduling must never change
+   epistemics) and COMPLETENESS (a hot change that makes a cold x
+   cold merge newly true must still be found — dirtying propagates
+   through the reverse index; planted world required).
 2. **_capture broadcast** — O(n^2 * d), unconditional, runs up to
    TWICE per discover() since accounting added a residual capture.
    Optimization queued 07-03.
