@@ -5,6 +5,17 @@
 everything Isaac needs to run in production, duplicated here by
 promotion (owner model, 2026-07-12: "research and live").
 
+> **EXPERIMENTAL STATUS (2026-07-15, owner note):** the 2026-07-13..15
+> arc -- the language ladder (`experiments/` idea files), Gate 6
+> operator mining, the instrument floor, the commonality miner, the
+> audit face (`askisaac --audit`), word elections, the frontier habit,
+> and the tools node -- is **UNFINISHED AND EXPERIMENTAL**. Engine
+> organs passed their batteries and the full promotion gauntlet
+> (engine 11/11 + 33 batteries), but broader TESTING IS THE NEXT STEP:
+> adversarial probes, the data-ops bench harness (B1-B4), the verdict
+> rewrite gates, and the interpreter-segment attack list are all
+> still ahead. Treat these features as candidates, not products.
+
 ## The promotion rule
 
 **Never hand-edit promoted files in dc.** Edit in research, then:
