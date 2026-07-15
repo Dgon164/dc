@@ -1,7 +1,7 @@
 # PROVENANCE — what is live, and where it came from
 
-- promoted: 2026-07-15 11:03:00
-- research commit: isaac-paperclip @ 4df1671 (working tree was DIRTY)
+- promoted: 2026-07-15 11:13:30
+- research commit: isaac-paperclip @ f59471d (working tree was DIRTY)
 - copied: PAPERCLIP_MANUAL.md, alpha.py, askisaac.py, demos, discovery_battery_results.csv, docs, experiments, face.py, gauntlet_results.csv, isaac.py, isaac_store, requirements.txt, research, spatial, standalone, ui, worker.py
 - gates:
   - engine suite: PASS — One file. One class. One operation.
@@ -37,5 +37,6 @@
   - commonality battery: PASS — ======================================================================
   - tools battery: PASS — ======================================================================
   - order battery: PASS — ======================================================================
+  - order-matters battery: PASS — ======================================================================
   - audit battery: PASS — ======================================================================
   - sparring battery: PASS — SPARRING BATTERY: 18/18 checks passed
