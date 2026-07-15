@@ -533,15 +533,25 @@ def v4():
           f"; TWIN B (band only) news recall {mb['n_rec']:.3f}; "
           f"control flags {nfc}")
     if m["refused"]:
-        ev += (" -- the AR-noise world was NOT classified: discover() "
-               "absorbed plant structure into the law's form "
-               f"({m['law'].get('equation', '')!r}), inflating clean "
-               "residuals until the mad gate self-disqualified; the "
-               "refusal's why blames the floor, but the floor (0.1) "
-               "was truthfully told -- a MISDIAGNOSED refusal whose "
-               "ASK is already answered; note the records ledger "
-               "carries law+floor lines but NO refusal line, and "
-               "counts read 'unflagged'")
+        ingredient = (
+            "correlated noise IS the ingredient: the iid twin "
+            "classifies fine" if not ma["refused"] else
+            "the iid twin refuses IDENTICALLY, so correlated noise is "
+            "NOT the ingredient -- the planted regime itself is "
+            "absorbable, i.e. the A3 promise 'a law cannot absorb "
+            "the band' is world-fragile (this band seat/height gets "
+            "eaten where A3's did not)")
+        ev += (" -- no plant-bearing variant was classified: "
+               "discover() absorbed the planted regime into the "
+               f"law's form ({m['law'].get('equation', '')!r}), "
+               "inflating clean residuals until the mad gate "
+               f"self-disqualified; {ingredient}; the refusal's why "
+               "blames the floor, but the floor (0.1) was truthfully "
+               "told -- a MISDIAGNOSED refusal whose ASK is already "
+               "answered; twin B's law card even says "
+               f"{mb['law']['verdict']} on a plant-bent equation; "
+               "the records ledger carries law+floor lines but NO "
+               "refusal line, and counts read 'unflagged'")
         v = "BROKEN" if not ma["refused"] else "HONEST-REFUSAL"
     elif (m["n_rec"] >= 0.8 and m["x1_named"] and m["e_rec"] >= 0.75
             and m["clean_fp"] <= 3 and nfc <= 1):
