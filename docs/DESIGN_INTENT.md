@@ -1101,3 +1101,29 @@ did not occur at this correlation; tighter twins go on the attack
 list). Wrong-kepts in the docstring: run 1's shared-twin world
 contamination; the saturation/mixing bias invisible to no-signal
 nulls, cured by in-probe calibration.
+
+### E1 — THE BRIDGE TO LANGUAGE, probe-proven (owner question
+### 2026-07-15: "how do we test this on non mathematical structures?
+### like english?"): pools never worked on math — they worked on
+### CHANNELS, and a sentence-event's reading (voice, tense,
+### decoration, word seats) is a channel vector the moment features
+### become INDICATORS (never ordinals — re-encoding-invariance law).
+RECEIPT (experiments/pool_conjunctive_frontier_probe.py, 8/8 x 3
+seeds, 11s; seed-sweep arg for big boxes): planted HIDDEN AGREEMENT
+rule — fail iff XOR(voice=passive, tense=perfect), 5% verdict noise.
+XOR at 50/50 has PERFECTLY FLAT marginals, so mine_commonality
+(the frontier habit's own miner, a MARGINAL statistic) is blind BY
+THEOREM — measured 3/3 seeds naming nothing. The pool funnel on the
+same receipts: screams (+0.64..0.70 vs null ~-0.2), grouped ablation
+names exactly {voice, tense} (decoy-feature null), drop algebra
+stamps SYNERGY (S ~ +1.2 vs band ~0.08), and articulation collapses
+to a 2x2 table read: XOR cells recovered exactly, held-out verdict
+accuracy 0.91-0.96 = the noise ceiling — enumeration shrunk from 2^k
+to one pair. Agreement control (marginal cause deco=exclaim): BOTH
+instruments find it; scrambled verdicts: BOTH quiet; innocents named
+0/3 worlds. CONSEQUENCE FOR THE LIVE MIND: conjunctive frontiers in
+his practice history are invisible to the current frontier habit;
+E3 (desktop, needs the account) = run the pool over his real fat
+failure receipts and see what marginal mining never saw. E2 next:
+hidden long-range grammar rule via role-indexed lag channels; mint
+through the told-rule road; prove by generation, pools removed.
