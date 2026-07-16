@@ -1074,3 +1074,30 @@ the level-0 law down to raw values. What the matrix could not hold,
 found by recursion, named by ablation, minted readable, proven
 without the scaffolding. Level 2+ follows by induction: a minted
 relation node has descriptors too.
+
+### THE DROP ALGEBRA — junction types from ablation patterns (owner
+### framing 2026-07-15: "from an algebra structure this makes
+### sense... compare how parts get transformed compared to base to
+### see how they abate"; assistant sharpening, now PROBE-SETTLED:
+### ablation drops measure NECESSITY, not ownership — and the
+### deviation from additivity is itself the diagnostic).
+For a contributing pair (i,j): S = d_i + d_j - d_ij (solo drops vs
+both-permuted pair drop), judged against decoy band + a CALIBRATED
+instrument bias (a planted known-additive pair measures the tanh
+channel-mixing bias — 0.0052 of pair scale, measured not hand-set).
+S ~ 0 -> ADDITIVE; S >> 0 -> SYNERGY (jointly necessary: each solo
+carries the whole signal's death warrant); S << 0 -> REDUNDANCY
+(either suffices: solos subadditive, pair drop ~ capture). The
+classifier runs BEFORE enumeration and may only inform search ORDER,
+never admission (the Fisher law: informers do not judge).
+RECEIPT (experiments/pool_drop_algebra_probe.py, 8/8, 9.2s):
+additive world S=-0.073 in band ±0.075 -> ADDITIVE, parts named
+exactly; synergy world S=+1.452 vs ±0.206 -> SYNERGY, solos 1.49/1.44
+on capture 0.914; redundancy world S=-0.435 vs ±0.081 -> REDUNDANCY,
+pair 1.566 ~ capture 0.997 over subadditive solos 1.13; 0 false
+names; twin visibility measured (solo ablation SAW both twins at
+0.05 twin-noise, asymmetrically 0.92/0.21 — the predicted blindness
+did not occur at this correlation; tighter twins go on the attack
+list). Wrong-kepts in the docstring: run 1's shared-twin world
+contamination; the saturation/mixing bias invisible to no-signal
+nulls, cured by in-probe calibration.
