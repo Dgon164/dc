@@ -308,3 +308,81 @@ invisible to the current self-assessment organ.
    receipts — first look at what marginal mining never saw.
 4. S3 (order-3) + all-pass-beating articulation gate + the pair
    chooser — small, closes the measured holes.
+
+---
+
+## PART 6 — THE COMPARISON WORDS (added same night, owner's design)
+
+### The question that started it
+The owner, reading Part 2's break: "does it have a way to show simple
+logic structures? if a−b is <0 (negative), then b>a?" The answer was
+no — the equation vocabulary had powers, products, waves, decay, and
+lags, but not one comparison. Three of the night's exhibits (the max
+relation, the blended conditional, the plant step) were the same
+missing word in different costumes. His follow-up set the design:
+route it through the tool structures, and add every basic computer
+mechanism to the toolkit.
+
+### What was built (probe-proven 12/12; engine promotion queued)
+One mechanism family in two dialects:
+
+DIALECT 1 — new WORDS for the equation grammar:
+```
+|a−b|      the CREASE — his a−b with direction dropped. One atom
+           makes max plain algebra:  max(a,b) = (a + b + |a−b|) / 2
+[x > t]    the SWITCH — thresholds proposed from the data on ruler
+           marks and deciles, never hand-set (a threshold is a
+           constant, so the ruler discipline applies to it too)
+[f]·xi·xj  the GATED PRODUCT — a switch routed into a product
+```
+DIALECT 2 — TOOLS that route, with receipts: compare, larger,
+smaller, switch. larger(a,b) literally calls compare(a,b) and carries
+the receipt chain — the "if a−b is negative, then b>a" wiring made
+visible and replayable.
+
+THE BRIDGE between dialects: identity recognition. The minted
+equation `0.5·x0 + 0.5·x1 + 0.5·|x0−x1|` was checked numerically and
+IS larger(x0,x1) — so the mint doors onto the tool node. Two
+representations of one law, joined: the keystone move again.
+
+### What happened to the night's broken worlds, with numbers
+- THE MAX WORLD (Part 2's one BROKEN): now mints machine-exact in one
+  line — `0.5·x0 + 0.5·x1 + 0.5·|x0−x1|`, residual 4e-16, stamped by
+  the exact road. The crease residual the pool couldn't grab is now a
+  word the grammar can say.
+- THE STEP WORLD (v3's V5 refusal): now UNDERSTOOD as
+  `2·x0 − 1.5·[x1>2] + 1.5·[x1>1]` — the thresholds were FOUND at
+  exactly 1 and 2 (proposed on the mark ladder, earned by admission),
+  amplitudes ±1.5, residual at the told floor.
+- THE BLENDED WORLD: the honest story of the night. The words now
+  exist, but greedy one-at-a-time search could not assemble the
+  five-word sentence at 48 training rows (prediction falsified, KEPT)
+  — it fit a wrong-basin compromise and the new judge correctly
+  refused it, while the OLD judge shipped `0.838·[f]·x0·x1` as
+  UNDERSTOOD: new words hand the old judge new ways to be confidently
+  wrong. The judge rewrite stays the gate. The cure, measured: the
+  DEEP EXACT ROAD (search up to 5 terms, machine-exactness on unseen
+  rows as the guard) recovered the exact form —
+  `[f]·x0·x1 − f·x1 − f·x0 + x1 + x0`, held-out error 3e-15, zero
+  false stamps in 30 noise controls. En route, a diagnosis worth
+  keeping: the shortlist was clogged by CLONES (on integer data
+  [x>6] and [x>6.5] are the same column; a binary flag's powers and
+  lag-shifts are copies of itself) — duplicates vote as a bloc and
+  starve real terms out of any correlation-ranked shortlist. Dedupe
+  before the cut; filed as a port lesson for the whole pool.
+- THE COST OF NEW WORDS, measured not assumed: with the enriched
+  vocabulary, noise worlds 0/20 false UNDERSTOOD, true-law worlds
+  20/20 stamped with 0 false surprise fires — no safety or
+  availability toll at these scales (the selection-corrected bar
+  rises automatically with pool size, as designed).
+
+### What this opens
+- The mechanisms register as TOOL NODES at promotion (consideration
+  law: consulted or bypassed with receipts), joining the atoms so the
+  same mechanism is sayable in equations AND routable in process.
+- Named, deferred, honest: hinge, sign, remainder/parity — the next
+  family members; remainder connects to the period machinery.
+- TODO (owner's order, same message): MULTI-STEP PROCESSING /
+  CHAINING — the interpreter segment's kernel-loop half. The routing
+  receipts here (larger→compare) are its smallest seed: a two-step
+  chain with a replayable trail.
