@@ -1127,3 +1127,25 @@ E3 (desktop, needs the account) = run the pool over his real fat
 failure receipts and see what marginal mining never saw. E2 next:
 hidden long-range grammar rule via role-indexed lag channels; mint
 through the told-rule road; prove by generation, pools removed.
+
+## THE WRITEUP LAW (owner, 2026-07-15: "we need to make sure that we
+## are doing thorough writeups and post evals. i want to know what is
+## happening in the code, what is being found, what the structures
+## look like, this is where we get into the research. what is being
+## built and structured that i missed, how is it being represented,
+## and how well does it perform or break.")
+Every build campaign and every evaluation ends with a RESEARCH
+WRITEUP — plain language, internal labels translated, part of the
+deliverable, never optional, never just a verdict count:
+  1. WHAT WAS BUILT — the mechanism in plain words.
+  2. WHAT THE STRUCTURES LOOK LIKE — show the shape itself (a
+     sketched table, an example row, the actual equation), not only
+     its name.
+  3. HOW IT IS REPRESENTED — what form the information takes and
+     what receipts it carries.
+  4. WHAT WAS FOUND — the findings, complete numbers.
+  5. HOW IT PERFORMS AND WHERE IT BREAKS — boundaries and failure
+     MECHANISMS explained, not just counted.
+Verdict sheets (the strict WORKS/PARTIAL/BROKEN tables) remain; the
+writeup is the research narrative on top of them. First instance:
+RESEARCH_WRITEUP_2026-07-15_POOLS_AND_VERDICT.md (dc docs).
