@@ -411,6 +411,11 @@ def _atom_specs(d):
                 specs += [("cosd", i, j, k), ("sind", i, j, k)]
             for k in (0.5, 1.0, 1.5):
                 specs.append(("coshd", i, j, k))
+            # THE CREASE (mechanisms promotion, 2026-07-15): |xi-xj| —
+            # comparison's algebraic face; max/min become sayable:
+            # max(a,b) = (a+b+|a-b|)/2. No scale dial (the linear
+            # coefficient absorbs it).
+            specs.append(("absd", i, j, None))
     return specs
 
 
@@ -429,6 +434,10 @@ def _atom_col(X, spec):
         if k == 0:                                # the lambda=0 limit: log
             return np.log(base)
         return np.power(base, k)
+    if kind == "step":            # the SWITCH: [xi > t], t data-proposed
+        return (X[:, i] > k).astype(float)
+    if kind == "absd":            # the CREASE: |xi - xj|
+        return np.abs(X[:, i] - X[:, j])
     diff = np.clip(X[:, i] - X[:, j], -20, 20)
     if kind == "cosd":
         return np.cos(k * diff)
@@ -449,6 +458,10 @@ def _atom_label(spec):
         return f"exp({-k:g}*x{i})"
     if kind == "pow":
         return f"log(x{i})" if k == 0 else f"x{i}^{k:g}"
+    if kind == "step":
+        return f"[x{i}>{k:g}]"
+    if kind == "absd":
+        return f"|x{i}-x{j}|"
     op = {"cosd": "cos", "sind": "sin", "coshd": "cosh"}[kind]
     return f"{op}({k:g}*(x{i}-x{j}))"
 
@@ -588,8 +601,21 @@ def _exact_road(enum, X_tr, y_tr, X_ho, y_ho, kmax=3, top=16):
     pure_var = [ji for ji, t in enumerate(cand)
                 if all(a < n_vars for a in t) and good[ji]]
     order += [j for j in pure_var if j not in order]
+    # crease seats (the diversity rule's fourth sighting): the step-
+    # atom flood crowds |xi-xj| out of the correlation top-N, and max
+    # is unsayable without it — d(d-1)/2 seats, cheap
+    crease = [ji for ji, t in enumerate(cand)
+              if len(t) == 1 and enum.specs[t[0]][0] == "absd"
+              and good[ji]]
+    order += [j for j in crease if j not in order]
     from itertools import combinations
-    for k in range(1, kmax + 1):
+    # DEEP ESCALATION (the mechanisms probe's port lesson): exact
+    # conditional rules need up to 5 terms (x0+x1-f*x0-f*x1+f*x0*x1);
+    # the combinatorics are affordable only on small data, where such
+    # rules live. Held-out machine-exactness remains the guard at
+    # every k (noise cannot fake it; measured 0/30).
+    kmax_eff = 5 if len(y_tr) <= 100 else kmax
+    for k in range(1, kmax_eff + 1):
         if len(y_tr) < k + 3:
             break
         for sub in combinations(order, k):
@@ -1010,6 +1036,26 @@ class _Enumerator:
                        and s[3] is not None and abs(s[3] - k) / k < 0.02
                        for s in self.specs):
                 self.specs += [("sin", i, None, k), ("cos", i, None, k)]
+        # SWITCH proposals (mechanisms promotion): thresholds live in
+        # the data — deciles + the 0.5-mark ladder inside each var's
+        # range (a threshold is a constant; the ruler discipline
+        # applies). Binary columns skip (already a var atom). Capped at
+        # 16 per var by stride (cost guard, disclosed); every proposed
+        # step still faces the admission null like any atom.
+        for i in range(X.shape[1]):
+            u = X[:, i]
+            if len(np.unique(u)) <= 2:
+                continue
+            lo, hi = float(u.min()), float(u.max())
+            qs = set(np.round(np.quantile(u, np.linspace(.1, .9, 9)), 6))
+            lo_m = np.ceil(lo / 0.5) * 0.5
+            qs |= {round(float(t), 6) for t in np.arange(lo_m, hi, 0.5)
+                   if lo < t < hi}
+            qs = sorted(qs)
+            if len(qs) > 16:
+                qs = qs[::int(np.ceil(len(qs) / 16))]
+            for t in qs:
+                self.specs.append(("step", i, None, float(t)))
         self.A = np.column_stack([_atom_col(X, s) for s in self.specs])
         n_atoms = self.A.shape[1]
         n_vars = X.shape[1]
@@ -1135,7 +1181,10 @@ class _Enumerator:
             t = self.terms[ti]
             for pos, ai in enumerate(t):
                 kind, i, j, k = self.specs[ai]
-                if k is None:
+                if k is None or kind == "step":
+                    # a threshold is a MARK — re-proposed, never glided
+                    # (multiplicative glide slid steps out of range into
+                    # constant columns; mechanisms battery, wrong-kept)
                     continue
                 base = self._train_r2(y)
                 for mult in (0.7, 0.85, 1.15, 1.4):
@@ -1170,7 +1219,10 @@ class _Enumerator:
             t = self.terms[ti]
             for pos, ai in enumerate(t):
                 kind, i, j, k = self.specs[ai]
-                if k is None:
+                if k is None or kind == "step":
+                    # a threshold is a MARK — re-proposed, never glided
+                    # (multiplicative glide slid steps out of range into
+                    # constant columns; mechanisms battery, wrong-kept)
                     continue
                 base = self._train_r2(y)
                 for c in self._round_candidates(k):
@@ -3289,6 +3341,51 @@ class Isaac:
             i, k = lags[j]
             eq = re.sub(rf"\bx{base + j}\b", f"x{i}[t-{k}]", eq)
         return eq
+
+    # ── basic mechanisms (owner, 2026-07-15): comparison as organs ──
+    # "adding these basic tools and any other basic computer mechanism
+    # to his toolkit will be extremely helpful." Each returns value +
+    # RECEIPT; larger/smaller ROUTE THROUGH compare (the a-b<0 wiring
+    # made visible — the execution cycle's smallest trace). Algebraic
+    # twins live in the equation grammar (crease/step atoms), so the
+    # same mechanism is sayable in equations AND routable in process.
+
+    def compare(self, a, b, tol=0.0):
+        """Compare two values: the sign of a-b as -1/0/+1, with a receipt.
+        tol widens SAME to a measured tolerance (a floor), never a
+        hand-set default."""
+        d = float(a) - float(b)
+        v = 0 if abs(d) <= tol else (1 if d > 0 else -1)
+        return dict(tool="compare", value=v,
+                    receipt=f"sign({a:g}-{b:g}) -> {v:+d} (tol {tol:g})",
+                    routed_via=[])
+
+    def larger(self, a, b):
+        """Larger of two values, routed THROUGH compare (receipt chain).
+        Algebraic twin the grammar can say: (a+b+|a-b|)/2."""
+        c = self.compare(a, b)
+        v = float(a) if c["value"] >= 0 else float(b)
+        return dict(tool="larger", value=v,
+                    receipt=f"larger({a:g},{b:g}) via compare -> {v:g}",
+                    routed_via=[c])
+
+    def smaller(self, a, b):
+        """Smaller of two values, routed THROUGH compare (receipt chain).
+        Algebraic twin: (a+b-|a-b|)/2."""
+        c = self.compare(a, b)
+        v = float(b) if c["value"] >= 0 else float(a)
+        return dict(tool="smaller", value=v,
+                    receipt=f"smaller({a:g},{b:g}) via compare -> {v:g}",
+                    routed_via=[c])
+
+    def switch(self, cond, then_v, else_v):
+        """The routing primitive: a condition picks the branch and the
+        receipt names the door taken (do op, take result door)."""
+        v = then_v if cond else else_v
+        return dict(tool="switch", value=v,
+                    receipt=f"switch({bool(cond)}) -> "
+                            f"{'then' if cond else 'else'}",
+                    routed_via=[])
 
     # ── discovery: the challenge loop ───────────────────────────
 

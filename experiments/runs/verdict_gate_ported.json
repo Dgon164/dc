@@ -12,7 +12,7 @@
      "state": "quiet",
      "who": "cos(8*x5)",
      "obs": 0.2709,
-     "thr": 0.3269
+     "thr": 0.3509
     },
     "pool": {
      "state": "quiet",
@@ -100,7 +100,7 @@
      "state": "quiet",
      "who": "sin(4.5*x1)",
      "obs": 0.1526,
-     "thr": 0.2732
+     "thr": 0.2779
     },
     "pool": {
      "state": "quiet",
@@ -144,7 +144,7 @@
      "state": "quiet",
      "who": "sin(8*x3)",
      "obs": 0.2722,
-     "thr": 0.2959
+     "thr": 0.3129
     },
     "pool": {
      "state": "quiet",
@@ -164,8 +164,8 @@
    "legs": {
     "replay": {
      "state": "quiet",
-     "who": "sin(1*x2)",
-     "obs": 0.212,
+     "who": "[x2>-0.298088]",
+     "obs": 0.2175,
      "thr": 0.2744
     },
     "pool": {
@@ -186,8 +186,8 @@
    "legs": {
     "replay": {
      "state": "quiet",
-     "who": "cos(6*x4)",
-     "obs": 0.1659,
+     "who": "[x2>-1]",
+     "obs": 0.1879,
      "thr": 0.2858
     },
     "pool": {
@@ -232,7 +232,7 @@
      "state": "quiet",
      "who": "cos(4.5*x2)",
      "obs": 0.168,
-     "thr": 0.279
+     "thr": 0.2794
     },
     "pool": {
      "state": "quiet",
@@ -276,7 +276,7 @@
      "state": "quiet",
      "who": "x1*x3",
      "obs": 0.1713,
-     "thr": 0.2644
+     "thr": 0.2721
     },
     "pool": {
      "state": "quiet",
@@ -342,7 +342,7 @@
      "state": "quiet",
      "who": "cos(6*x4)",
      "obs": 0.1868,
-     "thr": 0.2699
+     "thr": 0.2794
     },
     "pool": {
      "state": "quiet",
@@ -362,9 +362,9 @@
    "legs": {
     "replay": {
      "state": "quiet",
-     "who": "sin(1*(x1-x2))",
-     "obs": 0.2052,
-     "thr": 0.3052
+     "who": "[x2>0.5]",
+     "obs": 0.2109,
+     "thr": 0.3112
     },
     "pool": {
      "state": "quiet",
@@ -430,7 +430,7 @@
      "state": "quiet",
      "who": "cos(6*x2)",
      "obs": 0.1965,
-     "thr": 0.2908
+     "thr": 0.2944
     },
     "pool": {
      "state": "quiet",
@@ -785,19 +785,19 @@
    "family": "F3 near-miss",
    "seed": 0,
    "verdict": "PARTIAL",
-   "r2": 0.9477,
+   "r2": 0.9459,
    "certificate": "within floor (floor 0.313112 via repeats (largest of 2 evidenced road(s)))",
    "legs": {
     "replay": {
      "state": "fired",
      "who": "sin(6*x1)",
-     "obs": 0.6778,
-     "thr": 0.6443
+     "obs": 0.6463,
+     "thr": 0.6273
     },
     "pool": {
      "state": "scream",
-     "cap": 0.4587,
-     "thr": 0.0203
+     "cap": 0.4891,
+     "thr": -0.0499
     }
    },
    "wrong_confident": false
@@ -805,42 +805,41 @@
   {
    "family": "F3 near-miss",
    "seed": 1,
-   "verdict": "UNDERSTOOD",
-   "r2": 0.9833,
+   "verdict": "PARTIAL",
+   "r2": 0.9461,
    "certificate": "within floor (floor 0.396059 via repeats (largest of 2 evidenced road(s)))",
    "legs": {
     "replay": {
      "state": "quiet",
-     "who": "cos(2*(x0-x1))",
-     "obs": 0.3911,
-     "thr": 0.5884
+     "who": "cos(1*(x0-x1))",
+     "obs": 0.3877,
+     "thr": 0.6144
     },
     "pool": {
-     "state": "quiet",
-     "cap": -0.2348,
-     "thr": 0.0139
+     "state": "scream",
+     "cap": 0.5913,
+     "thr": 0.0548
     }
    },
-   "truth_median_err": 0.1399,
-   "wrong_confident": true
+   "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 2,
    "verdict": "PARTIAL",
-   "r2": 0.9418,
+   "r2": 0.9548,
    "certificate": "within floor (floor 0.297044 via repeats (largest of 2 evidenced road(s)))",
    "legs": {
     "replay": {
      "state": "fired",
-     "who": "sin(6*x1)",
-     "obs": 0.6549,
-     "thr": 0.5986
+     "who": "sin(6*x0)",
+     "obs": 0.6668,
+     "thr": 0.6346
     },
     "pool": {
      "state": "scream",
-     "cap": 0.6196,
-     "thr": -0.0203
+     "cap": 0.6186,
+     "thr": 0.0081
     }
    },
    "wrong_confident": false
@@ -849,19 +848,19 @@
    "family": "F3 near-miss",
    "seed": 3,
    "verdict": "PARTIAL",
-   "r2": 0.9558,
+   "r2": 0.9538,
    "certificate": "within floor (floor 0.322749 via repeats (largest of 2 evidenced road(s)))",
    "legs": {
     "replay": {
      "state": "quiet",
-     "who": "sin(6*x1)",
-     "obs": 0.6151,
+     "who": "cos(4.5*x1)",
+     "obs": 0.5347,
      "thr": 0.6219
     },
     "pool": {
      "state": "scream",
-     "cap": 0.4232,
-     "thr": -0.0271
+     "cap": 0.4018,
+     "thr": 0.0381
     }
    },
    "wrong_confident": false
@@ -870,19 +869,19 @@
    "family": "F3 near-miss",
    "seed": 4,
    "verdict": "PARTIAL",
-   "r2": 0.9459,
+   "r2": 0.9425,
    "certificate": "within floor (floor 0.288675 via grain (largest of 2 evidenced road(s)))",
    "legs": {
     "replay": {
      "state": "quiet",
      "who": "sin(6*x1)",
-     "obs": 0.6173,
-     "thr": 0.6965
+     "obs": 0.6121,
+     "thr": 0.7086
     },
     "pool": {
      "state": "scream",
-     "cap": 0.4775,
-     "thr": -0.022
+     "cap": 0.4565,
+     "thr": -0.0609
     }
    },
    "wrong_confident": false
@@ -891,19 +890,19 @@
    "family": "F3 near-miss",
    "seed": 5,
    "verdict": "PARTIAL",
-   "r2": 0.9761,
+   "r2": 0.955,
    "certificate": "within floor (floor 0.386164 via repeats (largest of 2 evidenced road(s)))",
    "legs": {
     "replay": {
      "state": "quiet",
      "who": "sin(6*x0)",
-     "obs": 0.6201,
-     "thr": 0.6398
+     "obs": 0.5758,
+     "thr": 0.6359
     },
     "pool": {
      "state": "scream",
-     "cap": 0.1628,
-     "thr": -0.016
+     "cap": 0.6005,
+     "thr": 0.0029
     }
    },
    "wrong_confident": false
@@ -912,19 +911,19 @@
    "family": "F3 near-miss",
    "seed": 6,
    "verdict": "PARTIAL",
-   "r2": 0.9775,
-   "certificate": "within floor (floor 0.288675 via grain (largest of 2 evidenced road(s)))",
+   "r2": 0.9314,
+   "certificate": "above floor (floor 0.288675 via grain (largest of 2 evidenced road(s)))",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "|x0-x1|",
-     "obs": 0.5389,
-     "thr": 0.6015
+     "state": "fired",
+     "who": "x0^-2",
+     "obs": 0.6918,
+     "thr": 0.6304
     },
     "pool": {
      "state": "scream",
-     "cap": 0.2436,
-     "thr": -0.0009
+     "cap": 0.7414,
+     "thr": -0.0173
     }
    },
    "wrong_confident": false
@@ -933,19 +932,19 @@
    "family": "F3 near-miss",
    "seed": 7,
    "verdict": "PARTIAL",
-   "r2": 0.9517,
+   "r2": 0.9527,
    "certificate": "within floor (floor 0.30429 via repeats (largest of 2 evidenced road(s)))",
    "legs": {
     "replay": {
      "state": "quiet",
-     "who": "exp(0.5*x1)",
-     "obs": 0.5797,
-     "thr": 0.5867
+     "who": "sin(6*x1)",
+     "obs": 0.4752,
+     "thr": 0.5975
     },
     "pool": {
      "state": "scream",
-     "cap": 0.512,
-     "thr": 0.077
+     "cap": 0.5486,
+     "thr": 0.0614
     }
    },
    "wrong_confident": false
@@ -954,19 +953,19 @@
    "family": "F3 near-miss",
    "seed": 8,
    "verdict": "PARTIAL",
-   "r2": 0.9699,
+   "r2": 0.9614,
    "certificate": "within floor (floor 0.288675 via grain (largest of 1 evidenced road(s)); repeats: under-evidenced: 7 repeat groups, dof 9 (need >=5 groups, >=10 dof))",
    "legs": {
     "replay": {
      "state": "quiet",
-     "who": "cos(1*(x1-x2))",
-     "obs": 0.5811,
-     "thr": 0.6656
+     "who": "cos(6.9*x1)",
+     "obs": 0.6321,
+     "thr": 0.7218
     },
     "pool": {
      "state": "scream",
-     "cap": 0.2925,
-     "thr": -0.0549
+     "cap": 0.6497,
+     "thr": 0.0715
     }
    },
    "wrong_confident": false
@@ -974,41 +973,42 @@
   {
    "family": "F3 near-miss",
    "seed": 9,
-   "verdict": "PARTIAL",
-   "r2": 0.9632,
+   "verdict": "UNDERSTOOD",
+   "r2": 0.9655,
    "certificate": "within floor (floor 0.35746 via repeats (largest of 2 evidenced road(s)))",
    "legs": {
     "replay": {
      "state": "quiet",
-     "who": "cos(0.805*(x0-x1))",
-     "obs": 0.2919,
-     "thr": 0.5952
+     "who": "sin(8.4*x0)",
+     "obs": 0.2741,
+     "thr": 0.6369
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.0478,
-     "thr": 0.0008
+     "state": "quiet",
+     "cap": -0.0725,
+     "thr": 0.0578
     }
    },
-   "wrong_confident": false
+   "truth_median_err": 0.1373,
+   "wrong_confident": true
   },
   {
    "family": "F3 near-miss",
    "seed": 10,
    "verdict": "PARTIAL",
-   "r2": 0.93,
+   "r2": 0.9329,
    "certificate": "within floor (floor 0.408248 via repeats (largest of 2 evidenced road(s)))",
    "legs": {
     "replay": {
      "state": "quiet",
-     "who": "sin(0.805*x0)",
-     "obs": 0.4796,
-     "thr": 0.6131
+     "who": "cos(6.9*x0)",
+     "obs": 0.5127,
+     "thr": 0.6462
     },
     "pool": {
      "state": "scream",
-     "cap": 0.5119,
-     "thr": -0.0286
+     "cap": 0.5325,
+     "thr": -0.0453
     }
    },
    "wrong_confident": false
@@ -1017,19 +1017,19 @@
    "family": "F3 near-miss",
    "seed": 11,
    "verdict": "PARTIAL",
-   "r2": 0.9468,
+   "r2": 0.95,
    "certificate": "within floor (floor 0.408248 via repeats (largest of 2 evidenced road(s)))",
    "legs": {
     "replay": {
      "state": "fired",
-     "who": "sin(6*x0)",
-     "obs": 0.7413,
-     "thr": 0.6968
+     "who": "exp(-0.5*x0)",
+     "obs": 0.7493,
+     "thr": 0.73
     },
     "pool": {
      "state": "scream",
-     "cap": 0.3712,
-     "thr": 0.0184
+     "cap": 0.4716,
+     "thr": -0.0819
     }
    },
    "wrong_confident": false
@@ -1038,19 +1038,19 @@
    "family": "F3 near-miss",
    "seed": 12,
    "verdict": "PARTIAL",
-   "r2": 0.9493,
-   "certificate": "within floor (floor 0.322749 via repeats (largest of 2 evidenced road(s)))",
+   "r2": 0.921,
+   "certificate": "above floor (floor 0.322749 via repeats (largest of 2 evidenced road(s)))",
    "legs": {
     "replay": {
      "state": "fired",
-     "who": "sin(6*x1)",
-     "obs": 0.6103,
-     "thr": 0.5993
+     "who": "sin(1*x1)",
+     "obs": 0.6449,
+     "thr": 0.5881
     },
     "pool": {
      "state": "scream",
-     "cap": 0.4387,
-     "thr": 0.0539
+     "cap": 0.7739,
+     "thr": -0.0333
     }
    },
    "wrong_confident": false
@@ -1058,42 +1058,41 @@
   {
    "family": "F3 near-miss",
    "seed": 13,
-   "verdict": "UNDERSTOOD",
-   "r2": 0.9839,
+   "verdict": "PARTIAL",
+   "r2": 0.9794,
    "certificate": "within floor (floor 0.372678 via repeats (largest of 2 evidenced road(s)))",
    "legs": {
     "replay": {
      "state": "quiet",
-     "who": "sin(6*x1)",
-     "obs": 0.3294,
-     "thr": 0.6357
+     "who": "[x1>2]",
+     "obs": 0.4073,
+     "thr": 0.6213
     },
     "pool": {
-     "state": "quiet",
-     "cap": -0.0597,
-     "thr": 0.0262
+     "state": "scream",
+     "cap": 0.3046,
+     "thr": 0.015
     }
    },
-   "truth_median_err": 0.1379,
-   "wrong_confident": true
+   "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 14,
    "verdict": "PARTIAL",
-   "r2": 0.9726,
+   "r2": 0.9593,
    "certificate": "within floor (floor 0.465475 via repeats (largest of 2 evidenced road(s)))",
    "legs": {
     "replay": {
      "state": "quiet",
-     "who": "sin(1.4*x1)",
-     "obs": 0.3256,
-     "thr": 0.6014
+     "who": "cos(0.5*x0)",
+     "obs": 0.5152,
+     "thr": 0.6618
     },
     "pool": {
      "state": "scream",
-     "cap": 0.2271,
-     "thr": -0.0459
+     "cap": 0.5776,
+     "thr": 0.0694
     }
    },
    "wrong_confident": false
@@ -1101,42 +1100,41 @@
   {
    "family": "F3 near-miss",
    "seed": 15,
-   "verdict": "UNDERSTOOD",
-   "r2": 0.9711,
+   "verdict": "PARTIAL",
+   "r2": 0.9675,
    "certificate": "within floor (floor 0.313112 via repeats (largest of 2 evidenced road(s)))",
    "legs": {
     "replay": {
      "state": "quiet",
-     "who": "exp(-1*x0)",
-     "obs": 0.5478,
-     "thr": 0.6242
+     "who": "x0^-2",
+     "obs": 0.5876,
+     "thr": 0.6961
     },
     "pool": {
-     "state": "quiet",
-     "cap": -0.0152,
-     "thr": 0.0489
+     "state": "scream",
+     "cap": 0.5395,
+     "thr": -0.0184
     }
    },
-   "truth_median_err": 0.6847,
-   "wrong_confident": true
+   "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 16,
    "verdict": "PARTIAL",
-   "r2": 0.9304,
-   "certificate": "above floor (floor 0.296174 via repeats (largest of 2 evidenced road(s)))",
+   "r2": 0.9573,
+   "certificate": "within floor (floor 0.296174 via repeats (largest of 2 evidenced road(s)))",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "|x0-x1|",
-     "obs": 0.785,
-     "thr": 0.6683
+     "state": "quiet",
+     "who": "[x1>1.5]",
+     "obs": 0.4712,
+     "thr": 0.5982
     },
     "pool": {
      "state": "scream",
-     "cap": 0.6706,
-     "thr": 0.0733
+     "cap": 0.6358,
+     "thr": 0.1213
     }
    },
    "wrong_confident": false
@@ -1144,63 +1142,63 @@
   {
    "family": "F3 near-miss",
    "seed": 17,
-   "verdict": "PARTIAL",
-   "r2": 0.9578,
+   "verdict": "UNDERSTOOD",
+   "r2": 0.9603,
    "certificate": "within floor (floor 0.395285 via repeats (largest of 2 evidenced road(s)))",
    "legs": {
     "replay": {
      "state": "quiet",
-     "who": "x0^-2",
-     "obs": 0.5873,
-     "thr": 0.6743
+     "who": "cos(2*x1)",
+     "obs": 0.5815,
+     "thr": 0.6873
+    },
+    "pool": {
+     "state": "quiet",
+     "cap": -0.0062,
+     "thr": 0.023
+    }
+   },
+   "truth_median_err": 0.3362,
+   "wrong_confident": true
+  },
+  {
+   "family": "F3 near-miss",
+   "seed": 18,
+   "verdict": "PARTIAL",
+   "r2": 0.9258,
+   "certificate": "within floor (floor 0.5 via repeats (largest of 2 evidenced road(s)))",
+   "legs": {
+    "replay": {
+     "state": "quiet",
+     "who": "cosh(0.35*(x0-x1))",
+     "obs": 0.6284,
+     "thr": 0.6305
     },
     "pool": {
      "state": "scream",
-     "cap": 0.211,
-     "thr": 0.0765
+     "cap": 0.0589,
+     "thr": -0.051
     }
    },
    "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
-   "seed": 18,
-   "verdict": "UNDERSTOOD",
-   "r2": 0.9402,
-   "certificate": "within floor (floor 0.5 via repeats (largest of 2 evidenced road(s)))",
-   "legs": {
-    "replay": {
-     "state": "quiet",
-     "who": "cosh(0.245*(x0-x1))",
-     "obs": 0.5574,
-     "thr": 0.6404
-    },
-    "pool": {
-     "state": "quiet",
-     "cap": -0.1905,
-     "thr": -0.0471
-    }
-   },
-   "truth_median_err": 0.2372,
-   "wrong_confident": true
-  },
-  {
-   "family": "F3 near-miss",
    "seed": 19,
    "verdict": "PARTIAL",
-   "r2": 0.959,
+   "r2": 0.9591,
    "certificate": "within floor (floor 0.330544 via repeats (largest of 2 evidenced road(s)))",
    "legs": {
     "replay": {
      "state": "fired",
      "who": "sin(6*x0)",
-     "obs": 0.6306,
-     "thr": 0.5847
+     "obs": 0.6357,
+     "thr": 0.6101
     },
     "pool": {
      "state": "scream",
-     "cap": 0.5056,
-     "thr": 0.092
+     "cap": 0.496,
+     "thr": 0.0739
     }
    },
    "wrong_confident": false
@@ -1208,846 +1206,681 @@
   {
    "family": "F4 blended",
    "seed": 0,
-   "verdict": "PARTIAL",
-   "r2": 0.7511,
-   "certificate": "above floor (floor 0.288675 via grain (largest of 1 evidenced road(s)); repeats: under-evidenced: 5 repeat groups, dof 6 (need >=5 groups, >=10 dof))",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "x0*x1",
-     "obs": 0.5543,
-     "thr": 0.7152
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.9251,
-     "thr": -0.041
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F4 blended",
    "seed": 1,
-   "verdict": "PARTIAL",
-   "r2": 0.9877,
-   "certificate": "above floor (floor 0.288675 via grain (largest of 2 evidenced road(s)))",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "x2^-1",
-     "obs": 0.6681,
-     "thr": 0.6759
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.9469,
-     "thr": -0.1413
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F4 blended",
    "seed": 2,
-   "verdict": "PARTIAL",
-   "r2": 0.9865,
-   "certificate": "above floor (floor 0.288675 via grain (largest of 1 evidenced road(s)); repeats: under-evidenced: 2 repeat groups, dof 2 (need >=5 groups, >=10 dof))",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "cos(1*x1)",
-     "obs": 0.4757,
-     "thr": 0.7435
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.8059,
-     "thr": -0.0446
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F4 blended",
    "seed": 3,
-   "verdict": "PARTIAL",
-   "r2": 0.9638,
-   "certificate": "above floor (floor 0.288675 via grain (largest of 2 evidenced road(s)))",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "cos(1*(x1-x2))",
-     "obs": 0.6151,
-     "thr": 0.6982
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.8784,
-     "thr": 0.0336
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F4 blended",
    "seed": 4,
-   "verdict": "PARTIAL",
-   "r2": 0.9651,
-   "certificate": "above floor (floor 0.288675 via grain (largest of 1 evidenced road(s)); repeats: under-evidenced: 5 repeat groups, dof 5 (need >=5 groups, >=10 dof))",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "|x1-x2|",
-     "obs": 0.7743,
-     "thr": 0.6717
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.9487,
-     "thr": -0.023
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F4 blended",
    "seed": 5,
-   "verdict": "PARTIAL",
-   "r2": 0.9964,
-   "certificate": "above floor (floor 0.288675 via grain (largest of 1 evidenced road(s)); repeats: under-evidenced: 6 repeat groups, dof 6 (need >=5 groups, >=10 dof))",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "cosh(0.2975*(x0-x1))",
-     "obs": 0.5887,
-     "thr": 0.6756
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.4176,
-     "thr": 0.0073
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F4 blended",
    "seed": 6,
-   "verdict": "PARTIAL",
-   "r2": 0.9836,
-   "certificate": "above floor (floor 0.288675 via grain (largest of 1 evidenced road(s)); repeats: under-evidenced: 8 repeat groups, dof 8 (need >=5 groups, >=10 dof))",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "x2^-1",
-     "obs": 0.7543,
-     "thr": 0.6436
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.8256,
-     "thr": -0.0674
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F4 blended",
    "seed": 7,
-   "verdict": "PARTIAL",
-   "r2": 0.9883,
-   "certificate": "above floor (floor 0.288675 via grain (largest of 1 evidenced road(s)); repeats: under-evidenced: 6 repeat groups, dof 7 (need >=5 groups, >=10 dof))",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "x1^-2",
-     "obs": 0.3913,
-     "thr": 0.7562
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.2115,
-     "thr": -0.0457
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F4 blended",
    "seed": 8,
-   "verdict": "PARTIAL",
-   "r2": 0.7818,
-   "certificate": "above floor (floor 0.288675 via grain (largest of 1 evidenced road(s)); repeats: under-evidenced: 6 repeat groups, dof 6 (need >=5 groups, >=10 dof))",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "x0*x1",
-     "obs": 0.7939,
-     "thr": 0.672
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.9673,
-     "thr": -0.0113
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F4 blended",
    "seed": 9,
-   "verdict": "PARTIAL",
-   "r2": 0.9952,
-   "certificate": "above floor (floor 0.288675 via grain (largest of 1 evidenced road(s)); repeats: under-evidenced: 5 repeat groups, dof 5 (need >=5 groups, >=10 dof))",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "exp(1*x0)",
-     "obs": 0.545,
-     "thr": 0.6873
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "quiet",
-     "cap": -0.0387,
-     "thr": 0.0031
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F4 blended",
    "seed": 10,
-   "verdict": "PARTIAL",
-   "r2": 0.9874,
-   "certificate": "above floor (floor 0.288675 via grain (largest of 1 evidenced road(s)); repeats: under-evidenced: 5 repeat groups, dof 6 (need >=5 groups, >=10 dof))",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "x2^-2",
-     "obs": 0.8163,
-     "thr": 0.69
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.9221,
-     "thr": 0.0116
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F4 blended",
    "seed": 11,
-   "verdict": "PARTIAL",
-   "r2": 0.9968,
-   "certificate": "above floor (floor 0.288675 via grain (largest of 1 evidenced road(s)); repeats: under-evidenced: 6 repeat groups, dof 6 (need >=5 groups, >=10 dof))",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "|x0-x2|",
-     "obs": 0.3776,
-     "thr": 0.6711
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.491,
-     "thr": 0.031
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F4 blended",
    "seed": 12,
-   "verdict": "PARTIAL",
-   "r2": 0.9478,
-   "certificate": "above floor (floor 0.288675 via grain (largest of 1 evidenced road(s)); repeats: under-evidenced: 8 repeat groups, dof 9 (need >=5 groups, >=10 dof))",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "sin(1.15*(x0-x2))",
-     "obs": 0.3055,
-     "thr": 0.6873
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.4935,
-     "thr": -0.0057
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F4 blended",
    "seed": 13,
-   "verdict": "PARTIAL",
-   "r2": 0.998,
-   "certificate": "within floor (floor 0.288675 via grain (largest of 2 evidenced road(s)))",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "exp(-1*x1)",
-     "obs": 0.639,
-     "thr": 0.7687
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.2141,
-     "thr": 0.0123
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F4 blended",
    "seed": 14,
-   "verdict": "PARTIAL",
-   "r2": 0.9718,
-   "certificate": "above floor (floor 0.288675 via grain (largest of 1 evidenced road(s)); repeats: under-evidenced: 6 repeat groups, dof 6 (need >=5 groups, >=10 dof))",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "x1^-0.7",
-     "obs": 0.581,
-     "thr": 0.6812
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.6025,
-     "thr": -0.014
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F4 blended",
    "seed": 15,
-   "verdict": "PARTIAL",
-   "r2": 0.7844,
-   "certificate": "above floor (floor 0.288675 via grain (largest of 1 evidenced road(s)); repeats: under-evidenced: 7 repeat groups, dof 9 (need >=5 groups, >=10 dof))",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "x0*x1",
-     "obs": 0.7147,
-     "thr": 0.6932
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.9175,
-     "thr": -0.0197
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F4 blended",
    "seed": 16,
-   "verdict": "PARTIAL",
-   "r2": 0.9232,
-   "certificate": "above floor (floor 0.288675 via grain (largest of 1 evidenced road(s)); repeats: under-evidenced: 5 repeat groups, dof 7 (need >=5 groups, >=10 dof))",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "cosh(2*(x0-x1))",
-     "obs": 0.7117,
-     "thr": 0.8347
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "quiet",
-     "cap": -0.1051,
-     "thr": -0.099
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F4 blended",
    "seed": 17,
-   "verdict": "PARTIAL",
-   "r2": 0.9714,
-   "certificate": "above floor (floor 0.288675 via grain (largest of 1 evidenced road(s)); repeats: under-evidenced: 4 repeat groups, dof 4 (need >=5 groups, >=10 dof))",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "x2^-0.7",
-     "obs": 0.6286,
-     "thr": 0.7234
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.9225,
-     "thr": -0.1134
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F4 blended",
    "seed": 18,
-   "verdict": "PARTIAL",
-   "r2": 0.9619,
-   "certificate": "above floor (floor 0.288675 via grain (largest of 1 evidenced road(s)); repeats: under-evidenced: 7 repeat groups, dof 8 (need >=5 groups, >=10 dof))",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "x0*x1",
-     "obs": 0.774,
-     "thr": 0.6784
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.9365,
-     "thr": 0.0211
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F4 blended",
    "seed": 19,
-   "verdict": "PARTIAL",
-   "r2": 0.9862,
-   "certificate": "above floor (floor 0.288675 via grain (largest of 1 evidenced road(s)); repeats: under-evidenced: 6 repeat groups, dof 6 (need >=5 groups, >=10 dof))",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "x2^-0.98",
-     "obs": 0.8739,
-     "thr": 0.6652
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.8977,
-     "thr": -0.0452
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F5 max-relation",
    "seed": 0,
-   "verdict": "PARTIAL",
-   "r2": 0.9998,
-   "certificate": "uncertified (no floor evidenced)",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "|x0-x1|",
-     "obs": 0.95,
-     "thr": 0.3484
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "quiet",
-     "cap": -0.0054,
-     "thr": 0.0035
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F5 max-relation",
    "seed": 1,
-   "verdict": "PARTIAL",
-   "r2": 0.9995,
-   "certificate": "uncertified (no floor evidenced)",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "cos(2.9325*x0)",
-     "obs": 0.2704,
-     "thr": 0.38
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": -0.0068,
-     "thr": -0.0301
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F5 max-relation",
    "seed": 2,
-   "verdict": "PARTIAL",
-   "r2": 0.9997,
-   "certificate": "uncertified (no floor evidenced)",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "|x0-x1|",
-     "obs": 0.7321,
-     "thr": 0.3547
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.1159,
-     "thr": 0.0019
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F5 max-relation",
    "seed": 3,
    "verdict": "UNDERSTOOD",
-   "r2": 0.9995,
-   "certificate": "uncertified (no floor evidenced)",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "sin(1.4*x1)",
-     "obs": 0.2135,
-     "thr": 0.3547
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "quiet",
-     "cap": -0.0643,
-     "thr": 0.0073
+     "state": "bypassed: machine-exact"
     }
    },
-   "truth_median_err": 0.013,
-   "wrong_confident": true
+   "truth_median_err": 0.0,
+   "wrong_confident": false
   },
   {
    "family": "F5 max-relation",
    "seed": 4,
-   "verdict": "PARTIAL",
-   "r2": 0.9992,
-   "certificate": "uncertified (no floor evidenced)",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "sin(2.8*x1)",
-     "obs": 0.3423,
-     "thr": 0.374
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.1527,
-     "thr": 0.0034
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F5 max-relation",
    "seed": 5,
-   "verdict": "PARTIAL",
-   "r2": 0.9993,
-   "certificate": "uncertified (no floor evidenced)",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "|x0-x1|",
-     "obs": 0.9031,
-     "thr": 0.3036
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.0374,
-     "thr": -0.0054
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F5 max-relation",
    "seed": 6,
-   "verdict": "PARTIAL",
-   "r2": 0.9992,
-   "certificate": "uncertified (no floor evidenced)",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "|x0-x1|",
-     "obs": 0.8638,
-     "thr": 0.33
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.0069,
-     "thr": -0.0074
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F5 max-relation",
    "seed": 7,
-   "verdict": "PARTIAL",
-   "r2": 0.9997,
-   "certificate": "uncertified (no floor evidenced)",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "|x0-x1|",
-     "obs": 0.9322,
-     "thr": 0.3558
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "quiet",
-     "cap": -0.0975,
-     "thr": -0.017
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F5 max-relation",
    "seed": 8,
    "verdict": "UNDERSTOOD",
-   "r2": 0.9992,
-   "certificate": "uncertified (no floor evidenced)",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "cos(2.8*(x0-x1))",
-     "obs": 0.2011,
-     "thr": 0.3421
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "quiet",
-     "cap": -0.0225,
-     "thr": -0.006
+     "state": "bypassed: machine-exact"
     }
    },
-   "truth_median_err": 0.0141,
-   "wrong_confident": true
+   "truth_median_err": 0.0,
+   "wrong_confident": false
   },
   {
    "family": "F5 max-relation",
    "seed": 9,
-   "verdict": "PARTIAL",
-   "r2": 0.9995,
-   "certificate": "uncertified (no floor evidenced)",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "cos(2.55*x1)",
-     "obs": 0.4635,
-     "thr": 0.3228
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.1817,
-     "thr": -0.0102
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F5 max-relation",
    "seed": 10,
-   "verdict": "PARTIAL",
-   "r2": 0.9995,
-   "certificate": "uncertified (no floor evidenced)",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "cos(2.9325*x1)",
-     "obs": 0.3564,
-     "thr": 0.3209
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.0845,
-     "thr": -0.0158
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F5 max-relation",
    "seed": 11,
-   "verdict": "PARTIAL",
-   "r2": 0.9995,
-   "certificate": "uncertified (no floor evidenced)",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "sin(3.57*x1)",
-     "obs": 0.2979,
-     "thr": 0.3236
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.0403,
-     "thr": -0.0005
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F5 max-relation",
    "seed": 12,
-   "verdict": "PARTIAL",
-   "r2": 0.9992,
-   "certificate": "uncertified (no floor evidenced)",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "cos(2.55*x1)",
-     "obs": 0.2282,
-     "thr": 0.2969
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.0949,
-     "thr": -0.0108
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F5 max-relation",
    "seed": 13,
    "verdict": "UNDERSTOOD",
-   "r2": 0.9992,
-   "certificate": "uncertified (no floor evidenced)",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "cos(1.3685*(x0-x1))",
-     "obs": 0.3554,
-     "thr": 0.5407
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "quiet",
-     "cap": -0.0239,
-     "thr": -0.0039
+     "state": "bypassed: machine-exact"
     }
    },
-   "truth_median_err": 0.0113,
-   "wrong_confident": true
+   "truth_median_err": 0.0,
+   "wrong_confident": false
   },
   {
    "family": "F5 max-relation",
    "seed": 14,
    "verdict": "UNDERSTOOD",
-   "r2": 0.9993,
-   "certificate": "uncertified (no floor evidenced)",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "x0^-2",
-     "obs": 0.2871,
-     "thr": 0.348
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "quiet",
-     "cap": -0.0581,
-     "thr": -0.0099
+     "state": "bypassed: machine-exact"
     }
    },
-   "truth_median_err": 0.0159,
-   "wrong_confident": true
+   "truth_median_err": 0.0,
+   "wrong_confident": false
   },
   {
    "family": "F5 max-relation",
    "seed": 15,
-   "verdict": "PARTIAL",
-   "r2": 0.9995,
-   "certificate": "uncertified (no floor evidenced)",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "cos(2.55*x1)",
-     "obs": 0.255,
-     "thr": 0.2969
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": -0.0041,
-     "thr": -0.0136
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F5 max-relation",
    "seed": 16,
-   "verdict": "PARTIAL",
-   "r2": 0.9995,
-   "certificate": "uncertified (no floor evidenced)",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "|x0-x1|",
-     "obs": 0.3147,
-     "thr": 0.3117
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "quiet",
-     "cap": -0.0629,
-     "thr": -0.0229
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F5 max-relation",
    "seed": 17,
-   "verdict": "PARTIAL",
-   "r2": 0.9607,
-   "certificate": "uncertified (no floor evidenced)",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "cos(1.5*(x0-x1))",
-     "obs": 0.4856,
-     "thr": 0.6665
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.4366,
-     "thr": 0.0373
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F5 max-relation",
    "seed": 18,
    "verdict": "UNDERSTOOD",
-   "r2": 0.9995,
-   "certificate": "uncertified (no floor evidenced)",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "|x0-x1|",
-     "obs": 0.1743,
-     "thr": 0.3155
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "quiet",
-     "cap": -0.0203,
-     "thr": -0.0097
+     "state": "bypassed: machine-exact"
     }
    },
-   "truth_median_err": 0.0141,
-   "wrong_confident": true
+   "truth_median_err": 0.0,
+   "wrong_confident": false
   },
   {
    "family": "F5 max-relation",
    "seed": 19,
-   "verdict": "PARTIAL",
-   "r2": 0.9997,
-   "certificate": "uncertified (no floor evidenced)",
+   "verdict": "UNDERSTOOD",
+   "r2": 1.0,
+   "certificate": "machine-exact",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "|x0-x1|",
-     "obs": 0.9781,
-     "thr": 0.3774
+     "state": "bypassed: machine-exact"
     },
     "pool": {
-     "state": "scream",
-     "cap": -0.0018,
-     "thr": -0.0195
+     "state": "bypassed: machine-exact"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   }
  ],
@@ -2056,7 +1889,7 @@
   "r2": 1.0,
   "certificate": "machine-exact"
  },
- "total_wrong": 9,
+ "total_wrong": 2,
  "f1_avail": 20,
- "secs": 95.9
+ "secs": 169.4
 }

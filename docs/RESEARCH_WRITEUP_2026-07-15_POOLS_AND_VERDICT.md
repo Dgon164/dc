@@ -467,3 +467,52 @@ examiner's state with obs-vs-threshold receipts, or its bypass reason
 the law node's meta. Downstream exactness consumers (the audit,
 cross_check) can now read certification instead of inferring it from
 r-squared, which is the plan's §2b promise delivered.
+
+---
+
+## PART 8 — THE WORDS MOVE IN (mechanisms promotion #12)
+
+### What was done
+Part 6's comparison words left the lab too: the CREASE `|xi−xj|` and
+the SWITCH `[xi>t]` are now atoms in the engine's own vocabulary, and
+compare/larger/smaller/switch are organs with receipt chains (larger
+literally calls compare — the execution cycle's first two-step trace,
+inside the engine). Switch thresholds are proposed FROM the data
+(deciles plus the half-unit mark ladder, every proposal facing the
+same admission null as any atom), and the exact road learned to
+search five-word sentences on small data, where exact conditional
+rules live.
+
+### What it bought, with numbers
+- The max world now mints THE TEXTBOOK IDENTITY itself:
+  `0.50*x0 + 0.50*x1 + 0.50*|x0−x1|`, machine-exact, 3/3 seeds — the
+  pool-branch eval's one BROKEN world, closed by vocabulary rather
+  than by a stricter guard, exactly as the honest cure demanded.
+- The step world mints its thresholds AT the true marks:
+  `2*x0 − 1.5*[x1>2] + 1.5*[x1>1]`, certified within the told floor.
+- The blended conditional writes its exact five-term sentence at both
+  tested sizes.
+- The judge's duel, re-run: wrong-confident 74/100 (old) → 2/100.
+  True-law availability 20/20 with zero false examiner fires, Kepler
+  untouched, engine self-test 11/11, noise 0/10 false laws.
+- The two survivors are the poison-into-constants class — the
+  rival-form duel and THE OUTLIER'S OWN LAW (the owner's source-
+  modeling design, same night) are their queued cures.
+
+### What the promotion taught, kept
+- REFINE MUST NOT GLIDE A MARK: the multiplicative refine pass slid a
+  step threshold below the data range, turning it into a constant
+  column wearing a switch's name (`0.25*x1*[x0>-2]`). A threshold is
+  a location, not a scale — steps are now excluded from the glide and
+  move only by re-proposal. The equation came back readable:
+  the identity, three terms, nothing else.
+- FOURTH SIGHTING of the shortlist-crowding disease: the new step
+  atoms flooded the exact road's correlation top-N and cost the
+  crease its seat (max unsayable on 2/3 seeds until creases got
+  guaranteed seats). Same cure every time — structural diversity is
+  a SEAT RULE, not a ranking suggestion. This is now a named design
+  law for any future shortlist.
+- COST, complete numbers: the bigger vocabulary prices discover at
+  ~8.8s/call (max 24s) at n=400, d=5 — roughly 4x the wordless port.
+  Not hidden: the efficiency ledger's measure-first pass is the
+  named home for reclaiming it.
