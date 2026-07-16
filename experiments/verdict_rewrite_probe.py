@@ -73,11 +73,43 @@ PREDICTIONS (filed before the first run; wrong ones will be KEPT):
   P8  cost: one full two-leg verdict < 2 s at n=400 (complete number
       printed; no silent caps).
 
-NAMED NEXT PROBE (open, not covered here): poison at rates whose rms
-slips UNDER 3x floor (e.g. 5% +-1 on unit grain, rms ~0.22 vs gate
-0.87) -- +-1 cells also sit under the audit's 4x line, so if the pool
-misses the smaller bend, that regime passes BOTH tiers silently.
-Measure the pool's bend-catch floor vs poison rate before claiming it.
+MAX-EFFORT REVIEW ADDITIONS (filed before their first run; the review
+attacked the probe's own gaps -- segment attack list applied to itself):
+  P9  TAIL-CHASING control (attack list: 'floor quantization'): a TRUE
+      law on a coarse ruler (y = q(3x, g), NO noise -- the residual is
+      pure ruler sawtooth) must stamp UNDERSTOOD saying 3*x with the
+      pool QUIET, at g=2 and g=4, x2 seeds each. Filed with LOW
+      confidence at g=4: a scream here would not be a world bug but a
+      discovered PORT REQUIREMENT (quantization-matched null for
+      leg 2) -- if it fires, the check stays red and the cure shape is
+      FILED, not patched into the probe.
+  P10 SUB-FLOOR poisoning (the named-next-probe, pulled in): 5% +-1
+      on integer sums n=60 x5 -- rms can slip under the 3x-floor gate,
+      the only regime where a confidently-wrong equation could still
+      ship. REQUIRED: wrong-form UNDERSTOOD 0/5; split recorded.
+      (Geometry filed: a wrong FORM with sub-floor residual on unit
+      grain must track truth within ~0.9 everywhere observed -- hard;
+      and snap-to-grid may recover exact constants. Measured here,
+      not assumed.)
+  P2/P6 hardened on review: form-cure and plant-refusal are RATES,
+      not anecdotes -- V1 x5 seeds (cure >=4/5, confidently-wrong
+      0/5), V5 x3 seeds (refuse 3/3, pool scream 3/3). And v2's W5
+      interpolation trap joins the regression set (sin truth through
+      a poly pool at n=24: never UNDERSTOOD).
+
+RUN-2 RESULT: 23/23. P9 held even at the low-confidence grain (pool
+quiet 4/4 on sawtooth rms 1.12 -- no tail-chasing at these gains).
+RUN-2 MEASURED FINDING (kept; feeds the port): on POISONED additive
+worlds (V4 10%, V9 5%) the verdict is SAFE every time (0/10
+confidently wrong) but the statistical road never RECOVERS the true
+form (0/10 say x0+x1: the impostor 0.15-0.2*x0*x1 is admitted first,
+the continue loop cannot displace an admitted term, and poison blocks
+the exact road). AVAILABILITY under poison, not safety, is the
+remaining cost -- and the cure shape is already probe-proven
+elsewhere: the rival-form DUEL (scream > margin > parsimony,
+reservoir probe R5, 3/3). PORT REQUIREMENT FILED: the engine rewrite
+should duel the admitted form against rival forms (true-form
+candidates from prune's discard pile) before shipping PARTIAL.
 
 Deterministic: fixed seeds; pool weights seeded 777 (instrument
 identity). stdlib + numpy only. Run:
@@ -490,17 +522,27 @@ def main():
     check("P1b combined false surprise <=2/20", (fire1 + fire2) <= 2,
           f"leg1 {fire1}/20, leg2 {fire2}/20")
 
-    # V1 -- the additive hole (the campaign's founding exhibit)
-    print("V1. additive hole: y = x0+x1, correlated pair, x0*x1 impostor")
-    R = RNG(7)
-    X = correlated_pair(R, 400)
-    y = q(X[:, 0] + X[:, 1] + R.normal(0, 0.02, 400), 0.01)
-    v = verdict_v3(X, y, 1)
-    show("V1 untold (grain-only floor -- honest PARTIAL expected)", v)
-    check("P2 form cured: eq is exactly x0 + x1", v["eq_n"] == "x0 + x1",
-          f"eq_n = {v['eq_n']}")
+    # V1 -- the additive hole (the campaign's founding exhibit), x5 seeds
+    print("V1. additive hole x5 seeds: y = x0+x1, correlated pair, "
+          "x0*x1 impostor")
+    cured = wrongc = 0
+    X = y = v0 = None
+    for s in range(5):
+        Rs = RNG(7 + s)
+        Xs = correlated_pair(Rs, 400)
+        ys = q(Xs[:, 0] + Xs[:, 1] + Rs.normal(0, 0.02, 400), 0.01)
+        v = verdict_v3(Xs, ys, 1 + s)
+        if s == 0: v0, X, y = v, Xs, ys
+        cured += v["eq_n"] == "x0 + x1"
+        wrongc += (v["new"].startswith("UNDERSTOOD")
+                   and v["eq_n"] != "x0 + x1")
+    show("V1 seed 0, untold (grain-only floor -- honest PARTIAL expected)",
+         v0)
+    check("P2 form cured (eq exactly x0 + x1) >=4/5", cured >= 4,
+          f"cured {cured}/5")
+    check("P2 never confidently wrong 0/5", wrongc == 0, f"{wrongc}/5")
     vt = verdict_v3(X, y, 1, told_sigma=0.02)
-    show("V1t same world, sigma TOLD 0.02", vt)
+    show("V1t seed 0, sigma TOLD 0.02", vt)
     check("P2 told variant stamps UNDERSTOOD",
           vt["new"] == "UNDERSTOOD" and vt["eq_n"] == "x0 + x1",
           f"{vt['new']} / {vt['eq_n']}")
@@ -578,19 +620,24 @@ def main():
           f"PARTIAL-flagged {flagged}/5 (split recorded, as filed)")
 
     # V5 -- plant-absorbed step: the poly pool cannot express the regime
-    print("V5. plant-absorbed step n=400: y = 2*x0 + 1.5*[1<x1<2] "
+    print("V5. plant-absorbed step n=400 x3 seeds: y = 2*x0 + 1.5*[1<x1<2] "
           "(+0.05 noise, 0.01 grain)")
-    r5 = RNG(600)
-    X5 = np.column_stack([r5.uniform(0, 3, 400), r5.uniform(0, 3, 400)])
-    y5 = q(2.0 * X5[:, 0] + 1.5 * ((X5[:, 1] > 1) & (X5[:, 1] < 2))
-           + r5.normal(0, 0.05, 400), 0.01)
-    v = verdict_v3(X5, y5, 61)
-    show("V5 plant-absorbed step", v)
-    check("P6 NEW never UNDERSTOOD on the absorbed plant",
-          not v["new"].startswith("UNDERSTOOD"), v["new"])
-    check("P6 leg2 screams on the leftover regime",
-          v["leg2"].get("state") == "scream",
-          f"leg1 {v['leg1']['state']}, leg2 {v['leg2']['state']}")
+    refuse = scr2 = 0
+    X5 = y5 = None
+    for s in range(3):
+        r5 = RNG(600 + s)
+        Xs = np.column_stack([r5.uniform(0, 3, 400), r5.uniform(0, 3, 400)])
+        ys = q(2.0 * Xs[:, 0] + 1.5 * ((Xs[:, 1] > 1) & (Xs[:, 1] < 2))
+               + r5.normal(0, 0.05, 400), 0.01)
+        if s == 0: X5, y5 = Xs, ys
+        v = verdict_v3(Xs, ys, 61 + s)
+        if s == 0: show("V5 seed 0, plant-absorbed step", v)
+        refuse += not v["new"].startswith("UNDERSTOOD")
+        scr2 += v["leg2"].get("state") == "scream"
+    check("P6 NEW never UNDERSTOOD on the absorbed plant 3/3", refuse == 3,
+          f"refused {refuse}/3")
+    check("P6 pool screams on the leftover regime 3/3", scr2 == 3,
+          f"screams {scr2}/3")
 
     # V6 -- regression vs v2: the rewrite must lose nothing v2 won
     print("V6. regression: W2 / W3b / W8 from the 07-14 reference")
@@ -615,6 +662,53 @@ def main():
     check("P7 W8 repeats road: UNDERSTOOD via measured floor",
           v["new"] == "UNDERSTOOD", f"{v['new']} / {v['eq_n']} "
           f"(floor {v['floor']})")
+    xw5 = np.sort(RNG(60).uniform(-2, 2, 24)).reshape(-1, 1)
+    yw5 = np.sin(2.2 * xw5[:, 0]) + RNG(61).normal(0, 0.05, 24)
+    v = verdict_v3(xw5, yw5, 6)
+    check("P7 W5 interpolation trap: never UNDERSTOOD (sin truth, "
+          "poly pool, n=24)", not v["new"].startswith("UNDERSTOOD"),
+          f"{v['new']} / {v['eq_n']}")
+
+    # V8 -- tail-chasing control: the ruler's own sawtooth (attack list)
+    print("V8. tail-chasing control: TRUE 3x on coarse rulers "
+          "(residual = pure quantization sawtooth), g in {2,4} x2 seeds")
+    said = pquiet = 0
+    for gi, g in enumerate((2.0, 4.0)):
+        for s in range(2):
+            r8b = RNG(800 + 10 * gi + s)
+            xq = r8b.uniform(0, 30, 400).reshape(-1, 1)
+            yq = q(3.0 * xq[:, 0], g)
+            v = verdict_v3(xq, yq, 81 + 10 * gi + s)
+            if gi == 1 and s == 0: show(f"V8 grain {g}, seed {s}", v)
+            said += (v["new"] == "UNDERSTOOD" and v["eq_n"] == "3*x")
+            pquiet += v["leg2"].get("state") != "scream"
+    check("P9 true law stamps UNDERSTOOD saying 3*x 4/4", said == 4,
+          f"{said}/4")
+    check("P9 pool does NOT chase the ruler's own sawtooth 4/4",
+          pquiet == 4, f"{pquiet}/4 quiet (a red here = port requirement "
+          f"FILED: quantization-matched null)")
+
+    # V9 -- sub-floor poisoning: the only regime where confidently-wrong
+    # could still ship (rms slips under the 3x-floor gate)
+    print("V9. sub-floor poisoning: 5% +-1 on integer sums, n=60, x5 seeds")
+    wrong9 = true9 = flag9 = 0
+    for s in range(5):
+        r = RNG(900 + s)
+        Xs = r.integers(1, 10, (60, 2)).astype(float)
+        ys = Xs[:, 0] + Xs[:, 1]
+        k = max(1, int(0.05 * 60))
+        bad = r.choice(60, k, replace=False)
+        ys[bad] += r.choice([-1.0, 1.0], k)
+        v = verdict_v3(Xs, ys, 90 + s)
+        if s == 0: show("V9 seed 0", v)
+        if v["new"].startswith("UNDERSTOOD"):
+            if v["eq_n"] == "x0 + x1": true9 += 1
+            else: wrong9 += 1
+        else:
+            flag9 += 1
+    check("P10 sub-floor poison: wrong-form UNDERSTOOD 0/5", wrong9 == 0,
+          f"wrong-confident {wrong9}/5; true-form UNDERSTOOD {true9}/5; "
+          f"flagged {flag9}/5 (split recorded, as filed)")
 
     # V7 -- cost, complete numbers
     print("V7. cost of one full two-leg verdict")
