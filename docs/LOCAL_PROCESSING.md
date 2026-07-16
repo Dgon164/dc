@@ -177,3 +177,27 @@ the pass has a work order:
 Discipline note: this is a MEASURE-FIRST pass — profile the gauntlet,
 fix the top item, re-run the gauntlet, keep the numbers. No
 speculative rewrites; the promotion law applies (research-first).
+
+## Long-run hygiene (learned 2026-07-15, first overnight on the 14900K)
+The wall you hit on a long run may be COMMIT, not RAM: Windows fails
+allocations when total committed (RAM + pagefile) hits its limit even
+with physical memory free (observed: 38.7 GB in use, commit 138/144,
+python innocent at ~350 MB). Checklist before/during overnight runs:
+- Task Manager -> Details -> add the "Commit size" column (default
+  view hides commit gluttons with small working sets).
+- Known bystander leakers OFF the compute box: Logitech G HUB
+  (observed 12 GB committed; CEF app, chronic leak — kill
+  lghub*.exe or replace with Onboard Memory Manager).
+- Commit unattributed to any process -> RAMMap Use Counts: Shareable
+  (leaked pagefile-backed sections), Driver Locked (VM balloon),
+  Nonpaged Pool (driver leak; poolmon names the tag).
+- If WSL is in the stack: Vmmem hoards the Linux page cache —
+  cap it in .wslconfig ([wsl2] memory=16GB, [experimental]
+  autoMemoryReclaim=gradual); `wsl --shutdown` reclaims now.
+- ollama parks models resident: `ollama ps` / `ollama stop <model>`.
+- A ballooned pagefile stays ballooned until reboot; reboot once
+  after clearing the leaker, then watch Committed hourly during the
+  next run to catch any grower in the act.
+- Isaac-side law stands: long-lived workers, never process-per-job
+  (a spawn-per-item loop shows up as a swarm of small-commit
+  pythons — that one IS ours to fix if ever observed).
