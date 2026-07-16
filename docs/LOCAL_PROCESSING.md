@@ -201,3 +201,10 @@ python innocent at ~350 MB). Checklist before/during overnight runs:
 - Isaac-side law stands: long-lived workers, never process-per-job
   (a spawn-per-item loop shows up as a swarm of small-commit
   pythons — that one IS ours to fix if ever observed).
+- MEASURED CLEAN BASELINE (14900k box, 2026-07-15, post-purge
+  reboot): 16 GB in use / 20 GB committed. That is the ruler: check
+  Committed before and during overnight runs — sustained growth
+  without a matching process commit means the leaker (or a new one)
+  is back. The 07-15 incident peaked at 138 GB committed with the
+  compute stack measured innocent (~1-2 GB total); the cure was
+  removal, not RAM.
