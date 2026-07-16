@@ -1040,3 +1040,37 @@ interrogation at scale → effect entities (D9, the engineer's core) →
 SRBench (the differentiated lane).
 
 
+
+### RECURSIVE POOLS — group and sibling nets (owner, 2026-07-15, the
+### arc's next rung): "that's what the matrix was supposed to be but
+### it can only represent 2d relations. what if we recursively
+### applied these pools to find relational information about the
+### structures themselves."
+WHY THE MATRIX CAPPED: a matrix IS pairwise relation materialized —
+higher-order structure (relations among relations, group-of-groups,
+sibling patterns) needs reification + recursion, not bigger tables:
+represent the structure as a thing with descriptors (its constants,
+its crystal, its doors — the keystone move), and relations among
+structures become ordinary channels one level up; pairwise at level
+k+1 covers arbitrary order at level k. Pools are LEVEL-AGNOSTIC by
+construction (a frozen projection does not know what its channels
+mean), so the proven instrument climbs unchanged — only the
+world-builder changes. Per-level laws: nulls must be LEVEL-MATCHED
+(scramble the episode alignment of descriptors, not raw rows), and
+the hard law holds per level (pools point; mints prove themselves
+with pools removed).
+RECEIPT — probe-proven same day (experiments/pool_relations_probe.py,
+10/10, 6.2s): 10 groups x 240 episodes, each group a clean level-0
+law y=a_g*x; planted relation a_C = a_A * a_B (product: marginally
+invisible). Level 0: 20/20 quiet — the relation does not live in raw
+data (exact road first; run-1 wrong-kept: pooling a machine-zero
+residual is ill-posed). Level 1: pool screams (+0.536 vs null99
+-0.431); ablation names EXACTLY {A,B} of 9 candidates (0.93/1.00 vs
+<=0.015, thr 0.103); marginal correlation blind (0.110 vs 0.189);
+scrambled alignment quiet AND discover refuses. GENESIS closes with
+pools removed: discover() on descriptors mints '+1.00*x0*x1' at
+2.2e-15; 12 held-out episodes predicted to 1.8e-15, COMPOSED through
+the level-0 law down to raw values. What the matrix could not hold,
+found by recursion, named by ablation, minted readable, proven
+without the scaffolding. Level 2+ follows by induction: a minted
+relation node has descriptors too.
