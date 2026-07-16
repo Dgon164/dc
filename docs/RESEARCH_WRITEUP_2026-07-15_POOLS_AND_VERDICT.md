@@ -386,3 +386,84 @@ representations of one law, joined: the keystone move again.
   CHAINING — the interpreter segment's kernel-loop half. The routing
   receipts here (larger→compare) are its smallest seed: a two-step
   chain with a replayable trail.
+
+---
+
+## PART 7 — THE JUDGE MOVES IN (the S2b engine port, promotion #11)
+
+### What was done
+The reference judge from Part 1 left the lab and moved into the
+engine itself: `discover()` now runs the exact road, the replay, the
+pool meter, and the floor certificate on every discovery. The coarse
+verdict names (UNDERSTOOD / PARTIAL / CAPTURED / NO RULE) are
+unchanged for every consumer, but UNDERSTOOD is now EARNED: the
+equation must explain held-out data AND leave a leftover that no
+candidate form and no cheap function can predict AND not sit above an
+evidenced noise floor. r-squared still rides along — as a reported
+number, which is all it ever deserved to be.
+
+### The duel, measured (the promotion gate the plan demanded)
+100 worlds with known truths, old judge vs new, wrong-confident =
+UNDERSTOOD while missing the known truth on fresh rows:
+```
+                    old judge     new judge
+  true laws          0/20 wrong    0/20 wrong   (20/20 stamped — kept)
+  additive hole     18/20 wrong    0/20
+  near-miss poison  20/20 wrong    4/20
+  blended rule      16/20 wrong    0/20
+  max relation      20/20 wrong    5/20
+  TOTAL             74/100         9/100
+  Kepler n=8        NO RULE       UNDERSTOOD (machine-exact)
+```
+True-law availability stayed perfect with ZERO false examiner fires,
+and the engine's own 11-area self-test suite passes untouched.
+
+### What the port itself taught (the research part)
+- **The first ported run collapsed availability to 2/20 — and the
+  examiners were innocent.** The receipts showed both legs quiet;
+  the killer was my own naively-ported grain-floor reader
+  hallucinating a microscopic "grain" on continuous data (at n=400
+  the tolerance window, which scales with the multiple, eventually
+  covers the whole number line — the consistency test becomes
+  vacuous), so every honest law sat "above floor." The engine
+  ALREADY OWNED the cured organ (coarsest-consistent grain, promotion
+  #8), and swapping the naive reader for the real `read_floor`
+  restored 20/20 instantly. Same story on the repeats road: my naive
+  port was poison-inflatable — the exact self-blinding disease the
+  campaign documented — while the engine's consensus-ejection version
+  (promotions #6-7) already refused it. LESSON, kept: never ship a
+  rival reader for an organ that exists; the reuse checklist is not
+  bureaucracy, it is where the cures live.
+- **The exact road went blind on the easiest world** (y = x0+x1!)
+  until the family-bloc disease was cured a second time: refine-
+  spawned atom variants (pow 1.72, pow 1.98, exp -0.175...) of ONE
+  variable flooded the correlation shortlist and crowded out the bare
+  x0 and x1. The fix reuses the enumerator's own move: pure-variable
+  polynomial terms are GUARANTEED a seat in the combo pool
+  (structural diversity beats top-N correlation, third sighting
+  tonight).
+
+### The nine that remain, named exactly
+- FOUR near-miss worlds where the poison is absorbed into the
+  CONSTANTS: examiners honestly quiet (the 16-term fit soaks the bend
+  into atoms; the leftover is genuinely structureless), the floor
+  honestly covers the residual — the wrongness lives in coefficients
+  no examiner reads. The cure is already a filed port requirement:
+  the RIVAL-FORM DUEL (scream > margin > parsimony, proven 3/3),
+  which contests the admitted form against simple rivals.
+- FIVE max-relation worlds where the crease signal sat under the
+  replay's selection-corrected bar (obs 0.17-0.36 vs thr 0.32-0.54).
+  These become trivially exact the moment |a−b| is a WORD — the
+  mechanisms atoms promotion, next in the queue, at which point the
+  exact road stamps the true form at machine precision and this class
+  goes to zero the honest way: not by a better guard, by a richer
+  vocabulary.
+
+### What rides on every discovery now
+`certificate` (machine-exact / within floor / above floor /
+uncertified — with the floor's provenance), `floor`, and `legs` (each
+examiner's state with obs-vs-threshold receipts, or its bypass reason
+— the consideration law) — in the result, the findings ledger, and
+the law node's meta. Downstream exactness consumers (the audit,
+cross_check) can now read certification instead of inferring it from
+r-squared, which is the plan's §2b promise delivered.

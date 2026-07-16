@@ -460,6 +460,197 @@ def _disc_col(A, term):
     return v
 
 
+# ── THE VERDICT REWRITE (S2b, 2026-07-15) ───────────────────────────
+# Ported from experiments/verdict_rewrite_probe.py (23/23) and the
+# pool instrument in experiments/reservoir_surprise_probe.py (13/13).
+# UNDERSTOOD is earned before examiners and a ruler, no longer by r2
+# alone (r2 is demoted to a reported number): an EXACT ROAD stamps
+# machine-precision fits proven on unseen rows; a residual REPLAY asks
+# every candidate form whether it can predict the held-out leftover
+# (selection-corrected max-null — the 119/120 lesson); the POOL meter
+# (a frozen random net, shallow and fixed — it gates and names, never
+# writes into a mind, never feeds an equation) asks the grammar-free
+# version of the same question; and exactness claims ride a
+# CERTIFICATE read against an EVIDENCED floor (grain / repeats / told
+# — the 13-inch foot; no floor evidenced means uncertified, said so).
+
+_EXACT_REL = 1e-9       # machine-exact, relative to the numbers' size
+_POOL_MIN_N = 48        # the pool's measured competence floor (R0b)
+_POOL_M = 200           # capacity chosen by the probe's own R0 sweep
+_POOL_FOLDS = 5
+_POOL_RIDGE = 1e-2
+_POOL_NULLS = 200
+_REPLAY_NULLS = 150
+
+
+class _PoolMeter:
+    """A shallow FIXED pool (owner naming): frozen tanh random features
+    + ridge readout, weights seeded BEFORE data. 5-fold cross-fit
+    capture: every row judged by a readout that never saw it."""
+
+    GAINS = (0.7, 1.5, 2.5)     # multiscale, fixed — instrument identity
+
+    def __init__(self, X, m=_POOL_M, seed=777, split_seed=0):
+        n, d = X.shape
+        self.n = n
+        self.m_eff = min(m, max(16, 2 * n), 400)
+        rng = np.random.default_rng(seed + 1000 * self.m_eff + d)
+        gains = np.array([self.GAINS[i % len(self.GAINS)]
+                          for i in range(self.m_eff)])
+        self.W = rng.normal(0.0, 1.0 / np.sqrt(d), (d, self.m_eff)) * gains
+        self.b = rng.uniform(-1.0, 1.0, self.m_eff)
+        idx = np.random.default_rng(split_seed).permutation(n)
+        folds = [idx[f::_POOL_FOLDS] for f in range(_POOL_FOLDS)]
+        self.parts = []
+        for ho in folds:
+            tr = np.setdiff1d(np.arange(n), ho)
+            mu, sd = X[tr].mean(0), X[tr].std(0) + 1e-12
+            H_tr = np.tanh(((X[tr] - mu) / sd) @ self.W + self.b)
+            H_ho = np.tanh(((X[ho] - mu) / sd) @ self.W + self.b)
+            A = H_tr.T @ H_tr + _POOL_RIDGE * len(tr) * np.eye(self.m_eff)
+            M = np.linalg.solve(A, H_tr.T)
+            self.parts.append((tr, ho, H_ho, M))
+
+    def capture(self, r):
+        p = np.empty(self.n)
+        for tr, ho, H_ho, M in self.parts:
+            c = r[tr].mean()
+            p[ho] = H_ho @ (M @ (r[tr] - c)) + c
+        ss = np.sum((r - p) ** 2)
+        tot = np.sum((r - r.mean()) ** 2)
+        return 1.0 - ss / tot if tot > 0 else 0.0
+
+
+def _pool_scream(X, r, rng_seed=1):
+    """Capture vs the selection-corrected permuted-y null. The pool
+    POINTS, never answers: one boolean plus receipts."""
+    meter = _PoolMeter(np.asarray(X, float))
+    cap = meter.capture(r)
+    rng = np.random.default_rng(rng_seed)
+    null = np.array([meter.capture(rng.permutation(r))
+                     for _ in range(_POOL_NULLS)])
+    thr = float(np.percentile(null, 99.0))
+    return float(cap), thr, cap > thr
+
+
+def _exact_terms(specs, n_vars):
+    """Exact-road candidate TERMS: every single atom, plus raw-var
+    pair and triple products (degree<=3 polynomial terms — apply_law
+    evaluates any term tuple, so triples are legal even though the
+    enumerator's frontier stops at pairs; this is what lets Kepler's
+    a^3 be SAID at n=8)."""
+    terms = [(i,) for i in range(len(specs))]
+    terms += [(i, j) for i in range(n_vars) for j in range(i, n_vars)]
+    terms += [(i, j, k) for i in range(n_vars)
+              for j in range(i, n_vars) for k in range(j, n_vars)]
+    return terms
+
+
+def _exact_road(enum, X_tr, y_tr, X_ho, y_ho, kmax=3, top=16):
+    """Requirement 4: exact-checkable data stamps on machine-zero
+    residual WITHOUT a floor. A hit must be machine-exact RELATIVE on
+    train AND held-out — noise cannot fake held-out exactness, which
+    is the selection guard at tiny n (measured 0/20 at n=8, 0/30 with
+    the deep road in the probes). Affine-clone candidates are DEDUPED
+    before the shortlist (the mechanisms-arc port lesson: clones vote
+    as a bloc and starve real terms). Returns term list or None."""
+    if len(y_ho) < 3 or len(y_tr) < 4:
+        return None
+    A_tr = enum.A
+    A_ho = np.column_stack([_atom_col(X_ho, s) for s in enum.specs])
+    n_vars = X_tr.shape[1]
+    cand = _exact_terms(enum.specs, n_vars)
+    cols_tr = np.column_stack([_disc_col(A_tr, t) for t in cand])
+    cols_ho = np.column_stack([_disc_col(A_ho, t) for t in cand])
+    good = (np.isfinite(cols_tr).all(0) & np.isfinite(cols_ho).all(0)
+            & (cols_tr.std(0) > 1e-12))
+    scale = max(float(np.max(np.abs(np.concatenate([y_tr, y_ho])))), 1e-12)
+    base = y_tr - y_tr.mean()
+    bs = base.std() + 1e-12
+    Zt = (cols_tr - cols_tr.mean(0)) / (cols_tr.std(0) + 1e-12)
+    corr = np.abs(Zt.T @ (base / bs)) / len(y_tr)
+    corr[~good] = -1.0
+    ranked = np.argsort(-corr)
+    order = []
+    for j in ranked:
+        if corr[j] < 0 or len(order) >= top:
+            break
+        zj = Zt[:, j]
+        if any(abs(float(zj @ Zt[:, k])) / len(y_tr) > 1 - 1e-9
+               for k in order):
+            continue
+        order.append(int(j))
+    # STRUCTURAL DIVERSITY GUARANTEE (the enumerator's own shortlist
+    # move, reused): monotone families of one variable flood a pure
+    # correlation top-N and crowd out the simple true terms — so every
+    # pure-variable polynomial term (singles, pairs, triples of raw
+    # vars) is guaranteed a seat in the combo pool.
+    pure_var = [ji for ji, t in enumerate(cand)
+                if all(a < n_vars for a in t) and good[ji]]
+    order += [j for j in pure_var if j not in order]
+    from itertools import combinations
+    for k in range(1, kmax + 1):
+        if len(y_tr) < k + 3:
+            break
+        for sub in combinations(order, k):
+            Ct = np.column_stack([cols_tr[:, list(sub)],
+                                  np.ones(len(y_tr))])
+            coef, *_ = np.linalg.lstsq(Ct, y_tr, rcond=None)
+            if np.max(np.abs(y_tr - Ct @ coef)) / scale > _EXACT_REL:
+                continue
+            Ch = np.column_stack([cols_ho[:, list(sub)],
+                                  np.ones(len(y_ho))])
+            if np.max(np.abs(y_ho - Ch @ coef)) / scale > _EXACT_REL:
+                continue
+            return [cand[j] for j in sub]
+    return None
+
+
+def _replay_scan(enum, A_ho, X_ho_raw, resid, rng):
+    """Leg 1: max partial correlation of unadmitted candidates with the
+    held-out residual, against the selection-corrected max-null (2nd
+    largest of 150 permutations). Candidates: every single atom, raw-
+    var pairs, and replay-only CREASE columns |xi-xj| — the mint
+    grammar's known blind spot gets a question-asker even before it
+    becomes a word (mechanisms arc)."""
+    n_vars = X_ho_raw.shape[1]
+    cand_cols, labels = [], []
+    for i in range(A_ho.shape[1]):
+        cand_cols.append(A_ho[:, i])
+        labels.append(_atom_label(enum.specs[i]))
+    for i in range(n_vars):
+        for j in range(i, n_vars):
+            cand_cols.append(A_ho[:, i] * A_ho[:, j])
+            labels.append(f"x{i}*x{j}")
+    for i in range(n_vars):
+        for j in range(i + 1, n_vars):
+            cand_cols.append(np.abs(X_ho_raw[:, i] - X_ho_raw[:, j]))
+            labels.append(f"|x{i}-x{j}|")
+    C = np.column_stack(cand_cols)
+    good = np.isfinite(C).all(0) & (C.std(0) > 1e-12)
+    M = enum._design(A_ho)                      # admitted columns + 1
+    beta, *_ = np.linalg.lstsq(M, C[:, good], rcond=None)
+    R = C[:, good] - M @ beta                   # residualized candidates
+    rstd = R.std(0) + 1e-12
+    Z = (R - R.mean(0)) / rstd
+    ok = rstd > 1e-10
+    if not ok.any() or resid.std() < 1e-15:
+        return "quiet", "-", 0.0, 0.0
+    Z = Z[:, ok]
+    labs = [l for l, g in zip(labels, good) if g]
+    labs = [l for l, o in zip(labs, ok) if o]
+    rs = (resid - resid.mean()) / (resid.std() + 1e-12)
+    obs_all = np.abs(Z.T @ rs) / len(rs)
+    b = int(np.argmax(obs_all))
+    null = np.empty(_REPLAY_NULLS)
+    for p in range(_REPLAY_NULLS):
+        rp = rng.permutation(rs)
+        null[p] = np.max(np.abs(Z.T @ rp)) / len(rs)
+    thr = float(np.sort(null)[::-1][1])         # 2nd largest ~ 99th pct
+    obs = float(obs_all[b])
+    return ("fired" if obs > thr else "quiet"), labs[b], obs, thr
+
+
 class _Enumerator:
     def __init__(self, max_degree=3, n_perm=40, pct=95, max_terms=16):
         self.max_degree, self.n_perm, self.pct = max_degree, n_perm, pct
@@ -3101,7 +3292,7 @@ class Isaac:
 
     # ── discovery: the challenge loop ───────────────────────────
 
-    def discover(self, X, y, name=None, verbose=False):
+    def discover(self, X, y, name=None, verbose=False, told_sigma=None):
         """THE CHALLENGE LOOP. Given examples of something he cannot yet do
         (inputs X -> outcome y), find the rule. Half the examples are held
         out — the rule must WORK, not merely fit. Four honest verdicts:
@@ -3143,6 +3334,18 @@ class Isaac:
         enum = _Enumerator()
         enum.fit(X[:half], y[:half])
         p = enum.predict(X[half:])
+        # THE EXACT ROAD (S2b requirement 4): machine precision proven
+        # on unseen rows outranks statistics — it may override the
+        # admitted form (exactness on fresh rows is the rival-killer),
+        # and it is how a law with 8 planets gets said at all.
+        exact_stamp = False
+        ex_terms = _exact_road(enum, X[:half], y[:half],
+                               X[half:], y[half:])
+        if ex_terms is not None:
+            enum.terms = [tuple(t) for t in ex_terms]
+            enum._refit(y[:half])
+            p = enum.predict(X[half:])
+            exact_stamp = True
         ss = float(np.sum((y[half:] - y[half:].mean()) ** 2))
         r2 = 1 - float(np.sum((y[half:] - p) ** 2)) / max(ss, 1e-12)
         # right-enough-to-use vs form-true: a surrogate can match the law on
@@ -3165,7 +3368,72 @@ class Isaac:
         # says — it must never be discarded because capture scored higher
         # (the CAPTURED-erases-law bug, 2026-07-03 audit)
         has_law = bool(enum.terms) and r2 >= 0.2
-        if enum.terms and r2 >= 0.9:
+
+        # ═══ THE VERDICT REWRITE (S2b, 2026-07-15): UNDERSTOOD is
+        # EARNED before examiners and a ruler — r2 is a reported
+        # number, no longer the judge. Replay: can any candidate form
+        # predict the held-out leftover (selection-corrected)? Pool:
+        # can ANYTHING cheap (grammar-free)? Certificate: is the
+        # residual machine-exact, within an EVIDENCED floor, above it,
+        # or uncertifiable (no floor evidenced — said so, never
+        # assumed)? Every examiner fires or leaves a bypass receipt.
+        # floors come from the CURED organ (read_floor: consensus-
+        # ejected repeats, coarsest-consistent grain, told road with
+        # contradiction flagging) — reuse law, never a rival reader
+        if told_sigma is not None and name:
+            tn = f"floor:{name}"
+            if not self.net.get_meta(tn, "told"):
+                self.net.set_meta(tn, "told",
+                                  dict(sigma=float(told_sigma),
+                                       who="caller"))
+        fl = self.read_floor(y, X[:, :d_raw], name=name)
+        floor_std, floor_why = fl["floor"], fl["why"]
+        if told_sigma is not None and not name:
+            if floor_std is None or float(told_sigma) > floor_std:
+                floor_std = float(told_sigma)
+                floor_why = f"told {told_sigma:g} | " + floor_why
+        legs = dict(replay=dict(state="bypassed: no law admitted"),
+                    pool=dict(state="bypassed: no law admitted"))
+        resid_ho = y[half:] - p
+        scale_y = float(max(np.max(np.abs(y)), 1e-12))
+        rms_ho = float(np.sqrt(np.mean(resid_ho ** 2)))
+        if enum.terms and (exact_stamp or rms_ho / scale_y < _EXACT_REL):
+            certificate = "machine-exact"
+            legs = dict(replay=dict(state="bypassed: machine-exact"),
+                        pool=dict(state="bypassed: machine-exact"))
+        else:
+            if enum.terms:
+                A_ho = np.column_stack([_atom_col(X[half:], s)
+                                        for s in enum.specs])
+                rngv = np.random.default_rng(1234 + len(y))
+                st, who, obs, thr = _replay_scan(
+                    enum, A_ho, X[half:, :d_raw], resid_ho, rngv)
+                legs["replay"] = dict(state=st, who=who,
+                                      obs=round(obs, 4),
+                                      thr=round(thr, 4))
+                resid_tr = y[:half] - enum.predict(X[:half])
+                Xp = np.vstack([X[:half, :d_raw], X[half:, :d_raw]])
+                rp = np.concatenate([resid_tr, resid_ho])
+                if len(rp) >= _POOL_MIN_N:
+                    cp, tp, scream = _pool_scream(
+                        Xp, rp, rng_seed=4321 + len(y))
+                    legs["pool"] = dict(
+                        state="scream" if scream else "quiet",
+                        cap=round(cp, 4), thr=round(tp, 4))
+                else:
+                    legs["pool"] = dict(
+                        state=f"bypassed: n={len(rp)} < {_POOL_MIN_N}"
+                              f" (measured scope)")
+            if floor_std is not None:
+                certificate = (("within floor"
+                                if rms_ho <= 3 * floor_std
+                                else "above floor") + f" ({floor_why})")
+            else:
+                certificate = "uncertified (no floor evidenced)"
+        surprise = (legs["replay"].get("state") == "fired"
+                    or legs["pool"].get("state") == "scream")
+        if enum.terms and r2 >= 0.9 and not surprise \
+                and not certificate.startswith("above floor"):
             verdict = "UNDERSTOOD"
         elif cap_r2 > max(cap_null + 0.1, 0.2) and cap_r2 > r2 + 0.1:
             verdict = "CAPTURED"
@@ -3292,6 +3560,8 @@ class Isaac:
                 lag_scan=list(getattr(self, "_last_lag_scan", []))))
             self.net.set_meta(node, "equation", eq_str)
             self.net.set_meta(node, "accounting", accounting)
+            self.net.set_meta(node, "certificate", certificate)
+            self.net.set_meta(node, "verdict_legs", legs)
             if dossier:
                 self.net.set_meta(node, "residual_dossier", dossier)
             self._teach_fact(node, "explains", name or "challenge")
@@ -3308,6 +3578,7 @@ class Isaac:
             "law" if has_law else "verdict",
             name or "challenge", verdict=verdict, equation=eq_str,
             r2=r2, r2_edge=r2_edge, scope=scope, captured_r2=cap_r2,
+            certificate=certificate, floor=floor_why, legs=legs,
             n=len(y), d=X.shape[1], rivals=riv_summary,
             accounting=accounting, dossier=dossier,
             model=(dict(terms=list(enum.terms), coefs=enum.coefs,
@@ -3321,6 +3592,7 @@ class Isaac:
             capture = self.capture_net(name, X[:, :d_raw], y)
         return dict(verdict=verdict, equation=eq_str,
                     r2=r2, r2_edge=r2_edge, scope=scope, captured_r2=cap_r2,
+                    certificate=certificate, floor=floor_why, legs=legs,
                     rivals=riv_summary, accounting=accounting,
                     dossier=dossier, adequacy=adequacy, capture=capture)
 
