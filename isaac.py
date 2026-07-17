@@ -3495,6 +3495,7 @@ class Isaac:
         fnode = f"flow:{name}"
         first = f"step:{name}.{steps[0]['id']}"
         self.net.add_door(fnode, first, tag="flow-start")
+        self.net.set_meta(fnode, "steps", steps)   # ordered, clonable
         for st in steps:
             node = f"step:{name}.{st['id']}"
             self.net.set_meta(node, "spec", st)
@@ -3636,6 +3637,104 @@ class Isaac:
         self.net.set_meta(node, "spec",
                           dict(id=name, op="chunk", flow=flow,
                                minted_after=minted_after))
+        return node
+
+    def _flow_success_steps(self, flow):
+        node = flow if str(flow).startswith("flow:") else f"flow:{flow}"
+        steps = self.net.get_meta(node, "steps") or []
+        return {st["id"] for st in steps if st.get("success")}
+
+    def flow_tally(self, name=None, window=None):
+        """Win/loss tallies per flow from the walk ledger. A win = a
+        walk ending on a step the flow DECLARED success=True (a flow
+        with no declared successes counts outcome=='done'). window=W
+        judges only each flow's last W walks (recent-window, the
+        word-election shape)."""
+        rows = list(reversed(self.recall_findings(kind="flow-walk",
+                                                  limit=10_000)))
+        per = {}
+        for w in rows:
+            fl = w.get("name")
+            if name and fl not in (name, f"flow:{name}"):
+                continue
+            per.setdefault(fl, []).append(w)
+        tally = {}
+        for fl, ws in per.items():
+            ws2 = ws[-window:] if window else ws
+            succ = self._flow_success_steps(fl)
+            wins = 0
+            for w in ws2:
+                rd = w.get("road") or []
+                if succ:
+                    wins += int(bool(rd) and rd[-1] in succ)
+                else:
+                    wins += int(w.get("outcome") == "done")
+            tally[fl] = dict(wins=wins, walks=len(ws2))
+        return tally
+
+    def elect_flow(self, candidates, task, window=None):
+        """Elect the champion flow for a task by MEASURED win rate —
+        word elections generalized to PROCESS. Losers stay on the
+        books with their tallies; the task node carries the champion
+        with an active/superseded chain (never erased — the
+        read_floor pattern); the election lands in the ledger."""
+        tallies = {}
+        for c in candidates:
+            t = self.flow_tally(c, window=window)
+            tallies[c] = t.get(f"flow:{c}", dict(wins=0, walks=0))
+
+        def rate(d):
+            return d["wins"] / max(d["walks"], 1)
+
+        champ = max(candidates,
+                    key=lambda c: (rate(tallies[c]),
+                                   tallies[c]["wins"]))
+        node = f"task:{task}"
+        old = self.net.get_meta(node, "champion")
+        rec = dict(flow=champ, window=window, tallies=tallies)
+        if old is not None:
+            chain = old.get("superseded") or []
+            if old.get("flow") != champ:
+                prev = {k: v for k, v in old.items()
+                        if k != "superseded"}
+                chain = chain + [prev]
+            rec["superseded"] = chain
+        self.net.add_door("tasks", node, tag="task")
+        self.net.set_meta(node, "champion", rec)
+        self.record_finding("flow-election", task, champion=champ,
+                            window=window, tallies=tallies)
+        return dict(champion=champ, tallies=tallies,
+                    receipt=f"champion '{champ}' by win rate; losers "
+                            f"kept on the record")
+
+    def branch_flow(self, src, new_name, at_step, door, extra_steps):
+        """PIECEWISE FLOW SUPERSESSION, the mechanical half: clone a
+        flow, graft ONE door at the named step (before its default
+        door) plus the steps that door leads to. The intelligent half
+        stays where it belongs — the miner names the condition, the
+        election decides, the loser is kept."""
+        import copy
+        steps = copy.deepcopy(self.net.get_meta(f"flow:{src}", "steps")
+                              or [])
+        if not steps:
+            return None
+        placed = False
+        for st in steps:
+            if st["id"] == at_step:
+                doors = st.setdefault("doors", [])
+                idx = next((i for i, d in enumerate(doors)
+                            if "when" not in d), len(doors))
+                doors.insert(idx, copy.deepcopy(door))
+                placed = True
+        if not placed:
+            return None
+        pos = next(i for i, st in enumerate(steps)
+                   if st["id"] == at_step) + 1
+        steps[pos:pos] = copy.deepcopy(extra_steps)
+        node = self.define_flow(new_name, steps)
+        self.net.set_meta(node, "branched_from",
+                          dict(src=f"flow:{src}", at_step=at_step,
+                               door=door))
         return node
 
     def _outlier_source(self, enum, X, y, half):
