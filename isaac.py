@@ -3477,6 +3477,167 @@ class Isaac:
                             f"{'then' if cond else 'else'}",
                     routed_via=[])
 
+    # ── flows: the execution cycle (owner, 2026-07-15) ──────────
+    # "do op, take result door, or return to main program. each node
+    # can act like a function generator." Flows are NET CONTENT
+    # (flow:/step:/chunk: nodes) read by the walker — the kernel
+    # loop's first permanent slice. Every juncture leaves receipts
+    # for the door taken AND the doors bypassed (the consideration
+    # law); every walk lands in the findings ledger.
+
+    def define_flow(self, name, steps):
+        """Author a flow as net content: flow:<name> doors to its
+        first step; each step:<name>.<id> carries a READABLE spec
+        (op = a registered organ, args drawn from state, optional
+        declarative measure, doors with declarative predicates — the
+        last door without 'when' is the default). Same substrate as
+        content, different altitude."""
+        fnode = f"flow:{name}"
+        first = f"step:{name}.{steps[0]['id']}"
+        self.net.add_door(fnode, first, tag="flow-start")
+        for st in steps:
+            node = f"step:{name}.{st['id']}"
+            self.net.set_meta(node, "spec", st)
+            for d in st.get("doors", []):
+                self.net.add_door(node, f"step:{name}.{d['to']}",
+                                  tag="flow-next")
+        return fnode
+
+    def _eval_when(self, when, result, state):
+        """Declarative branch predicate, routed THROUGH the compare
+        organ when numeric (the comparison booleans ARE the routing
+        predicates). Returns (fired, receipt)."""
+        if "equals" in when:
+            got = result.get(when["field"])
+            fired = got == when["equals"]
+            return fired, (f"{when['field']}=='{when['equals']}'? "
+                           f"got '{got}' -> {fired}")
+        if "cmp" in when:
+            a = result.get(when["field"])
+            b = when["than"]
+            b = state.get(b, b) if isinstance(b, str) else b
+            c = self.compare(float(a), float(b))
+            fired = (c["value"] < 0) if when["cmp"] == "smaller" \
+                else (c["value"] > 0)
+            return fired, (f"{when['cmp']}({a:.4g},{b:.4g}) via "
+                           f"{c['receipt']} -> {fired}")
+        return False, f"unknown predicate {when} -> refused"
+
+    def walk_flow(self, name, state, hop_cap=12, _depth=0):
+        """THE WALKER: do op -> take result door -> return to main.
+        Accepts a flow name, 'flow:<name>', or a minted
+        'chunk:<name>'. Every step fires or is BYPASSED WITH A
+        RECEIPT; a cyclic flow halts at the hop cap; a step naming a
+        missing organ refuses honestly. Returns (outcome, trace) —
+        the trace is a replayable record."""
+        node = name if str(name).startswith(("flow:", "chunk:")) \
+            else f"flow:{name}"
+        if node.startswith("chunk:"):
+            spec = self.net.get_meta(node, "spec") or {}
+            if spec.get("op") == "chunk":
+                out, sub = self.walk_flow(spec["flow"], state,
+                                          hop_cap, _depth + 1)
+                tr = [dict(step=node, op="chunk",
+                           receipt=f"chunk expanded -> {out}",
+                           nested=sub)]
+                if _depth == 0:
+                    self.record_finding("flow-walk", node, outcome=out,
+                                        hops=len(sub), road=["chunk"])
+                return out, tr
+            return "refused", [dict(step=node,
+                                    receipt="no chunk spec — refused")]
+        flow_short = node.split(":", 1)[1]
+        trace, outcome, hops = [], None, 0
+        nxt = sorted(self.net.get_doors(node, tag="flow-start"))
+        step = nxt[0] if nxt else None
+        while step is not None and outcome is None:
+            if hops >= hop_cap:
+                trace.append(dict(step=step,
+                                  receipt=f"HOP CAP {hop_cap} reached "
+                                          f"— returning to main (no "
+                                          f"runaway walks)"))
+                outcome = "hop-cap"
+                break
+            hops += 1
+            spec = self.net.get_meta(step, "spec") or {}
+            op = spec.get("op")
+            if op == "chunk":
+                sub_out, sub_tr = self.walk_flow(spec["flow"], state,
+                                                 hop_cap, _depth + 1)
+                trace.append(dict(step=step, op="chunk",
+                                  receipt=f"chunk expanded -> "
+                                          f"{sub_out}",
+                                  nested=sub_tr))
+                outcome = sub_out
+                break
+            fn = getattr(self, op, None) if op else None
+            if fn is None or not callable(fn):
+                trace.append(dict(step=step, op=op,
+                                  receipt=f"REFUSED: no organ named "
+                                          f"'{op}' — walk ends "
+                                          f"honestly"))
+                outcome = "refused"
+                break
+            kwargs = {k: state[v]
+                      for k, v in spec.get("args", {}).items()}
+            result = fn(**kwargs)
+            result = result if isinstance(result, dict) \
+                else {"value": result}
+            meas = spec.get("measure")
+            if meas and meas.get("rms_against") is not None:
+                p = np.asarray(result.get("value"), float)
+                yv = np.asarray(state[meas["rms_against"]], float)
+                okm = np.isfinite(p)
+                result["rms"] = float(np.sqrt(
+                    np.mean((p[okm] - yv[okm]) ** 2)))
+            state[spec.get("out", f"_{spec.get('id', 'r')}")] = result
+            rec = dict(step=step, op=op,
+                       receipt=f"ran {op}; keys {sorted(result)[:6]}")
+            taken, door_receipts = None, []
+            for d in spec.get("doors", []):
+                if "when" not in d:
+                    if taken is None:
+                        taken = d["to"]
+                        door_receipts.append(f"-> {d['to']} "
+                                             f"(default door)")
+                    else:
+                        door_receipts.append(f"bypassed {d['to']}: an "
+                                             f"earlier door already "
+                                             f"fired")
+                    continue
+                fired, why = self._eval_when(d["when"], result, state)
+                if fired and taken is None:
+                    taken = d["to"]
+                    door_receipts.append(f"-> {d['to']}: {why}")
+                else:
+                    door_receipts.append(f"bypassed {d['to']}: {why}")
+            rec["doors"] = door_receipts
+            trace.append(rec)
+            step = None if taken is None \
+                else f"step:{flow_short}.{taken}"
+        if outcome is None:
+            outcome = state.get("_outcome", "done")
+        if _depth == 0:
+            self.record_finding(
+                "flow-walk", node, outcome=outcome, hops=hops,
+                road=[t["step"].split(".")[-1]
+                      for t in trace if "step" in t])
+        return outcome, trace
+
+    def mint_chunk(self, flow_name, name, minted_after=None):
+        """THE FUNCTION GENERATOR v1 (owner: "each node can act like
+        a function generator"): a chain that keeps winning becomes
+        ONE node — a new step whose op is the recorded chain,
+        registered under the chunks hub, walkable by name."""
+        node = f"chunk:{name}"
+        flow = flow_name if str(flow_name).startswith("flow:") \
+            else f"flow:{flow_name}"
+        self.net.add_door("chunks", node, tag="chunk")
+        self.net.set_meta(node, "spec",
+                          dict(id=name, op="chunk", flow=flow,
+                               minted_after=minted_after))
+        return node
+
     def _outlier_source(self, enum, X, y, half):
         """THE OUTLIER'S OWN LAW (owner, 2026-07-15): "if the outlier
         is a plus something else, can it quantify that something else
