@@ -1,0 +1,28 @@
+======================================================================
+FLOOR BATTERY — the instrument floor organ
+======================================================================
+  [PASS] F1 grain 0.001 read exactly   step 0.001
+  [PASS] F2 grain 1/16 read exactly   step 0.0625
+  [PASS] F3 truncated CSV -> grain = storage resolution 0.01   step 0.01
+  [PASS] F4 no road evidenced -> floor refused + ASK   no ruler — grain: no consistent grain (float-continuous); ex
+  [PASS] F5 repeats floor vs planted 0.12 (within 15%)   measured 0.1282
+  [PASS] F6 under-evidenced repeats (3 groups, dof 3) refused
+  [PASS] F7 told resolution usable at once   floor 0.05 via told
+  [PASS] F8 told 0.01 vs measured ~0.12: flagged, kept, max wins   floor 0.1199 via repeats; told flagged: True
+  [PASS] F9 grain-only floor carries 'lower bound' provenance
+  [PASS] F10 floor + provenance survive the pack road
+  [PASS] F11 re-measure supersedes; old reading kept with why   chain 1; active floor 0.0028868
+  [PASS] F12 both roads kept; floor = max (repeats beats grain)   roads ['grain', 'repeats']; floor 0.1186
+  [PASS] F13 floor readings recorded as findings
+  [PASS] F14 grain by consensus survives one off-grid value   step 0.01, consistency 0.986
+  [PASS] F15 repeats floor survives 10% corruption (dissenters ejected + FILED)   sigma 0.05446, ejected 32
+  [PASS] F16 clean world: zero ejections, sigma within 15% of planted   sigma 0.05368, ejected 0
+  [PASS] F17 40% corruption: the road refuses (says the disagreement), never a wrong floor   no ruler — repeats: repeat answers disagree beyond a typo story 
+  [PASS] F18 heavy-tail t(3) clean: evidenced, <=3% tail-trim, sigma in [0.05, 0.15]   sigma 0.06452, ejected 4
+  [PASS] F19 grain HELD through 8 slips of 150; dissent FILED as mis-entry   step 0.01, off-grid gaps 16
+  [PASS] F20 half-step slip: ruler stays 0.01 (was: quietly rescaled to 0.005), slip filed   step 0.01, off-grid gaps 2
+  [PASS] F21 true 0.005 grain still read exactly (no over-coarsening)   step 0.005
+  [PASS] F22 40% off-grid: grain refused (beyond a typo story)
+======================================================================
+FLOOR BATTERY: 22/22
+======================================================================

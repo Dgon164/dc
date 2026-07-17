@@ -1,0 +1,22 @@
+F1 true-law        UNDERSTOOD 20/20  wrong-confident  0/20  (20s)
+F2 additive-hole   UNDERSTOOD 20/20  wrong-confident  0/20  (0s)
+F3 near-miss       UNDERSTOOD 20/20  wrong-confident  0/20  (13s)
+F4 blended         UNDERSTOOD  0/20  wrong-confident  0/20  (15s)
+F5 max-relation    UNDERSTOOD 20/20  wrong-confident  0/20  (8s)
+KEPLER n=8         verdict UNDERSTOOD (certificate machine-exact)
+
+TOTAL wrong-confident 0/100   F1 availability 20/20   (56.5s)
+saved C:\Users\jtwee\Documents\dc\experiments\runs\verdict_gate_ported.json
+
+==== THE DUEL (old judge vs ported judge) ====
+  F1 true-law        wrong-confident  0/20 ->  0/20
+  F2 additive-hole   wrong-confident 18/20 ->  0/20
+  F3 near-miss       wrong-confident 20/20 ->  0/20
+  F4 blended         wrong-confident 16/20 ->  0/20
+  F5 max-relation    wrong-confident 20/20 ->  0/20
+  [ok ] G1 wrong-confident 0/100 (baseline 74/100) — 0/100
+  [ok ] G2 F1 availability preserved — 20/20 vs baseline 20/20
+  [ok ] G3 Kepler machine-exact UNDERSTOOD — UNDERSTOOD / machine-exact
+  [ok ] G4 examiner false-fire on F1 <= 2/20 — 0/20
+
+  GATE: 4 passed, 0 failed of 4

@@ -1,0 +1,13 @@
+O1. poisoned integer sums x5: isolate, quarantine, clean-refit
+       seed 0: UNDERSTOOD err 7.11e-15 outliers: mis-entry n=6 (a simple 2-term form is machine-exact on 54/60 rows; the 6 l)
+  [ok ] O1 cured with true constants + quarantine >=4/5 — cured 5/5, wrong-confident 0/5
+O2. second source: y = 2*x0 (+noise), 20% of rows += 0.5*x1
+       verdict PARTIAL; outliers kind=second-source n=37; source eq: +0.41*x1 +0.09*|x0-x1| -0.24
+  [ok ] O2 source model minted from the deviations (NEWS) — kind second-source; eq +0.41*x1 +0.09*|x0-x1| -0.24
+O3. scrambled control: shuffled deviations must mint nothing
+  [ok ] O3 no source law on scrambled deviations — kind none (n_flagged 48)
+O4. clean true-law worlds x5 (n=400, d=5): pass must not meddle
+  [ok ] O4 availability 5/5, no false cures — UNDERSTOOD 5/5; false cures 0/5
+  [ok ] O5 receipts: one round, flags bounded — rounds 1, flagged 37/240
+
+  BATTERY: 5 passed, 0 failed of 5  (11.5s)

@@ -1,0 +1,12 @@
+======================================================================
+VET-INTAKE BATTERY — interpreted, not implemented
+======================================================================
+  [PASS] Q1 5+5=9 arrives: FAILS-CHECK, integrate=False, 3 intent doors, original kept verbatim   FAILS-CHECK, intent [('a', 4.0), ('b', 4.0), ('c', 10.0)]
+  [PASS] Q2 5+5=10 arrives: PASSES, integrate=True
+  [PASS] Q3 expected 12, received 13: wrong by his own check; assumed intent = 12; not learned   intent 13.0 -> 12.0
+  [PASS] Q4 no expectation: UNCHECKABLE, integrate='unchecked' (ordinary nulls road)
+  [PASS] Q5 quarantine persists at quarantine:<name>; re-vet supersedes, old kept   first bad, chain 1
+  [PASS] Q6 end to end: good fact taught; bad fact ABSENT from the net but readable in quarantine WITH its intent   good ['five'], bad [], quarantined 1 w/ 3 doors
+======================================================================
+VET-INTAKE BATTERY: 6/6
+======================================================================

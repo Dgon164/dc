@@ -1,0 +1,20 @@
+B1. max world x3: y = max(x0,x1) exact, n=252
+       seed 0: UNDERSTOOD / machine-exact  eq: +0.50*x0 +0.50*x1 +0.50*|x0-x1| -0.00
+  [ok ] B1 max UNDERSTOOD machine-exact 3/3 — 3/3; eq +0.50*x0 +0.50*x1 +0.50*|x0-x1| -0.00
+B2. step world: 2*x0 + 1.5*[1<x1<2], noise 0.05 told, n=400
+       UNDERSTOOD / within floor (floor 0.05 via told (largest of 2 evidenced road(s)); repeats: under-evidenced: 0 repeat groups, dof 0 (need >=5 groups, >=10 dof))  eq: +2.00*x0 -1.50*[x1>2] +1.50*[x1>1] -0.00
+  [ok ] B2 UNDERSTOOD with steps at 1 and 2, within floor — UNDERSTOOD / +2.00*x0 -1.50*[x1>2] +1.50*[x1>1] -0.00
+B3. blended world (flag ? x0*x1 : x0+x1) at n=48 and n=96
+       n=48: CAPTURED / above floor (floor 0.288675 via grain (largest of 1 evidenced road(s)); repeats: under-evidenced: 5 repeat groups, dof 5 (need >=5 groups, >=10 dof))  eq: +49.10*[x1>7.5] +11.24
+       n=96: PARTIAL / above floor (floor 0.288675 via grain (largest of 2 evidenced road(s)))  eq: +25.23*x0*x2 -25.79*x0*x2*exp(-0.04*x1) +0.18*x0*x1 -5.02*x0*x2*x0^-1 
+  [FAIL] B3 blended machine-exact at both sizes — 0/2
+B4. noise x10 (n=200, d=3 incl. binary) — the new words must not buy false laws
+  [ok ] B4 false UNDERSTOOD 0/10 on noise — 0/10
+B5. true law x5 (n=400, d=5): availability + per-call cost
+  [ok ] B5 availability 5/5 with enriched vocabulary — 5/5; per-call 1.10s (max 1.50s)
+B6. mechanism tools registered and routing
+  [ok ] B6 tools in the catalog — present: ['compare', 'larger', 'smaller', 'switch']
+  [ok ] B6 larger routes through compare (receipt) — larger(3,-1) via compare -> 3
+  [ok ] B7 Kepler n=8 still machine-exact — UNDERSTOOD / machine-exact
+
+  BATTERY: 7 passed, 1 failed of 8  (21.4s)

@@ -1,0 +1,31 @@
+======================================================================
+1. MEASURE the decay: 60 calibration worlds, graded at 4 bands
+======================================================================
+  c: 51 kept laws from 60 worlds [50s]
+
+    delta (spans beyond)       held    rate
+                     0.0    39/51       76%
+                     0.1    28/51       55%
+                     0.3    22/51       43%
+                     0.6    21/51       41%
+                     1.0    18/51       35%
+
+  THE MEASURED CURVE: {0.0: 0.765, 0.1: 0.549, 0.3: 0.431, 0.6: 0.412, 1.0: 0.353}
+======================================================================
+2. VALIDATE: 60 FRESH worlds; law_confidence() vs what happened
+======================================================================
+  v: 52 kept laws from 60 worlds [67s]
+
+  208 extrapolation claims graded; reliability bins:
+    predicted conf     n   actual hold rate
+  0.00-0.30 (mean 0.21)    31               35%
+  0.30-0.50 (mean 0.39)   136               49%
+  0.50-0.70 (mean 0.57)    41               63%
+
+  calibration error (ECE): 0.102
+  Brier score: graded confidence 0.251  vs  flat 68% baseline 0.282  (BETTER)
+======================================================================
+VERDICT: WORKS — the binary stamp becomes graded belief:
+boundary confidence inside the hull, measured-decay confidence beyond it,
+validated on worlds the curve never saw.
+======================================================================

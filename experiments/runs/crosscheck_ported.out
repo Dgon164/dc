@@ -1,0 +1,15 @@
+======================================================================
+CROSS-CHECK BATTERY — ECC for data
+======================================================================
+  [PASS] E1 5+5=9: tuple marked false; 3 repair doors (a->4, b->4, c->10); nothing blamed   verdict FALSE-SOMEWHERE, candidates [('a', 4.0), ('b', 4.0), ('c', 10.0)]
+  [PASS] E2 clean control: consistent, no components
+  [PASS] E3a clean grid control: consistent
+  [PASS] E3b one bad cell: failing row x failing col intersect -> unique repair at m23, exact value   candidates [('m23', 7.0)]
+  [PASS] E4 two errors, one row: no unique repair -> FALSE-SOMEWHERE (detects, refuses to guess)   [('FALSE-SOMEWHERE', 0)]
+  [PASS] E5 40,000 inputs don't add up: error certified to exist, candidates counted not enumerated   n_cells 40001, unenumerated 40001
+  [PASS] E6 floor-aware: noise-level imbalance passes; a real 1.0 slip fails   clean True, slipped True
+  [PASS] E7 marked false, RETURNED TO: second check arrives -> a=4 localized; old open record superseded, kept   then: CORRECTED-CANDIDATE [('a', 4.0)], chain 1
+  [PASS] E8 passing checks veto repairs: b protected by its good check; candidates = {a, c} only   candidates ['a', 'c']
+======================================================================
+CROSS-CHECK BATTERY: 9/9
+======================================================================

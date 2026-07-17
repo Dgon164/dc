@@ -155,6 +155,14 @@ def main():
          os.path.join(DC, "experiments"), None),
         ("verdict duel gate", ["verdict_port_gate.py", "ported"],
          os.path.join(DC, "experiments"), None),
+        # the birth machinery (2026-07-17, road-trials amendment):
+        # the first teacher, the instrument panel, the artifact claim
+        ("inherit battery", ["test_inherit.py"],
+         os.path.join(DC, "isaac_store"), None),
+        ("road-trial battery", ["test_roadtrial.py"],
+         os.path.join(DC, "isaac_store"), None),
+        ("reproducibility check", ["reproducibility_check.py"],
+         os.path.join(DC, "experiments"), None),
     ]
     results, failed = [], False
     for name, cmd, cwd, expect in gates:
