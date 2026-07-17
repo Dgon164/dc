@@ -1,0 +1,49 @@
+[ok ] engine suite                           19s  One file. One class. One operation.
+[ok ] store battery                           1s  BATTERY: 29 passed, 0 failed of 29
+[ok ] cache battery                           0s  BATTERY: 13 passed, 0 failed of 13
+[ok ] leaf battery                            0s  BATTERY: 13 passed, 0 failed of 13
+[ok ] server battery                          1s  BATTERY: 17 passed, 0 failed of 17
+[ok ] scrubber battery                        0s  BATTERY: 19 passed, 0 failed of 19
+[ok ] learning battery                        1s  BATTERY: 9 passed, 0 failed of 9
+[ok ] skills battery                          1s  BATTERY: 7 passed, 0 failed of 7
+[ok ] ops battery                             1s  BATTERY: 13 passed, 0 failed of 13
+[ok ] multicore battery                      16s  BATTERY: 7 passed, 0 failed of 7
+[ok ] told-knowledge battery                  1s  BATTERY: 13 passed, 0 failed of 13
+[ok ] gravity-family battery                  0s  BATTERY: 13 passed, 0 failed of 13
+[ok ] provenance battery                      1s  BATTERY: 13 passed, 0 failed of 13
+[ok ] seeker battery                          1s  BATTERY: 11 passed, 0 failed of 11
+[ok ] retention battery                       0s  BATTERY: 10 passed, 0 failed of 10
+[ok ] report battery                          2s  BATTERY: 11 passed, 0 failed of 11
+[ok ] speech battery                          1s  BATTERY: 20 passed, 0 failed of 20
+[ok ] learned-speech battery                  2s  BATTERY: 20 passed, 0 failed of 20
+[ok ] face battery                            2s  BATTERY: 7 passed, 0 failed of 7
+[ok ] intake battery                          1s  BATTERY: 19 passed, 0 failed of 19
+[ok ] structural battery                      0s  BATTERY: 12 passed, 0 failed of 12
+[ok ] remote battery                          1s  BATTERY: 16 passed, 0 failed of 16
+[ok ] triangulation battery                   6s  BATTERY: 11 passed, 0 failed of 11
+[ok ] education battery                       4s  BATTERY: 10 passed, 0 failed of 10
+[ok ] crawlers battery                        1s  BATTERY: 12 passed, 0 failed of 12
+[ok ] lag battery                             8s  LAG BATTERY: 14/14 checks passed
+[ok ] task battery                            6s  TASK BATTERY: 8/8 checks passed
+[ok ] rule battery                            2s  RULE BATTERY: 11/11 checks passed
+[FAIL] rounding battery                        2s  ROUNDING BATTERY: 5/7 checks passed
+[ok ] floor battery                           0s  ======================================================================
+[ok ] commonality battery                     0s  ======================================================================
+[ok ] tools battery                           0s  ======================================================================
+[ok ] order battery                           0s  ======================================================================
+[ok ] order-matters battery                   0s  ======================================================================
+[ok ] cross-check battery                     0s  ======================================================================
+[ok ] vet-intake battery                      0s  ======================================================================
+[ok ] audit battery                           8s  ======================================================================
+[ok ] sparring battery                        2s  SPARRING BATTERY: 18/18 checks passed
+[ok ] mechanisms battery (#11/#12)           28s  BATTERY: 8 passed, 0 failed of 8  (27.7s)
+[ok ] outlier-source battery (#13)           13s  BATTERY: 5 passed, 0 failed of 5  (13.2s)
+[ok ] containers battery (#14)                0s  BATTERY: 10 passed, 0 failed of 10  (0.0s)
+[ok ] flow battery (#15)                      1s  BATTERY: 12 passed, 0 failed of 12  (0.4s)
+[ok ] flow-election battery (#16)            11s  BATTERY: 6 passed, 0 failed of 6  (11.1s)
+[ok ] verdict duel gate                      47s  GATE: 4 passed, 0 failed of 4
+[ok ] GAUNTLET                              113s  d = pickle.load(tf.extractfile(m), encoding="bytes")
+
+==============================================================================
+WALL: 44/45 gates green in 5.1 min
+  RED: rounding battery — ROUNDING BATTERY: 5/7 checks passed

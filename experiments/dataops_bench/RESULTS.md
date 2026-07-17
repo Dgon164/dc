@@ -151,3 +151,69 @@ The honest prices, measured and kept:
 3. Public-set follow-up aside, the floor-contamination lane is
    CLOSED: found, predicted, confirmed, cured, re-measured, all on
    2026-07-15.
+
+---
+
+# RE-RUN + B3/B4 FIRST RUNS (2026-07-17, session 1 of the alpha push;
+# engine = the promoted wall @ research 1daa5df: verdict rewrite +
+# comparison words + outlier's law + rounding cure all live)
+
+**Predictions P10-P18 filed first (PREDICTIONS.md, same file, before
+any run). Raw records: results_b1.jsonl (18), results_b2.jsonl (12),
+results_b3.jsonl (15), results_b4.jsonl.**
+
+## B1 re-run vs the new judge — the 07-15 shape holds, one honest change
+| world | ISAAC P / R / F1 (means, 3 trials) | note |
+|---|---|---|
+| W1 in-range ±0.8 | **1.00 / 1.00 / 1.00**, 0 fp | z/IQR still 0.00 recall — the lane's native game |
+| W2 clean control | **0.0 false flags** of 320 | IsoForest 208 fp/table |
+| W3 gross ±15 | 0.67 / 0.67 / 0.67 | **CHANGED vs 07-15 (was 18/18): trial 1 now REFUSES** (the two-fork message: floor vs dragged form) — refusal counted at recall 0, said, not hidden; z-score still misses 22% |
+| W4a/b heavy-tail clean | 4.3 / 8.0 fp per 320 (1.4% / 2.5%) | the Gaussian-shaped flag line's known cost, on the record (fresh-eyes #4) |
+| W5 curved + clustered +2 | **1.00 / 1.00 / 1.00**, 0 fp | P5's degradation prediction stays refuted |
+
+## B2 re-run — 12/12 verdicts honest, unchanged
+W6 completion MAE **0.0411** (floor 0.05; iterative 0.0407 — the
+honest tie holds); W7 no-structure NO CLOSURE 3/3 (baselines imputed
+anyway, no warning); W8 ICA-limit NO CLOSURE 3/3; W9 refusal-control
+RESOLVED 3/3.
+
+## B3 first run — SYMBOLIC SOLUTION RATE (predictions P10-P14)
+| world | outcome (3 trials) | the number |
+|---|---|---|
+| logistic map r=3.7 | **RECOVERED 3/3** | `+3.70*x0 -3.70*x0*x0` fresh err 2.7e-15 — machine-exact; P10 CONFIRMED, the additive hole is closed |
+| predator-prey (log-lin) | **RECOVERED 3/3** | `-0.40*x0 +1.10` = the planted truth exactly; PARTIAL verdict (discretization remainder honestly named) — recovery per filed P12 |
+| damped oscillator AR(2) | MISSED 3/3 | engine says `+0.87*x0` (the AR(1) surrogate). DIAGNOSED: explicit 2-column feed recovers `+1.77*x0 -0.96*x1` (planted 1.7649/-0.9604) UNDERSTOOD — **the miss is entirely in _propose_lags, which proposes NOTHING on a near-unit-root oscillatory series** (its null-gate refuses). Named open door, not hidden |
+| delay system (outside library) | **WRONG-CONFIDENT 3/3 — THE FIND** | UNDERSTOOD `+0.98*x0 +0.02`, fresh miss 0.033 on a DETERMINISTIC world. P13 predicted refusal — prediction FALSIFIED, kept. Mechanism: the residual is structured (a function of s[t-17]) but no lag-17 column was ever proposed, so the replay cannot interrogate it — the judge is honest only within the vocabulary the proposers hand it. Same class as the additive hole: count now, cure next, then a delay family joins the duel |
+| scrambled control | REFUSED-CORRECT 3/3 | NO RULE; zero false lag discoveries (P14 confirmed) |
+
+Totals: recovered 6/9 recoverable, refused-correct 3/6 refusable,
+missed 3, wrong-confident 3 (the bench exits red on purpose until the
+delay leak is cured).
+
+## B4 first run — TREND / FORECAST (predictions P15-P18)
+P15 planted seasonal+trend: **UNDERSTOOD
+`+3.05*sin(0.5235*x0) +0.05*x0 +9.92`** (0.5235 = 2π/12 read off the
+data) — **MASE 0.546 vs naive 3.26 vs seasonal-naive 1.607**: beats
+the competition's own baseline family with a readable equation.
+P16 M4: BLOCKED as filed (~300 MB train file; said, not swapped for
+synthetic). P16 sunspots (public series): honest NO RULE refusal —
+quasi-periodic, consistent with the gauntlet.
+
+**P17 — THE HEADLINE, CONFIRMED: refusal 8/8, minted 0.** Real
+daily market returns (Ken French daily factors — the third download
+road; stooq robot-walled and FRED timed out, both recorded), 8
+rolling 500-day windows: Isaac refused to mint a return-forecast law
+in every window. Zero wrong-confident laws on the world's most
+expensive pure noise.
+
+**P18 — SUBSTANTIALLY FALSIFIED, kept.** The pair-claim ("structure
+found on volatility where returns refused = discrimination, not
+blindness") did NOT establish this run: one-step |r| found structure
+in **0/8** windows (run 1); the literature's weekly realized
+volatility (sqrt of 5-day squared-return sums, ~100 points/window)
+found it in **1/8** (run 2). Both numbers on the record. Named
+follow-up, not a re-roll: longer spans (weekly RV over 2000-day
+windows gives n~400 where the clustering signal should clear the
+selection-corrected null if it is real for this library) — until
+then, the refusing-returns headline stands WITHOUT the pair's
+support, and says so.

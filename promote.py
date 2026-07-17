@@ -139,6 +139,22 @@ def main():
          os.path.join(DC, "isaac_store"), None),
         ("sparring battery", ["test_sparring.py"],
          os.path.join(DC, "isaac_store"), None),
+        # the night of 2026-07-15's promotion batteries (#11-#16) and
+        # the 100-world verdict duel joined the permanent wall
+        # 2026-07-17 (session 1 of the alpha push): the wall that
+        # caught the rounding red must run on every promotion.
+        ("mechanisms battery", ["mechanisms_promotion_battery.py"],
+         os.path.join(DC, "experiments"), None),
+        ("outlier-source battery", ["outlier_source_battery.py"],
+         os.path.join(DC, "experiments"), None),
+        ("containers battery", ["containers_promotion_battery.py"],
+         os.path.join(DC, "experiments"), None),
+        ("flow battery", ["flow_promotion_battery.py"],
+         os.path.join(DC, "experiments"), None),
+        ("flow-election battery", ["flow_election_battery.py"],
+         os.path.join(DC, "experiments"), None),
+        ("verdict duel gate", ["verdict_port_gate.py", "ported"],
+         os.path.join(DC, "experiments"), None),
     ]
     results, failed = [], False
     for name, cmd, cwd, expect in gates:

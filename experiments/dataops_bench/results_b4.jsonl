@@ -1,0 +1,6 @@
+{"leg": "P15-planted", "verdict": "UNDERSTOOD", "equation": "+3.05*sin(0.5235*x0) +0.05*x0 +9.92", "mase_isaac": 0.546, "mase_naive": 3.26, "mase_snaive": 1.607}
+{"leg": "P16-m4", "status": "BLOCKED", "why": "M4 monthly train file is a ~300 MB download \u2014 impractical for the bench v1; recorded, never swapped for synthetic"}
+{"leg": "P16-sunspots", "verdict": "NO RULE", "note": "refusal \u2014 quasi-periodic; an honest card, same standing as a forecast", "mase_naive": 1.384}
+{"leg": "P17-source", "source": "ken.french (daily Mkt)", "days": 4200}
+{"leg": "P17-returns", "windows": 8, "refused": 8, "minted": 0, "headline": "refusal rate 8/8 on real daily index returns"}
+{"leg": "P18-volatility", "windows": 8, "structure_found": 1, "note": "the pair: structure where returns refused = discrimination, not blindness"}

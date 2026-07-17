@@ -1,0 +1,15 @@
+{"world": "logistic-map", "trial": 0, "expect": "RECOVERED", "verdict": "UNDERSTOOD", "equation": "+3.70*x0 -3.70*x0*x0 +0.00", "r2": 1.0, "fresh_err": 2.6645352591003757e-15, "outcome": "RECOVERED"}
+{"world": "damped-oscillator", "trial": 0, "expect": "RECOVERED", "verdict": "PARTIAL", "equation": "+0.87*x0 -0.00", "r2": 0.80323, "fresh_err": 0.04207425232334235, "outcome": "MISSED"}
+{"world": "predator-prey", "trial": 0, "expect": "RECOVERED", "verdict": "PARTIAL", "equation": "-0.40*x0 +1.10", "r2": 1.0, "fresh_err": 2.5803644040974238e-05, "outcome": "RECOVERED"}
+{"world": "delay-outside-library", "trial": 0, "expect": "REFUSED", "verdict": "UNDERSTOOD", "equation": "+0.98*x0 +0.02", "r2": 0.97878, "fresh_err": 0.03169263455454326, "outcome": "WRONG-CONFIDENT"}
+{"world": "scrambled-control", "trial": 0, "expect": "REFUSED", "verdict": "NO RULE", "equation": "+0.23*[x0>0.5] +0.00", "r2": -0.00253, "fresh_err": null, "outcome": "REFUSED-CORRECT"}
+{"world": "logistic-map", "trial": 1, "expect": "RECOVERED", "verdict": "UNDERSTOOD", "equation": "+3.70*x0 -3.70*x0*x0 -0.00", "r2": 1.0, "fresh_err": 6.661338147750939e-16, "outcome": "RECOVERED"}
+{"world": "damped-oscillator", "trial": 1, "expect": "RECOVERED", "verdict": "PARTIAL", "equation": "+0.87*x0 -0.00", "r2": 0.80129, "fresh_err": 0.04177507539708697, "outcome": "MISSED"}
+{"world": "predator-prey", "trial": 1, "expect": "RECOVERED", "verdict": "PARTIAL", "equation": "-0.40*x0 +1.10", "r2": 1.0, "fresh_err": 2.5803644040974238e-05, "outcome": "RECOVERED"}
+{"world": "delay-outside-library", "trial": 1, "expect": "REFUSED", "verdict": "UNDERSTOOD", "equation": "+0.98*x0 +0.02", "r2": 0.97471, "fresh_err": 0.032477569217470366, "outcome": "WRONG-CONFIDENT"}
+{"world": "scrambled-control", "trial": 1, "expect": "REFUSED", "verdict": "NO RULE", "equation": "NO RULE (nothing beat the null)", "r2": -0.00015, "fresh_err": null, "outcome": "REFUSED-CORRECT"}
+{"world": "logistic-map", "trial": 2, "expect": "RECOVERED", "verdict": "UNDERSTOOD", "equation": "+3.70*x0 -3.70*x0*x0 +0.00", "r2": 1.0, "fresh_err": 1.8318679906315083e-15, "outcome": "RECOVERED"}
+{"world": "damped-oscillator", "trial": 2, "expect": "RECOVERED", "verdict": "PARTIAL", "equation": "+0.86*x0 -0.00", "r2": 0.8119, "fresh_err": 0.052755325105709336, "outcome": "MISSED"}
+{"world": "predator-prey", "trial": 2, "expect": "RECOVERED", "verdict": "PARTIAL", "equation": "-0.40*x0 +1.10", "r2": 1.0, "fresh_err": 2.5803644040974238e-05, "outcome": "RECOVERED"}
+{"world": "delay-outside-library", "trial": 2, "expect": "REFUSED", "verdict": "UNDERSTOOD", "equation": "+0.98*x0 +0.02", "r2": 0.97868, "fresh_err": 0.033303528007785285, "outcome": "WRONG-CONFIDENT"}
+{"world": "scrambled-control", "trial": 2, "expect": "REFUSED", "verdict": "NO RULE", "equation": "NO RULE (nothing beat the null)", "r2": -0.00012, "fresh_err": null, "outcome": "REFUSED-CORRECT"}

@@ -1,0 +1,11 @@
+dataset,task,n_train,n_test,doors,exemplar,note,secs
+kepler,8 rows,4,4,UNDERSTOOD,R2 1.00,"PREDICTED FAIL (a^1.5 inexpressible, n=8): +1.00*x0^1.5 +0.00",0
+clocks,read time,2000,2000,min±6°: 22.9%,time±1m: 13.9%,ambig declared 0; LAW: NO RULE -1.29*sin(3*x0) +15.15,1
+fsdd,10-way audio,2500,500,53.8%,46.6%,SPEAKER-TRANSFER; mixed-speaker: doors 61% ex 92%,1
+omniglot,20-way 1-shot,20,4000,-,51.6%,"200 episodes; chance 5%; humans ~95.5, BPL 96.7",2
+fraud,rare 0.17%,150000,50000,99.17%,99.94%,minority RECALL (the needle): 79% — accuracy is majority theater here,40
+smallnorb,5-way pose-varied,8000,2000,40.1%,87.7%,viewpoint variation unhandled (phase-4 target); chance 20%,3
+cifar10,10-way,15000,4000,26.9%,32.6%,DESIGNED FACE-PLANT; success = honesty about it,8
+fashion,10-way,20000,5000,69.3%,76.5%,cap 20k/5k; texture percepts absent (predicted gap),21
+mnist,10-way,20000,5000,86.5%,95.2%,cap 20k/5k of 70k; topology-rematch check separate,24
+sunspots,3330 months,1665,1665,NO RULE,R2 -1.48,period read: - (true ~11); quasi-periodic so PARTIAL is honest,2

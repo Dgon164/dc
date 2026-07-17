@@ -54,3 +54,50 @@ B1 competitive (the lane's native game); B2 strong where joins exist,
 honest refusals elsewhere; B3 mid until the verdict rewrite (§2b) —
 the additive hole is the fix's price tag, counted not hidden; B4
 respectable on seasonal series, alone on refusing raw returns.
+
+## B3 — SYSTEM IDENTIFICATION (filed 2026-07-17, before the first
+run; §2b has LANDED since the section above was written, so the
+standing "mid until the rewrite" is superseded by these)
+
+- **P10 (logistic map, r=3.7 chaotic):** x_{t+1} = r*x_t - r*x_t^2
+  is inside the atom library (quadratic via lag). Prediction:
+  SYMBOLIC RECOVERY — both coefficients said at the planted values
+  (the additive hole is closed; the exact road should stamp this on
+  the noiseless map, and near-exactly at small noise).
+- **P11 (damped oscillator, lag form):** y_t = a*y_{t-1} + b*y_{t-2}
+  (a=1.8*0.98, b=-0.98^2 planted). Prediction: RECOVERED via lag
+  atoms with coefficients within noise; UNDERSTOOD.
+- **P12 (predator–prey, log-linearized rates):** d(ln H)/dt = a - b*L
+  sampled coarsely. Prediction: form recovered (linear in L), but
+  coefficients degraded by discretization error; PARTIAL or
+  UNDERSTOOD-with-degraded-constants both count as recovery; the
+  failure mode to watch is the discretization error being minted as
+  structure (that would be a WRONG-CONFIDENT, counted against).
+- **P13 (outside the library — delay system, Mackey–Glass-shaped):**
+  no combination of the atoms says it. Prediction: honest refusal
+  (NO RULE / PARTIAL with the remainder named) — scored CORRECT.
+- **P14 (scrambled-series control):** any series from P10-P12 with
+  rows shuffled breaks the lag structure. Prediction: NO RULE, zero
+  minted laws; anything else is a false discovery, counted.
+
+## B4 — TREND / FORECAST (filed 2026-07-17, before the first run)
+
+- **P15 (planted seasonal + trend):** level + slope + one seasonal
+  wave + noise. Prediction: Isaac beats naive2 on MASE (the wave is
+  in the library); equation readable.
+- **P16 (M4 monthly subset, if the download road is open):**
+  respectable but BEHIND the big statistical ensembles on aggregate
+  sMAPE/MASE vs naive2 — the artifact difference (equations, scope,
+  refusals) is the lane's claim, not the leaderboard. If the
+  download fails, the leg is recorded BLOCKED, never quietly
+  swapped for synthetic.
+- **P17 (RAW RETURNS — the headline):** daily equity returns are
+  pure noise to this library. Prediction: NO RULE / refusal on the
+  overwhelming majority of return series; the refusal RATE is the
+  deliverable ("the world's most expensive pure-noise battery").
+  A minted return-forecast law would be the lane's r2-ghost —
+  counted as WRONG-CONFIDENT if it survives the court.
+- **P18 (REALIZED VOLATILITY — the pair):** |returns| / squared
+  returns cluster (the lag atoms' home game). Prediction: structure
+  FOUND past the null where raw returns refused — the pair is the
+  proof the refusal is discrimination, not blindness.
