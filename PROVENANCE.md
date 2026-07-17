@@ -1,7 +1,7 @@
 # PROVENANCE — what is live, and where it came from
 
-- promoted: 2026-07-17 08:28:22
-- research commit: isaac-paperclip @ 6442aa4
+- promoted: 2026-07-17 08:40:27
+- research commit: isaac-paperclip @ 8f1f30f
 - copied: PAPERCLIP_MANUAL.md, alpha.py, askisaac.py, demos, discovery_battery_results.csv, docs, experiments, face.py, gauntlet_results.csv, isaac.py, isaac_store, requirements.txt, research, spatial, standalone, ui, worker.py
 - gates:
   - engine suite: PASS — One file. One class. One operation.
@@ -42,11 +42,11 @@
   - vet-intake battery: PASS — ======================================================================
   - audit battery: PASS — ======================================================================
   - sparring battery: PASS — SPARRING BATTERY: 18/18 checks passed
-  - mechanisms battery: PASS — BATTERY: 8 passed, 0 failed of 8  (27.4s)
-  - outlier-source battery: PASS — BATTERY: 5 passed, 0 failed of 5  (13.3s)
+  - mechanisms battery: PASS — BATTERY: 8 passed, 0 failed of 8  (27.1s)
+  - outlier-source battery: PASS — BATTERY: 5 passed, 0 failed of 5  (13.1s)
   - containers battery: PASS — BATTERY: 10 passed, 0 failed of 10  (0.0s)
   - flow battery: PASS — BATTERY: 12 passed, 0 failed of 12  (0.4s)
-  - flow-election battery: PASS — BATTERY: 6 passed, 0 failed of 6  (12.0s)
+  - flow-election battery: PASS — BATTERY: 6 passed, 0 failed of 6  (12.3s)
   - verdict duel gate: PASS — GATE: 4 passed, 0 failed of 4
   - inherit battery: PASS — ======================================================================
   - road-trial battery: PASS — ======================================================================
