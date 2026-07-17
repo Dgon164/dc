@@ -559,20 +559,20 @@ def _exact_terms(specs, n_vars):
     return terms
 
 
-def _exact_road(enum, X_tr, y_tr, X_ho, y_ho, kmax=3, top=16):
+def _exact_road(specs, A_tr, y_tr, X_ho, y_ho, n_vars, kmax=3, top=16):
     """Requirement 4: exact-checkable data stamps on machine-zero
     residual WITHOUT a floor. A hit must be machine-exact RELATIVE on
     train AND held-out — noise cannot fake held-out exactness, which
     is the selection guard at tiny n (measured 0/20 at n=8, 0/30 with
     the deep road in the probes). Affine-clone candidates are DEDUPED
     before the shortlist (the mechanisms-arc port lesson: clones vote
-    as a bloc and starve real terms). Returns term list or None."""
+    as a bloc and starve real terms). Takes explicit specs/atom-matrix
+    so callers can run it on a SUBSET (the outlier road's clean
+    majority). Returns term list or None."""
     if len(y_ho) < 3 or len(y_tr) < 4:
         return None
-    A_tr = enum.A
-    A_ho = np.column_stack([_atom_col(X_ho, s) for s in enum.specs])
-    n_vars = X_tr.shape[1]
-    cand = _exact_terms(enum.specs, n_vars)
+    A_ho = np.column_stack([_atom_col(X_ho, s) for s in specs])
+    cand = _exact_terms(specs, n_vars)
     cols_tr = np.column_stack([_disc_col(A_tr, t) for t in cand])
     cols_ho = np.column_stack([_disc_col(A_ho, t) for t in cand])
     good = (np.isfinite(cols_tr).all(0) & np.isfinite(cols_ho).all(0)
@@ -605,7 +605,7 @@ def _exact_road(enum, X_tr, y_tr, X_ho, y_ho, kmax=3, top=16):
     # atom flood crowds |xi-xj| out of the correlation top-N, and max
     # is unsayable without it — d(d-1)/2 seats, cheap
     crease = [ji for ji, t in enumerate(cand)
-              if len(t) == 1 and enum.specs[t[0]][0] == "absd"
+              if len(t) == 1 and specs[t[0]][0] == "absd"
               and good[ji]]
     order += [j for j in crease if j not in order]
     from itertools import combinations
@@ -3387,9 +3387,183 @@ class Isaac:
                             f"{'then' if cond else 'else'}",
                     routed_via=[])
 
+    def _outlier_source(self, enum, X, y, half):
+        """THE OUTLIER'S OWN LAW (owner, 2026-07-15): "if the outlier
+        is a plus something else, can it quantify that something else
+        ... and identify the model of the source?" Rows the admitted
+        law cannot carry are ISOLATED (5*MAD-from-median — robust to
+        the bend the outliers themselves cause) and their deviations
+        QUANTIFIED in units. Three-way verdict: exact grain multiples
+        whose clean majority re-certifies machine-exact -> MIS-ENTRY
+        (cells quarantined with receipts; the law superseded by its
+        clean refit); a lawful pattern of their own, past a scrambled-
+        deviation control -> SECOND SOURCE (news, not error; recorded,
+        never silently merged); neither -> deviations kept on the
+        record. ONE ROUND ONLY (never flag->model->flag). Mutates enum
+        ONLY on a confirmed mis-entry cure. v1 constants (5*MAD, 0.35
+        cap, 0.8 grid fraction) are hand-set — the standing
+        tests-over-thresholds debt, filed."""
+        p_all = np.concatenate([enum.predict(X[:half]),
+                                enum.predict(X[half:])])
+        d = y - p_all
+        med = float(np.median(d))
+        mad = float(np.median(np.abs(d - med))) + 1e-12
+        flag = np.abs(d - med) > 5.0 * mad
+        k = int(flag.sum())
+        rec = dict(kind="none", n_flagged=k, rounds=1,
+                   mad=round(mad, 6),
+                   why=f"{k} rows beyond 5*MAD of the admitted law")
+        grain_road, _ = self._floor_grain(y)
+        # road A' — THE CLEAN-MAJORITY SEARCH (the rival-form duel
+        # fused into the owner's road): a flexible fit ABSORBS point
+        # poison (battery O1, wrong-kept: only 2/6 poisoned rows
+        # survived as outliers of the 16-term fit), so isolation must
+        # run against SIMPLE RIVAL FORMS — a 2-term form cannot bend
+        # around single cells. For exact-checkable data (grain
+        # evidenced): find a simple pure-variable form that is
+        # machine-exact on >=85% of rows with the remainder sitting
+        # on the grain — that form BEATS the absorber, and the
+        # remainder is quarantined.
+        if grain_road:
+            n_vars = X.shape[1]
+            g = float(grain_road["sigma"]) * np.sqrt(12.0)
+            pv = [(i,) for i in range(n_vars)]
+            pv += [(i, j) for i in range(n_vars)
+                   for j in range(i, n_vars)]
+            pv += [(i, j, kk) for i in range(n_vars)
+                   for j in range(i, n_vars)
+                   for kk in range(j, n_vars)]
+            cols_all = {t: np.prod([X[:, a] for a in t], axis=0)
+                        for t in pv}
+            base = y - y.mean()
+            bs = base.std() + 1e-12
+            ranked = sorted(pv, key=lambda t: -abs(float(
+                np.corrcoef(cols_all[t], base)[0, 1]))
+                if cols_all[t].std() > 1e-12 else 0.0)[:12]
+            from itertools import combinations
+            snap = (list(enum.terms), enum.coefs.copy(), enum.intercept)
+            for kk in (1, 2, 3):
+                for sub in combinations(ranked, kk):
+                    C = np.column_stack([cols_all[t] for t in sub]
+                                        + [np.ones(len(y))])
+                    beta0, *_ = np.linalg.lstsq(C, y, rcond=None)
+                    r = y - C @ beta0
+                    rm = float(np.median(r))
+                    rmad = float(np.median(np.abs(r - rm))) + 1e-12
+                    fl = np.abs(r - rm) > 5.0 * rmad
+                    if fl.sum() == 0 or fl.sum() > 0.15 * len(y):
+                        continue
+                    keep = ~fl
+                    beta, *_ = np.linalg.lstsq(C[keep], y[keep],
+                                               rcond=None)
+                    rk = y - C @ beta
+                    scale = float(max(np.max(np.abs(y)), 1e-12))
+                    if np.max(np.abs(rk[keep])) / scale > _EXACT_REL:
+                        continue
+                    mult = rk[fl] / g
+                    hit = (np.abs(mult - np.round(mult)) < 0.05) \
+                        & (np.abs(np.round(mult)) >= 1)
+                    if float(np.mean(hit)) < 0.8:
+                        continue
+                    # the simple form wins: supersede + quarantine.
+                    # terms are var-atom tuples (var atoms are specs
+                    # 0..n_vars-1 by construction).
+                    enum.terms = [tuple(t) for t in sub]
+                    enum.coefs = beta[:-1]
+                    enum.intercept = float(beta[-1])
+                    kf = int(fl.sum())
+                    rec.update(
+                        kind="mis-entry", n_flagged=kf,
+                        why=(f"a simple {kk}-term form is machine-"
+                             f"exact on {int(keep.sum())}/{len(y)} "
+                             f"rows; the {kf} leftovers sit exact "
+                             f"grain multiples (quantum {g:g}) off it "
+                             f"— the flexible fit had ABSORBED them; "
+                             f"cells quarantined, never banked"),
+                        quarantined=[
+                            dict(row=int(i), y=float(y[i]),
+                                 predicted=round(float((C @ beta)[i]),
+                                                 6),
+                                 deviation=round(float(rk[i]), 6))
+                            for i in np.where(fl)[0]])
+                    return rec, True
+            enum.terms, enum.coefs, enum.intercept = snap
+        # flag-dependent roads below need enough (and few enough)
+        # outliers OF THE ADMITTED FIT — A' above needs neither
+        # (the absorber hides its poison; battery O1, wrong-kept)
+        if k < 3:
+            return rec, False
+        if k > 0.35 * len(y):
+            rec["why"] += (" — too many to be outliers: the LAW is "
+                           "suspect, not the data; pass refused")
+            return rec, False
+        dev = d[flag]
+        rec["deviation_rms"] = round(float(np.sqrt(np.mean(dev ** 2))), 6)
+        # road A — MIS-ENTRY vs the admitted fit's own deviations
+        if grain_road:
+            quantum = None
+            for qcand in (float(grain_road["sigma"]) * np.sqrt(12.0),
+                          float(grain_road["sigma"])):
+                m = dev / qcand
+                hit = (np.abs(m - np.round(m)) < 0.05) \
+                    & (np.abs(np.round(m)) >= 1)
+                if float(np.mean(hit)) >= 0.8:
+                    quantum = qcand
+                    break
+            if quantum is not None:
+                snap = (list(enum.terms), enum.coefs.copy(),
+                        enum.intercept)
+                tr_ok, ho_ok = ~flag[:half], ~flag[half:]
+                if tr_ok.sum() >= 8 and ho_ok.sum() >= 4:
+                    ex = _exact_road(enum.specs, enum.A[tr_ok],
+                                     y[:half][tr_ok], X[half:][ho_ok],
+                                     y[half:][ho_ok], X.shape[1])
+                    if ex is not None:
+                        enum.terms = [tuple(t) for t in ex]
+                        D = enum._design(enum.A[tr_ok])
+                        beta = np.linalg.lstsq(D, y[:half][tr_ok],
+                                               rcond=None)[0]
+                        enum.coefs = beta[:-1]
+                        enum.intercept = float(beta[-1])
+                        p_c = enum.predict(X[half:][ho_ok])
+                        rms_c = float(np.sqrt(np.mean(
+                            (y[half:][ho_ok] - p_c) ** 2)))
+                        scale = float(max(np.max(np.abs(y)), 1e-12))
+                        if rms_c / scale < _EXACT_REL:
+                            rec["kind"] = "mis-entry"
+                            rec["why"] = (
+                                f"{k} cells sit an exact grain "
+                                f"multiple off the law (quantum "
+                                f"{quantum:g}); the clean majority "
+                                f"re-certifies machine-exact — cells "
+                                f"quarantined, never banked")
+                            rec["quarantined"] = [
+                                dict(row=int(i), y=float(y[i]),
+                                     predicted=round(float(p_all[i]), 6),
+                                     deviation=round(float(d[i]), 6))
+                                for i in np.where(flag)[0]]
+                            return rec, True
+                        enum.terms, enum.coefs, enum.intercept = snap
+        # road B — SECOND SOURCE: do the deviations have their own law?
+        if k >= 24:
+            rs = Isaac().discover(X[flag], dev, outlier_pass=False)
+            rng = np.random.default_rng(97)
+            rs_s = Isaac().discover(X[flag], rng.permutation(dev),
+                                    outlier_pass=False)
+            if rs["verdict"] == "UNDERSTOOD" \
+                    and rs_s["verdict"] != "UNDERSTOOD":
+                rec["kind"] = "second-source"
+                rec["source_equation"] = rs["equation"]
+                rec["source_certificate"] = rs.get("certificate")
+                rec["why"] = (f"{k} rows carry a LAWFUL deviation — "
+                              f"news, not error: {rs['equation']} "
+                              f"(scrambled control minted nothing)")
+        return rec, False
+
     # ── discovery: the challenge loop ───────────────────────────
 
-    def discover(self, X, y, name=None, verbose=False, told_sigma=None):
+    def discover(self, X, y, name=None, verbose=False, told_sigma=None,
+                 outlier_pass=True):
         """THE CHALLENGE LOOP. Given examples of something he cannot yet do
         (inputs X -> outcome y), find the rule. Half the examples are held
         out — the rule must WORK, not merely fit. Four honest verdicts:
@@ -3436,8 +3610,8 @@ class Isaac:
         # admitted form (exactness on fresh rows is the rival-killer),
         # and it is how a law with 8 planets gets said at all.
         exact_stamp = False
-        ex_terms = _exact_road(enum, X[:half], y[:half],
-                               X[half:], y[half:])
+        ex_terms = _exact_road(enum.specs, enum.A, y[:half],
+                               X[half:], y[half:], X.shape[1])
         if ex_terms is not None:
             enum.terms = [tuple(t) for t in ex_terms]
             enum._refit(y[:half])
@@ -3527,6 +3701,30 @@ class Isaac:
                                 else "above floor") + f" ({floor_why})")
             else:
                 certificate = "uncertified (no floor evidenced)"
+        # THE OUTLIER'S OWN LAW (owner, 2026-07-15): when a law stands
+        # but is not machine-exact, the rows it cannot carry get
+        # isolated, quantified, and ASKED WHAT THEY ARE — mis-entry
+        # (quarantine + clean refit supersedes), a second source
+        # (news, recorded), or unknown (kept).
+        outrec = None
+        if outlier_pass and enum.terms and floor_std is not None \
+                and certificate != "machine-exact":
+            outrec, cured_o = self._outlier_source(enum, X, y, half)
+            if cured_o:
+                p = enum.predict(X[half:])
+                ss = float(np.sum((y[half:] - y[half:].mean()) ** 2))
+                r2 = 1 - float(np.sum((y[half:] - p) ** 2)) \
+                    / max(ss, 1e-12)
+                resid_ho = y[half:] - p
+                rms_ho = float(np.sqrt(np.mean(resid_ho ** 2)))
+                certificate = (f"machine-exact (clean majority; "
+                               f"{outrec['n_flagged']} cells "
+                               f"quarantined as mis-entry)")
+                legs = dict(
+                    replay=dict(state="bypassed: clean-refit "
+                                      "machine-exact (outlier road)"),
+                    pool=dict(state="bypassed: clean-refit "
+                                    "machine-exact (outlier road)"))
         surprise = (legs["replay"].get("state") == "fired"
                     or legs["pool"].get("state") == "scream")
         if enum.terms and r2 >= 0.9 and not surprise \
@@ -3630,7 +3828,13 @@ class Isaac:
                          f"collect more or confirm() at the probes"])
 
         rivals = []
-        if has_law:
+        if has_law and not (outrec is not None
+                            and outrec.get("kind") == "mis-entry"):
+            # on a mis-entry cure the rival contest is already settled
+            # by clean-majority machine-exactness — and rival_check's
+            # state restore REFITS on the contaminated train, which
+            # would re-poison the cured constants (battery O1,
+            # wrong-kept: err 6.7e-2 reappeared through this door)
             rivals = enum.rival_check(y[:half])
         eq_str = self._rename_lags(enum.equation(), d_raw + len(comps),
                                    lags)
@@ -3659,6 +3863,8 @@ class Isaac:
             self.net.set_meta(node, "accounting", accounting)
             self.net.set_meta(node, "certificate", certificate)
             self.net.set_meta(node, "verdict_legs", legs)
+            if outrec is not None:
+                self.net.set_meta(node, "outliers", outrec)
             if dossier:
                 self.net.set_meta(node, "residual_dossier", dossier)
             self._teach_fact(node, "explains", name or "challenge")
@@ -3690,6 +3896,7 @@ class Isaac:
         return dict(verdict=verdict, equation=eq_str,
                     r2=r2, r2_edge=r2_edge, scope=scope, captured_r2=cap_r2,
                     certificate=certificate, floor=floor_why, legs=legs,
+                    outliers=outrec,
                     rivals=riv_summary, accounting=accounting,
                     dossier=dossier, adequacy=adequacy, capture=capture)
 

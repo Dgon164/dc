@@ -784,423 +784,341 @@
   {
    "family": "F3 near-miss",
    "seed": 0,
-   "verdict": "PARTIAL",
-   "r2": 0.9459,
-   "certificate": "within floor (floor 0.313112 via repeats (largest of 2 evidenced road(s)))",
+   "verdict": "UNDERSTOOD",
+   "r2": 0.9925,
+   "certificate": "machine-exact (clean majority; 6 cells quarantined as mis-entry)",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "sin(6*x1)",
-     "obs": 0.6463,
-     "thr": 0.6273
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.4891,
-     "thr": -0.0499
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 1,
-   "verdict": "PARTIAL",
-   "r2": 0.9461,
-   "certificate": "within floor (floor 0.396059 via repeats (largest of 2 evidenced road(s)))",
+   "verdict": "UNDERSTOOD",
+   "r2": 0.9882,
+   "certificate": "machine-exact (clean majority; 6 cells quarantined as mis-entry)",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "cos(1*(x0-x1))",
-     "obs": 0.3877,
-     "thr": 0.6144
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.5913,
-     "thr": 0.0548
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 2,
-   "verdict": "PARTIAL",
-   "r2": 0.9548,
-   "certificate": "within floor (floor 0.297044 via repeats (largest of 2 evidenced road(s)))",
+   "verdict": "UNDERSTOOD",
+   "r2": 0.9922,
+   "certificate": "machine-exact (clean majority; 6 cells quarantined as mis-entry)",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "sin(6*x0)",
-     "obs": 0.6668,
-     "thr": 0.6346
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.6186,
-     "thr": 0.0081
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 3,
-   "verdict": "PARTIAL",
-   "r2": 0.9538,
-   "certificate": "within floor (floor 0.322749 via repeats (largest of 2 evidenced road(s)))",
+   "verdict": "UNDERSTOOD",
+   "r2": 0.9855,
+   "certificate": "machine-exact (clean majority; 6 cells quarantined as mis-entry)",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "cos(4.5*x1)",
-     "obs": 0.5347,
-     "thr": 0.6219
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.4018,
-     "thr": 0.0381
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 4,
-   "verdict": "PARTIAL",
-   "r2": 0.9425,
-   "certificate": "within floor (floor 0.288675 via grain (largest of 2 evidenced road(s)))",
+   "verdict": "UNDERSTOOD",
+   "r2": 0.9907,
+   "certificate": "machine-exact (clean majority; 4 cells quarantined as mis-entry)",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "sin(6*x1)",
-     "obs": 0.6121,
-     "thr": 0.7086
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.4565,
-     "thr": -0.0609
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 5,
-   "verdict": "PARTIAL",
-   "r2": 0.955,
-   "certificate": "within floor (floor 0.386164 via repeats (largest of 2 evidenced road(s)))",
+   "verdict": "UNDERSTOOD",
+   "r2": 0.9966,
+   "certificate": "machine-exact (clean majority; 6 cells quarantined as mis-entry)",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "sin(6*x0)",
-     "obs": 0.5758,
-     "thr": 0.6359
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.6005,
-     "thr": 0.0029
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 6,
-   "verdict": "PARTIAL",
-   "r2": 0.9314,
-   "certificate": "above floor (floor 0.288675 via grain (largest of 2 evidenced road(s)))",
+   "verdict": "UNDERSTOOD",
+   "r2": 0.9921,
+   "certificate": "machine-exact (clean majority; 6 cells quarantined as mis-entry)",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "x0^-2",
-     "obs": 0.6918,
-     "thr": 0.6304
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.7414,
-     "thr": -0.0173
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 7,
-   "verdict": "PARTIAL",
-   "r2": 0.9527,
-   "certificate": "within floor (floor 0.30429 via repeats (largest of 2 evidenced road(s)))",
+   "verdict": "UNDERSTOOD",
+   "r2": 0.991,
+   "certificate": "machine-exact (clean majority; 6 cells quarantined as mis-entry)",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "sin(6*x1)",
-     "obs": 0.4752,
-     "thr": 0.5975
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.5486,
-     "thr": 0.0614
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 8,
-   "verdict": "PARTIAL",
-   "r2": 0.9614,
-   "certificate": "within floor (floor 0.288675 via grain (largest of 1 evidenced road(s)); repeats: under-evidenced: 7 repeat groups, dof 9 (need >=5 groups, >=10 dof))",
+   "verdict": "UNDERSTOOD",
+   "r2": 0.9933,
+   "certificate": "machine-exact (clean majority; 4 cells quarantined as mis-entry)",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "cos(6.9*x1)",
-     "obs": 0.6321,
-     "thr": 0.7218
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.6497,
-     "thr": 0.0715
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 9,
    "verdict": "UNDERSTOOD",
-   "r2": 0.9655,
-   "certificate": "within floor (floor 0.35746 via repeats (largest of 2 evidenced road(s)))",
+   "r2": 0.9862,
+   "certificate": "machine-exact (clean majority; 6 cells quarantined as mis-entry)",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "sin(8.4*x0)",
-     "obs": 0.2741,
-     "thr": 0.6369
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     },
     "pool": {
-     "state": "quiet",
-     "cap": -0.0725,
-     "thr": 0.0578
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     }
    },
-   "truth_median_err": 0.1373,
-   "wrong_confident": true
+   "truth_median_err": 0.0,
+   "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 10,
-   "verdict": "PARTIAL",
-   "r2": 0.9329,
-   "certificate": "within floor (floor 0.408248 via repeats (largest of 2 evidenced road(s)))",
+   "verdict": "UNDERSTOOD",
+   "r2": 0.9946,
+   "certificate": "machine-exact (clean majority; 6 cells quarantined as mis-entry)",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "cos(6.9*x0)",
-     "obs": 0.5127,
-     "thr": 0.6462
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.5325,
-     "thr": -0.0453
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 11,
-   "verdict": "PARTIAL",
-   "r2": 0.95,
-   "certificate": "within floor (floor 0.408248 via repeats (largest of 2 evidenced road(s)))",
+   "verdict": "UNDERSTOOD",
+   "r2": 0.9969,
+   "certificate": "machine-exact (clean majority; 4 cells quarantined as mis-entry)",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "exp(-0.5*x0)",
-     "obs": 0.7493,
-     "thr": 0.73
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.4716,
-     "thr": -0.0819
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 12,
-   "verdict": "PARTIAL",
-   "r2": 0.921,
-   "certificate": "above floor (floor 0.322749 via repeats (largest of 2 evidenced road(s)))",
+   "verdict": "UNDERSTOOD",
+   "r2": 0.9939,
+   "certificate": "machine-exact (clean majority; 6 cells quarantined as mis-entry)",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "sin(1*x1)",
-     "obs": 0.6449,
-     "thr": 0.5881
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.7739,
-     "thr": -0.0333
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 13,
-   "verdict": "PARTIAL",
-   "r2": 0.9794,
-   "certificate": "within floor (floor 0.372678 via repeats (largest of 2 evidenced road(s)))",
+   "verdict": "UNDERSTOOD",
+   "r2": 0.9882,
+   "certificate": "machine-exact (clean majority; 6 cells quarantined as mis-entry)",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "[x1>2]",
-     "obs": 0.4073,
-     "thr": 0.6213
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.3046,
-     "thr": 0.015
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 14,
-   "verdict": "PARTIAL",
-   "r2": 0.9593,
-   "certificate": "within floor (floor 0.465475 via repeats (largest of 2 evidenced road(s)))",
+   "verdict": "UNDERSTOOD",
+   "r2": 0.9879,
+   "certificate": "machine-exact (clean majority; 6 cells quarantined as mis-entry)",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "cos(0.5*x0)",
-     "obs": 0.5152,
-     "thr": 0.6618
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.5776,
-     "thr": 0.0694
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 15,
-   "verdict": "PARTIAL",
-   "r2": 0.9675,
-   "certificate": "within floor (floor 0.313112 via repeats (largest of 2 evidenced road(s)))",
+   "verdict": "UNDERSTOOD",
+   "r2": 0.9969,
+   "certificate": "machine-exact (clean majority; 6 cells quarantined as mis-entry)",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "x0^-2",
-     "obs": 0.5876,
-     "thr": 0.6961
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.5395,
-     "thr": -0.0184
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 16,
-   "verdict": "PARTIAL",
-   "r2": 0.9573,
-   "certificate": "within floor (floor 0.296174 via repeats (largest of 2 evidenced road(s)))",
+   "verdict": "UNDERSTOOD",
+   "r2": 0.9927,
+   "certificate": "machine-exact (clean majority; 6 cells quarantined as mis-entry)",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "[x1>1.5]",
-     "obs": 0.4712,
-     "thr": 0.5982
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.6358,
-     "thr": 0.1213
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 17,
    "verdict": "UNDERSTOOD",
-   "r2": 0.9603,
-   "certificate": "within floor (floor 0.395285 via repeats (largest of 2 evidenced road(s)))",
+   "r2": 0.9885,
+   "certificate": "machine-exact (clean majority; 6 cells quarantined as mis-entry)",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "cos(2*x1)",
-     "obs": 0.5815,
-     "thr": 0.6873
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     },
     "pool": {
-     "state": "quiet",
-     "cap": -0.0062,
-     "thr": 0.023
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     }
    },
-   "truth_median_err": 0.3362,
-   "wrong_confident": true
+   "truth_median_err": 0.0,
+   "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 18,
-   "verdict": "PARTIAL",
-   "r2": 0.9258,
-   "certificate": "within floor (floor 0.5 via repeats (largest of 2 evidenced road(s)))",
+   "verdict": "UNDERSTOOD",
+   "r2": 0.9845,
+   "certificate": "machine-exact (clean majority; 6 cells quarantined as mis-entry)",
    "legs": {
     "replay": {
-     "state": "quiet",
-     "who": "cosh(0.35*(x0-x1))",
-     "obs": 0.6284,
-     "thr": 0.6305
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.0589,
-     "thr": -0.051
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
    "family": "F3 near-miss",
    "seed": 19,
-   "verdict": "PARTIAL",
-   "r2": 0.9591,
-   "certificate": "within floor (floor 0.330544 via repeats (largest of 2 evidenced road(s)))",
+   "verdict": "UNDERSTOOD",
+   "r2": 0.9954,
+   "certificate": "machine-exact (clean majority; 6 cells quarantined as mis-entry)",
    "legs": {
     "replay": {
-     "state": "fired",
-     "who": "sin(6*x0)",
-     "obs": 0.6357,
-     "thr": 0.6101
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     },
     "pool": {
-     "state": "scream",
-     "cap": 0.496,
-     "thr": 0.0739
+     "state": "bypassed: clean-refit machine-exact (outlier road)"
     }
    },
+   "truth_median_err": 0.0,
    "wrong_confident": false
   },
   {
@@ -1889,7 +1807,7 @@
   "r2": 1.0,
   "certificate": "machine-exact"
  },
- "total_wrong": 2,
+ "total_wrong": 0,
  "f1_avail": 20,
- "secs": 169.4
+ "secs": 174.2
 }
