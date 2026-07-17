@@ -1393,6 +1393,9 @@ class Isaac:
         self.wrong_lockouts = {}          # retracted lockouts, with the why
         self.observed_sequences = []      # raw record (Rule 5: store raw)
         self.fact_index = defaultdict(list)  # (subject, relation) → [objects]
+        self.active_container = "base"    # CONTAINERS (owner, 2026-07-15):
+        self.container_tensions = []      # which world facts are IN FORCE in;
+                                          # in-world contradictions, kept
         self.scratch = Scratch()          # working memory: his registers / RAM
         self.composites = []              # learned combinations — first-class,
                                           # reused by every future discover()
@@ -1511,10 +1514,74 @@ class Isaac:
         for i in range(len(tokens) - 1):
             self.net.add_door(tokens[i], tokens[i + 1], tag=tag)
 
-    def teach(self, subject, relation, obj):
-        """Teach a fact. Observes as a sequence AND indexes for relation lookup."""
+    def open_world(self, container):
+        """Open a WORLD (CONTAINERS, owner 2026-07-15: "fiction world
+        harry potter has different rules than fiction world hail
+        mary"). Routing state: facts taught while a world is open are
+        IN FORCE there; asking routes by world. Returns a receipt."""
+        prev = getattr(self, "active_container", "base")
+        self.active_container = str(container)
+        return dict(tool="open_world", value=str(container),
+                    receipt=f"world '{prev}' -> '{container}' (facts "
+                            f"teach and ask in '{container}' unless "
+                            f"told otherwise)")
+
+    def ask(self, subject, relation, container=None, inherit=True):
+        """Ask a fact IN A WORLD. Facts in force in the asked container
+        answer; a fiction world INHERITS base one-way with a receipt
+        (HP water still boils at 100C); base NEVER inherits fiction
+        (the anti-poisoning wall, measured: 0 leaks, 0 drift);
+        container-less facts belong to base, receipt says so."""
+        c = container or getattr(self, "active_container", "base")
+        objs = [str(o) for o in self.fact_index.get((subject, relation),
+                                                    [])]
+        seen = list(dict.fromkeys(objs))
+
+        def tags(o):
+            return self.net.get_door_tags(str(subject), o)
+
+        in_c = [o for o in seen if f"in:{c}" in tags(o)]
+        if in_c:
+            return dict(answers=in_c, container=c,
+                        why=f"{len(in_c)} fact(s) in force in '{c}'")
+        if c == "base":
+            untagged = [o for o in seen
+                        if not any(t.startswith("in:")
+                                   for t in tags(o))]
+            if untagged:
+                return dict(answers=untagged, container="base",
+                            why="container-less fact(s): landed in "
+                                "base (receipt)")
+            return dict(answers=[], container="base",
+                        why="nothing in force in base")
+        if inherit:
+            base = self.ask(subject, relation, container="base")
+            if base["answers"]:
+                return dict(answers=base["answers"], container=c,
+                            why=f"inherited from base (no '{c}' fact "
+                                f"overrides) — {base['why']}")
+        return dict(answers=[], container=c,
+                    why=f"nothing in force in '{c}'")
+
+    def teach(self, subject, relation, obj, container=None):
+        """Teach a fact. Observes as a sequence AND indexes for
+        relation lookup. CONTAINERS: the fact is stamped with the
+        world it is true IN (the active container unless told); an
+        in-world contradiction is FLAGGED and kept (both readings
+        stay — wrongs kept), while cross-world difference never
+        flags (different worlds legitimately differ)."""
+        c = container or getattr(self, "active_container", "base")
+        prior = self.ask(subject, relation, container=c, inherit=False)
         self.observe(tokenize(f"{subject} {relation} {obj}"))
         self.fact_index[(subject, relation)].append(obj)
+        self.net.add_door(str(subject), str(obj), tag=f"in:{c}")
+        if prior["answers"] and str(obj) not in prior["answers"]:
+            if not hasattr(self, "container_tensions"):
+                self.container_tensions = []
+            self.container_tensions.append(dict(
+                container=c, subject=str(subject),
+                relation=str(relation), held=list(prior["answers"]),
+                new=str(obj)))
 
     def teach_not(self, subject, prop):
         """A POSITIVE NEGATIVE (owner's law, 2026-07-03): 'penguin does not
