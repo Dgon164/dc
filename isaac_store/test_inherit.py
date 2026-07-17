@@ -163,7 +163,7 @@ def main():
     check("I8 reproducibility: two fresh minds, one telling, same "
           "net behavior", ok)
 
-    # ── I9: the account wrapper — birth on plain files ──
+    # ── I9: the account wrapper — the launch on plain files ──
     with tempfile.TemporaryDirectory() as td:
         old_home = os.path.join(td, "old_home")
         new_home = os.path.join(td, "new_home")
@@ -181,20 +181,39 @@ def main():
         jpath = os.path.join(new_home, "practice_journal.jsonl")
         with open(jpath, encoding="utf-8") as f:
             first = json.loads(f.readline())
-        # SAFETY: a second birth into an occupied home must refuse
+        # SAFETY: a second launch into an occupied home must refuse
         try:
             inherit_account(old_home, new_home, mod=mod)
             refused_second = False
         except RuntimeError:
             refused_second = True
         ok = ("blue" in a["answers"] and corpus_ok
-              and first.get("kind") == "birth"
+              and first.get("kind") == "launch"
               and refused_second
               and rep9["counts"]["facts_told"] >= 3)
-        check("I9 birth wrapper: fresh home built, corpus carried, "
-              "birth journaled, occupied home REFUSED", ok,
+        check("I9 launch wrapper: fresh home built, corpus carried, "
+              "launch journaled, occupied home REFUSED", ok,
               f"journal[0]={first.get('kind')}, "
-              f"second-birth refused={refused_second}")
+              f"second-launch refused={refused_second}")
+
+    # ── I10: the packs road is the LIVE road — a stale pickle must
+    # not win (the real launch's preflight caught exactly this:
+    # mind.isaac two days behind pack v8) ──
+    with tempfile.TemporaryDirectory() as td:
+        old_home = os.path.join(td, "old_home")
+        new_home = os.path.join(td, "new_home")
+        os.makedirs(old_home)
+        old.save(os.path.join(old_home, "mind.isaac"))  # frozen NOW
+        old.teach("late", "arrival", "yes")             # ...then life
+        old.save_pack(os.path.join(old_home, "packs"))  # goes on
+        rep10 = inherit_account(old_home, new_home, mod=mod)
+        m10 = mod.Isaac.load(os.path.join(new_home, "mind.isaac"))
+        a = m10.ask("late", "arrival")
+        ok = ("yes" in a["answers"]
+              and rep10["source_road"].startswith("packs"))
+        check("I10 packs preferred over the frozen pickle: the late "
+              "fact arrives; road named", ok,
+              f"road={rep10['source_road']}, late={a['answers']}")
 
     print("=" * 70)
     print(f"BATTERY: {PASSED} passed, {FAILED} failed of "
