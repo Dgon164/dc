@@ -208,3 +208,26 @@ python innocent at ~350 MB). Checklist before/during overnight runs:
   is back. The 07-15 incident peaked at 138 GB committed with the
   compute stack measured innocent (~1-2 GB total); the cure was
   removal, not RAM.
+
+## Efficiency pass #1 (2026-07-15 night, measure-first as specced)
+TRIGGER: the mechanisms promotion priced discover() at ~8.8s/call
+(max 24s) at n=400 d=5 — ~4x the wordless port. PROFILE (cProfile,
+one representative call): 19.0s total, of which _exact_road 17.7s =
+621,021 lstsq calls — the exact road's k>=2 combinations exploded
+when the shortlist seat guarantees (top-16 + ALL pure-var terms +
+creases, ~85 seats at d=5) fed combinations() directly. FIX (top item
+only): k=1 still sweeps every seated candidate; k>=2 combos run over
+a bounded diverse subpool (top-16 deduped + best-12 pure-var +
+creases, <=~38 -> ~9k fits); deep k>=4 pool is pure-var-first, capped
+24. MEASURED AFTER: the same call 19.0s -> 1.41s (13.5x), same
+verdict, same equation to the digit. WRONG-KEPT from the first
+re-gate: the naive cap cut the pure-var SINGLES out of the deep pool
+(high-corr products crowd them — the crowding disease's FIFTH
+sighting, this time inside the efficiency fix itself; blended B3 fell
+0/2). Cure: singles are guaranteed BY CONSTRUCTION (only d of them),
+products compete for the remaining seats. GATES RE-RUN after both
+fixes: mechanisms battery, outlier battery, 100-world duel, engine
+self-test (results in the build-state entry). Next candidates if a
+second pass is ever warranted (measured, not assumed): A_ho built
+twice per discover (exact road + replay); the pool meter's 200
+permutations at large n; step-atom count in the enumerator scans.

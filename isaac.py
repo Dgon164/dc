@@ -609,6 +609,29 @@ def _exact_road(specs, A_tr, y_tr, X_ho, y_ho, n_vars, kmax=3, top=16):
               and good[ji]]
     order += [j for j in crease if j not in order]
     from itertools import combinations
+    # BOUNDED COMBO POOLS (efficiency pass, profiled 2026-07-15:
+    # 621,021 lstsq calls = 17.7s of a 19.0s discover at d=5 — the
+    # seat guarantees made k>=2 combinations explode). k=1 still
+    # sweeps EVERY seated candidate; k>=2 runs over a bounded diverse
+    # subpool (top-16 deduped + best-12 pure-var + creases, ~<=38 ->
+    # ~9k fits); the deep k>=4 pool is pure-var-FIRST (exact
+    # conditional rules are polynomial — the deep road's domain) and
+    # capped at 24. Held-out machine-exactness stays the guard.
+    pvset = set(pure_var)
+    # singles are guaranteed BY CONSTRUCTION (only d of them — the
+    # cheapest seats there are); products compete on correlation.
+    # Fifth sighting of the crowding disease: high-corr pure-var
+    # PRODUCTS cut the singles out of a top-12, and the blended
+    # world's five-word sentence lost x0 and x1 (battery B3 0/2,
+    # wrong-kept in the ledger entry).
+    pv_singles = [ji for ji in pure_var if len(cand[ji]) == 1]
+    pv_prods = [int(j) for j in ranked
+                if int(j) in pvset and len(cand[int(j)]) > 1]
+    pool2 = list(dict.fromkeys(order[:16] + pv_singles
+                               + pv_prods[:12] + crease))
+    pool45 = list(dict.fromkeys(pv_singles + pv_prods[:14] + crease
+                                + order[:8]))[:26]
+    pools = {1: order, 2: pool2, 3: pool2, 4: pool45, 5: pool45}
     # DEEP ESCALATION (the mechanisms probe's port lesson): exact
     # conditional rules need up to 5 terms (x0+x1-f*x0-f*x1+f*x0*x1);
     # the combinatorics are affordable only on small data, where such
@@ -618,7 +641,7 @@ def _exact_road(specs, A_tr, y_tr, X_ho, y_ho, n_vars, kmax=3, top=16):
     for k in range(1, kmax_eff + 1):
         if len(y_tr) < k + 3:
             break
-        for sub in combinations(order, k):
+        for sub in combinations(pools.get(k, pool2), k):
             Ct = np.column_stack([cols_tr[:, list(sub)],
                                   np.ones(len(y_tr))])
             coef, *_ = np.linalg.lstsq(Ct, y_tr, rcond=None)
