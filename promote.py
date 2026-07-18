@@ -172,6 +172,10 @@ def main():
         # #20: decomposition with receipts, sunspots answered)
         ("analyst-trend battery", ["analyst_trend_battery.py"],
          os.path.join(DC, "experiments"), None),
+        # A2 cross-container correlation (owner, 2026-07-18 —
+        # promotion #21: the alignment null, spurious trap refused)
+        ("analyst-relate battery", ["analyst_relate_battery.py"],
+         os.path.join(DC, "experiments"), None),
         ("flow battery", ["flow_promotion_battery.py"],
          os.path.join(DC, "experiments"), None),
         ("flow-election battery", ["flow_election_battery.py"],
