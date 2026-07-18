@@ -184,6 +184,10 @@ def main():
         # the segment closes; the face assembles, never judges)
         ("analyst-face battery", ["analyst_face_battery.py"],
          os.path.join(DC, "experiments"), None),
+        # the facts layer (owner, 2026-07-18 — promotion #24:
+        # structure + memory; the replay court)
+        ("facts-layer battery", ["facts_layer_battery.py"],
+         os.path.join(DC, "experiments"), None),
         ("flow battery", ["flow_promotion_battery.py"],
          os.path.join(DC, "experiments"), None),
         ("flow-election battery", ["flow_election_battery.py"],

@@ -1525,6 +1525,81 @@ wants a periodicity kind). Still queued: the rank-ruler pool for
 extreme-leverage tables; the effort dial budgeted and receipted
 under the consideration law.
 
+## THE FACTS LAYER (owner, 2026-07-18, after the size question):
+## "we can have a facts layer. we have the main structural
+## information, and then datapoint breakdowns he can reference and
+## save. yes? sampling for context and reference. give him some
+## kind of memory."
+STATUS: DESIGN CAPTURED; built same day. THE TWO LAYERS, named: the
+STRUCTURE layer (laws, series, relations, concepts — what he
+understands) and the FACTS layer (sampled datapoints KEPT with the
+structure they earned — what he remembers). Until now discover ate
+the rows and kept only the law (ranges, never the data); the facts
+layer completes the wisdom laws' other half — not just wrongs kept,
+EVIDENCE kept. THE MECHANISM: at minting, a DETERMINISTIC sample of
+source rows rides the node as `evidence` meta — per-column extremes
++ an even spread by outcome rank (~24 rows, bytes tiny; same data =
+same sample, the artifact claim extended); series keep sampled
+(t,y) + their largest leftovers. REFERENCE: recall_evidence(name) =
+the saved breakdown; context_sample(name, x) = nearest remembered
+exemplars to a query (sampling FOR CONTEXT — answering "what does
+it look like near here?"). THE REPLAY COURT (the functional win):
+the watch's drift duel now runs on SAVED EVIDENCE + the new batch
+combined — the incumbent's world is REPRESENTED in the court that
+may unseat it (fairness made structural; no fresh-data dependence
+for history). Containers: evidence wears its law's world. Size
+discipline: capped rows, measured bytes (he stays small — the facts
+layer is a sample, never a hoard; raw re-feeding remains cheap by
+the road-trials ruling).
+
+## THE CONCEPT TOWER (owner, 2026-07-18, after the periodicity
+## honesty check): "he needs to be able to build conceptual
+## structures. so periodicity, or other relations that are not
+## specifically about the data, but about the structure of the
+## data. so with periodicity it would be repetition or sin/time...
+## furry would be coating of many fur, and fur would be hair, and
+## hair would be... line of caratin or whatever hair is made of?"
+STATUS: DESIGN CAPTURED; rung-1 probe same day. THE CLAIM: a whole
+family of concepts carries no content of its own — their meaning IS
+ARRANGEMENT, with slots for what is arranged. Periodicity =
+REPEAT(unit, P) over ANY substrate (a sunspot cycle, a drumbeat, a
+striped floor, "abcabc" — one concept, many costumes; sin/time is
+only its smooth numeric costume, which is why rung 4 wants a KIND,
+not an atom). The owner's furry example FACTORIZES into three
+independent levels — ARRANGEMENT (many + covering) / UNIT (strand)
+/ SUBSTANCE (keratin) — and swapping any level yields new concepts
+(frost is furry with ice; velvet is furry with short dense pile;
+mold is furry with hyphae): identity = relations, made
+compositional. THE FAMILY (structural concepts, all substrate-free):
+repetition, alternation, rhythm (nested repeats), trend/monotone;
+many-ness, dense/sparse, clustered/scattered, graded; strand/loop/
+branch/lattice/spiral/layer (layered = repeat along a normal —
+tree rings = layered x periodic-in-time); covering, containment,
+touching, nesting, symmetry, hollowness; made-of chains recursing
+to substance; role asymmetries (the order-matters law's slots).
+BRANCHING is the flagship kinship case: rivers, lightning, blood
+vessels, family trees, HIS OWN NET's doors — one structure, wildly
+different substrates. THE MECHANISM, on existing designs (this is
+MULTICYCLE STRUCTURAL PATTERNING's moment + the kinds rung + the
+D1 tower): (1) DETECT — constraint families behind nulls (repeats?
+alternates? branches? many-similar?) — discover's shape pointed at
+structure; (2) REIFY — an admitted pattern becomes a NODE; things
+DOOR onto the concept (thing -has_structure-> concept:repeat, the
+instance carrying its own P/unit — variants never smushed); (3)
+KINSHIP — the SAME concept node across substrates (crystallization
+one level up: kinship of arrangement, not of law form); (4) THE
+TOWER — patterns collapse into higher atoms and the cycle reruns
+(multicycle); told concepts (furry) GROUND into detected structure
+and prove by RECOGNITION on never-seen data, zero examples
+(generation-not-duplication applied to concepts). HONEST LADDER:
+rung 1 = detect+reify+kinship for repeat/alternate + one told tower
+(striped, furry) recognized fresh; rung 2 = branching/nesting/
+symmetry + the constraint-family cycle in the engine; rung 3 =
+patterns-of-patterns (multicycle collapse; rhythm = repeat of
+repeats); rung 4 = MINTED kinds from structured leftovers with the
+detectors ablated (the genesis loop's open rung — the real "he
+figured it out").
+
 ## THE DATA ANALYST (owner, 2026-07-18, the post-alpha direction):
 ## "seeing a trend line for a market statistic is fine, but thats
 ## just one job that a data analyst would do. lets give him a full
