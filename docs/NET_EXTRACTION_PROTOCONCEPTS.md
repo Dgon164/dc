@@ -271,3 +271,115 @@ filed first, both CONFIRMED):**
   packing exists (P0's regime), and the toolkit needs both reads.
   Named open door: activation-space atoms (the superposition may
   live in activations, not first-layer weights).
+
+## THE FRAME (owner, 2026-07-17, closing the sitting): IDEOLOGICAL
+## CHEMISTRY, AND WHERE THE SEGMENT LANDS
+"the final output layer is where the 'ideas' become concrete and
+tabulated, but the building blocks for those is constructed along
+the way. its ideological chemistry. add this group, subtract this
+group, carry this group, combine these groups, etc. they are group
+superposition concepts and algebra, and then they reinforce
+different elements and groups and interact to create a final
+pattern match that says this is most like this structured equation,
+use that output. we are just creating a concept net replacement and
+correlating them into isaac speech."
+
+The chemistry named, mapped to what is already measured:
+- GROUPS = the assemblies (P1: no single neuron implements a gate;
+  the functional unit is the group, and its contribution receipt is
+  the sum).
+- ADD / SUBTRACT = the signed interference (P0-A3: +cos reinforce,
+  −cos suppress — measured, behaviorally confirmed).
+- COMBINE = the interaction terms (the AND assemblies; order-3
+  excess for triples when the circuits deepen).
+- CARRY = a group passing through a layer intact — the decode
+  primitive DEEP nets need next: detect near-identity propagation
+  of a group across a layer (the composition receipt made
+  mechanical). Named build target for the deep-net rung.
+- THE OUTPUT LAYER = the TABULATOR: group votes summed against
+  templates, "most like this structured equation, use that output"
+  — recognition as most-complete-match with the hallucination law
+  at the last layer (below the floor: unlearned, refuse).
+
+THE LANDING, made explicit: the decode's product is not a report —
+it is a CONCEPT NET REPLACEMENT. Groups become nodes; add/subtract/
+carry/combine become doors and flows; the readable equations enter
+as told laws (tell_law, provenance "decoded from weights",
+told-unverified, belief earned); and the whole thing CORRELATES
+INTO ISAAC SPEECH — the report/learned-speech road says what the
+foreign net knows ("the b-quark pair mass matters most; the
+azimuthal angles carry nothing") in earned words. A foreign net in,
+a citizen of his net out — the same door his predecessor's telling
+used at the launch.
+
+## CORRECTION (owner, same sitting): NO CARRY — DEPTH IS THE NET'S
+## PROBLEM, NOT OURS
+"the carry is a direct shortcut. we dont need the carry. see in
+these systems it works as a step through the thing. with us, it is
+specifically not. we are assembling from componants. we collect and
+immidiately use the parts. we are just able to see from the parts
+that are here, we run the quick simplified interactions, and we can
+say this will be the activation signal, find the checkboxes that
+most match."
+
+The ruling: depth is an artifact of the NEURAL substrate — it can
+only compute by stepping a signal through layers, so "carry" exists
+there as a mechanism. The concept-net replacement does NOT inherit
+that constraint and needs no carry detector. Extraction reads
+bottom-up (layer k's groups are the vocabulary for layer k+1's
+checklists), but then SUBSTITUTION COLLAPSES THE DEPTH: layer-(k+1)
+cards are rewritten over layer-k group expressions and simplified;
+a "carried" group falls out as an identity term for free — the
+algebra handles carry, no primitive required. The extracted form is
+FLAT: components + quick simplified interactions + the tabulation.
+Use is direct: collect the parts present, run the closed-form
+interactions, predict the activation signal, find the checkboxes
+that most match (the hallucination law below the floor).
+
+The evidence already on the table: blind_decode NEVER steps —
+neuron_resp is closed-form per card, the B2 truth tables were
+predicted from the summary (not by simulating the weights) at
+max-err 0.02, and the counterfactual receipts were computed the
+same way. The method IS collect-and-immediately-use; the deep-net
+rung extends the substitution upward, not a carry tracer.
+Replaces the earlier "carry-detection" build target.
+
+## THE THEORIES VALIDATED (netdecode_deep_probe.py, 7/7, 2026-07-17
+## — "these are theories. so lets validate and assemble.")
+
+Specimen: a TWO-hidden-layer net (5->8->6->1) trained to 0.007 on
+y = 2*AND(XOR(x0,x1), x2) + x4 — XOR forms in layer 1, the AND
+composes it in layer 2, x4 must cross both layers.
+
+- SUBSTITUTION COLLAPSES DEPTH — CONFIRMED. The decode reads cards
+  bottom-up once, then the flat interaction expansion holds
+  everything: pairs (0,2)=+1.99, (1,2)=+1.99, TRIPLE (0,1,2)=-3.99
+  (the order-3 excess, measured in a deep net), x4=+1.0, nothing
+  else. The flat form ALONE — no stepping at use time — predicts
+  all 32 input patterns at max err 0.037, including the 4- and
+  5-feature patterns it never probed (any order-4 junk the net had
+  learned would have shown there).
+- CARRY FOR FREE — CONFIRMED. x4 crossed two layers and landed as
+  a pure linear term, every interaction <= 0.017. No carry
+  detector exists anywhere in the code. Depth was the neural
+  substrate's problem; the algebra never had it.
+- INTERVENTION-GRADE PREDICTION — CONFIRMED, with a gem: silencing
+  the full (0,1) machinery, the cards predicted the outcome
+  EXACTLY before the run — every composed term to 0.00, and x4 to
+  0.97, NOT 1.00, because the assembly shares neurons with x4's
+  path and the cards knew the collateral damage in advance.
+  Wrong-kept en route: selecting the assembly by pair-excess alone
+  missed its LINEAR members (the x0+x1 riders) — an assembly
+  includes its linear parts; the cards correctly predicted the
+  partial collapse that mistake produced.
+- THE CITIZEN ASSEMBLED — CONFIRMED. The decoded flat form
+  generated examples; Isaac DISCOVERED the law in his own grammar
+  (creases and products — an EQUIVALENT form, exact on the domain);
+  his law vs the original foreign net across all 32 patterns:
+  max err 0.011. A stranger's weights, through the decode, through
+  his own court, now a law node in his net. Named niceness door:
+  his equation is an equivalent form, not the canonical minimal
+  one — canonical simplification is a future door, not a defect
+  (the verdict was honestly PARTIAL). Named debt: the crease is
+  DISCOVERABLE but not TELLABLE (_parse_equation lacks the absd
+  pattern) — extend the telling vocabulary through gates.
