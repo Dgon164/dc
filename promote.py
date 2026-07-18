@@ -50,6 +50,17 @@ def run(cmd, cwd, expect_in_output=None):
                        errors="replace", timeout=1200)
     out = (r.stdout or "") + (r.stderr or "")
     ok = r.returncode == 0 and (expect_in_output is None or expect_in_output in out)
+    if not ok:
+        # a failing gate's FULL output is evidence, never a tail line
+        # (the get_doors flake struck twice with its traceback lost —
+        # 2026-07-17; unexplained = unfinished, so capture always)
+        fdir = os.path.join(DC, "experiments", "runs", "gate_failures")
+        os.makedirs(fdir, exist_ok=True)
+        fname = os.path.join(
+            fdir, time.strftime("%Y%m%d_%H%M%S_")
+            + os.path.basename(cmd[0]).replace(".py", "") + ".txt")
+        with open(fname, "w", encoding="utf-8") as f:
+            f.write(out)
     tail = [ln for ln in out.strip().splitlines() if ln.strip()][-1:]
     return ok, (tail[0].strip() if tail else "(no output)")
 

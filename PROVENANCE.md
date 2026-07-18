@@ -1,8 +1,8 @@
 # PROVENANCE — what is live, and where it came from
 
-- promoted: 2026-07-17 20:25:47
-- research commit: isaac-paperclip @ f63df19
-- copied: PAPERCLIP_MANUAL.md, alpha.py, askisaac.py, demos, discovery_battery_results.csv, docs, experiments, face.py, gauntlet_results.csv, isaac.py, isaac_store, requirements.txt, research, spatial, standalone, ui, worker.py
+- promoted: 2026-07-17 20:56:16
+- research commit: isaac-paperclip @ 67b8e93
+- copied: PAPERCLIP_MANUAL.md, README_ALPHA.md, alpha.py, askisaac.py, demos, discovery_battery_results.csv, docs, experiments, face.py, gauntlet_results.csv, isaac.py, isaac_store, requirements.txt, research, spatial, standalone, ui, worker.py
 - gates:
   - engine suite: PASS — One file. One class. One operation.
   - store battery: PASS — BATTERY: 29 passed, 0 failed of 29
@@ -41,12 +41,12 @@
   - cross-check battery: PASS — ======================================================================
   - vet-intake battery: PASS — ======================================================================
   - audit battery: PASS — ======================================================================
-  - sparring battery: PASS — SPARRING BATTERY: 27/27 checks passed
-  - mechanisms battery: PASS — BATTERY: 8 passed, 0 failed of 8  (28.2s)
-  - outlier-source battery: PASS — BATTERY: 5 passed, 0 failed of 5  (13.5s)
+  - sparring battery: PASS — SPARRING BATTERY: 30/30 checks passed
+  - mechanisms battery: PASS — BATTERY: 8 passed, 0 failed of 8  (28.3s)
+  - outlier-source battery: PASS — BATTERY: 5 passed, 0 failed of 5  (13.6s)
   - containers battery: PASS — BATTERY: 10 passed, 0 failed of 10  (0.0s)
   - flow battery: PASS — BATTERY: 14 passed, 0 failed of 14  (0.4s)
-  - flow-election battery: PASS — BATTERY: 6 passed, 0 failed of 6  (12.0s)
+  - flow-election battery: PASS — BATTERY: 6 passed, 0 failed of 6  (12.3s)
   - verdict duel gate: PASS — GATE: 4 passed, 0 failed of 4
   - inherit battery: PASS — ======================================================================
   - road-trial battery: PASS — ======================================================================
