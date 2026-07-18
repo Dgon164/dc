@@ -160,6 +160,10 @@ def main():
          os.path.join(DC, "experiments"), None),
         ("containers battery", ["containers_promotion_battery.py"],
          os.path.join(DC, "experiments"), None),
+        # per-dataset containers + cross-domain crystallization
+        # (owner, 2026-07-17, the feeding design — promotion #17)
+        ("container-crystal battery", ["container_crystal_battery.py"],
+         os.path.join(DC, "experiments"), None),
         ("flow battery", ["flow_promotion_battery.py"],
          os.path.join(DC, "experiments"), None),
         ("flow-election battery", ["flow_election_battery.py"],
