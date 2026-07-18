@@ -1525,6 +1525,63 @@ wants a periodicity kind). Still queued: the rank-ruler pool for
 extreme-leverage tables; the effort dial budgeted and receipted
 under the consideration law.
 
+## THE DATA ANALYST (owner, 2026-07-18, the post-alpha direction):
+## "seeing a trend line for a market statistic is fine, but thats
+## just one job that a data analyst would do. lets give him a full
+## data analyst capability." Plus the research charge: "what exactly
+## is he using and how is it being used... what is he learning, what
+## is he able to use, how does this help us or him, how can we use
+## the data he provides, and what about trends and tracking of long
+## term things, and finding correlations between different things."
+STATUS: DESIGN CAPTURED; the segment after alpha. THE JOB, decomposed
+against existing organs (reuse checklist first — most of the analyst
+already exists in pieces): INGEST+CLEAN = vet_intake + cross_check +
+typo/mis-entry + outlier ejection (PROMOTED, data-ops batteries);
+DESCRIBE = floors/grains + crystallizer (EXISTS); ANOMALY = audit
+flags + the outlier's-own-law road (PROMOTED); SEGMENT = which_law
+variants + mixed-refusal -> piecewise (EXISTS); RELATIONSHIPS =
+interaction_map within a table (EXISTS) — ACROSS containers is NEW
+(the triangulation thread finally gets its build: align by shared
+keys (time first), correlate under the scrambled-alignment null,
+receipts carried); TREND = discover on time (EXISTS, CO2 receipt) —
+MISSING seasonality (the PERIODICITY KIND — sunspots' frontier is
+now load-bearing, not optional), changepoints (switch atoms exist —
+point them at time), trend+seasonal+residual DECOMPOSITION said in
+one report; FORECAST = apply_law forward + honest scope labels
+(EXISTS, needs the face); THE WATCH (long-term tracking) = NEW:
+standing per-container monitors — new rows arrive, the law
+revalidates or supersedes (supersession_duel EXISTS), drift flagged
+with receipts — the road-trial machinery pointed OUTWARD at the
+world instead of inward at himself; REPORT = the analyst face on
+askisaac (describe/trend/anomalies/correlations/forecast, plain
+language + receipts — the writeup law productized; dc = the business
+this face sells). THE LADDER: A1 trend road (changepoints via
+switch-on-time + the periodicity kind + decomposition); A2
+cross-container correlation (triangulation build; CO2 vs temperature
+as the flagship real pair); A3 the watch (standing monitors +
+supersession on arrival); A4 the analyst face (one command, full
+report).
+A1 PROMOTED same day (#20): analyze_series/apply_series — period
+FIRST on the differenced series past a shuffle null with THE
+FUNDAMENTAL RULE (smallest local peak within 90% of the tallest —
+harmonics fixed), profile folded-and-learned past its own null on a
+scaffold that never ships, trend law on the adjusted series
+(use_lags=False: a time index's lags are affine clones), complete
+accounting =100, own container, forecasting. Battery 8/8 permanent.
+RECEIPTS: sunspots ~11-yr SAID (10.45, ac 0.535 vs null 0.227);
+monthly CO2 = 99.4% trend + 12.0-mo period + 6.2ppm Keeling
+sawtooth + 0.2% dark. WRONG-KEPT jewel: deterministic AM was FULLY
+ARTICULATED as exact sidebands — the machine outdid the prediction.
+NAMED DEBTS: jump-point threshold proposals; periodicity as a
+first-class structural kind (the growing grammar's rung 4). RESEARCH AGENDA riding along (owner's questions): dossier
+of what his net holds per meal; selection-precision curve as laws
+scale 8 -> 80; grown-word reuse tracking (elections receipts); the
+dark residuals as SECOND-SOURCE candidates (CO2's leftover IS
+seasonality; the planets' leftover IS rotation — the outlier's-own-
+law road pointed at named residuals); what his data buys us (laws =
+analyst deliverables; residual dossiers = his own curriculum; the
+writeups = the mission's shareable record).
+
 THE DIVERSITY RULING (owner, 2026-07-18, the standing feeding
 order): "from now on, lets run full in the alpha v.1... diverse
 forms, large sets, i want to really push it. larger sets dont do

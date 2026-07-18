@@ -168,6 +168,10 @@ def main():
         # promotion #19: novel coordinates, court unchanged)
         ("harder-road battery", ["harder_road_battery.py"],
          os.path.join(DC, "experiments"), None),
+        # the analyst's trend road (owner, 2026-07-18 — promotion
+        # #20: decomposition with receipts, sunspots answered)
+        ("analyst-trend battery", ["analyst_trend_battery.py"],
+         os.path.join(DC, "experiments"), None),
         ("flow battery", ["flow_promotion_battery.py"],
          os.path.join(DC, "experiments"), None),
         ("flow-election battery", ["flow_election_battery.py"],
