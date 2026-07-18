@@ -132,3 +132,142 @@ is a CANDIDATE until planted/ablation behavior earns it.
 Next rungs unchanged: P1 planted circuit (drop algebra / order-3
 excess as the interaction meter), P2 his own pools, P3 the HIGGS
 deep net.
+
+## OWNER RULINGS ON FIRST LIGHT (2026-07-17, same sitting)
+
+**1. Inhibition = CHECKLISTS WITH REQUIREMENTS, not full veto.**
+"thats the veto, but it doesnt have full veto powers, what im
+thinking is it is basically checklists. it has requirements. what
+information is present in the initial." The algebra agrees exactly:
+a ReLU neuron IS a soft checklist — required evidence (positive
+weights) minus disqualifiers (negative weights) must clear the pass
+mark (the bias). A disqualifier can be OVERRULED by enough
+requirements — partial veto, graded, conditional — which is
+precisely what A3 measured (suppression bites only when features
+co-occur). A FULL veto would be a multiplicative gate — a product
+with the switch atom — a DIFFERENT form, distinguishable in Isaac's
+own grammar: soft checklist = linear+threshold; hard veto =
+x·[disqualifier absent]. The decode can now ask, per neuron, WHICH
+kind it is — a checkable claim, not a metaphor. (Distinct from the
+shelved veto-nets deliverable — this READS requirement structure as
+information; it deploys nothing.)
+
+**2. ENGINEERED SUPERPOSITION: overlapping refined pools.**
+"overalapping several refined pools to create harmonic structures
+and... interference patterns of information essentially, but we can
+point at the direct sources and not need the full informational
+interactions if we are clever about it." The inversion of the decode
+problem: emergent superposition must be UNMIXED (P0 proved we can);
+CONSTRUCTED superposition comes pre-receipted — every component
+points at its direct source because we built it. And A3's sign
+lesson becomes a design rule instead of a discovery: overlap pools
+so that concepts which rarely co-occur get OPPOSING directions
+(the packing trick, engineered on purpose), confusable concepts get
+separated ones. This lands on the already-queued ENSEMBLE PROBE (N
+frozen pools, agreement past scrambled nulls) — the harmonic/
+interference framing is its design upgrade.
+
+**3. THE HALLUCINATION LAW (incomplete ideas).**
+"we take the most complete idea, and if there is no good match, its
+unlearned. its just not present, and best fit would be a
+hallucination." Recognition takes the MOST COMPLETE checklist
+match; below the match floor the honest answer is UNLEARNED — not
+present — because a forced best fit IS a hallucination. This is the
+rank-plus-abstention pattern (which_law's NONE, honest silence, NO
+RULE) promoted to a standing law of recognition, and "unlearned" is
+not a dead end: it is the frontier signal that feeds the
+curriculum loop (weakness named -> drilled -> re-elected).
+
+## CLARIFICATION (owner, same sitting): THE FOREIGN NET IS THE POINT
+"we need to know the trained information from scratch. if we have an
+unbuilt net, one that someone has provided only the weights for, we
+need to decode it." The engineered-pools road is for OUR OWN
+representations; it does not replace the requirement. The
+requirement is the blind decode: weights in, trained information
+out, no training data, no provenance, no cooperation.
+
+What weights-only honestly yields, and where meaning grounds:
+- STRUCTURE always: atoms per layer, per-neuron checklist cards
+  (requirements/disqualifiers/pass mark), signed interference,
+  soft-vs-hard veto per neuron — the ALGEBRA of what it computes,
+  composed layer by layer into readable form (ReLU = the switch
+  atom keeps every step in Isaac's grammar).
+- MEANING grounds at the boundary: first-layer atoms are
+  combinations of the INPUT dimensions — if the provider names the
+  inputs (HIGGS columns are named physics), meaning propagates
+  upward through the composition. Unnamed inputs = an honest
+  anonymous circuit diagram, said as such, never guessed at.
+- THE SPECIMEN IS RUNNABLE: provided weights mean we can EXECUTE
+  the net on inputs WE construct — interrogation, not training
+  data. So the fresh-row court exists for foreign nets too:
+  decode from weights, PREDICT behavior, confirm on synthesized
+  probes; ablation receipts likewise. A claim with no surviving
+  prediction is not a decode, it is a story.
+- WITHOUT planted truth, the null discipline carries everything:
+  scrambled-weights controls (structure exists at all), restart
+  stability (the basis is pinned vs non-identifiable — SAID),
+  cross-layer consistency (atoms leaving layer k must reappear in
+  layer k+1's checklists — the composition receipt).
+
+LADDER REVISED — the blind protocol added:
+  P0  planted superposition (DONE 7/7).
+  P1  planted circuit — interactions read by drop algebra /
+      order-3 excess.
+  P1.5 THE BLIND DRILL: we train a net, the decoder receives ONLY
+      the weight matrices — no data, no truth, no hints. It files
+      its claims FIRST (atoms, cards, interference, predicted
+      behaviors on synthesized probes); THEN the unblinding scores
+      them. The predictions-filed discipline, applied to nets.
+      This is the honest rehearsal for "someone provided only the
+      weights."
+  P2  his own pools (constructed specimen).
+  P3  the HIGGS deep net — named inputs, real physics, the prize.
+  Landing spot for a successful decode: the foreign net's laws
+  enter Isaac's net as TOLD knowledge (tell_law / flows) with
+  provenance "decoded from provided weights" — told-unverified,
+  belief earned by data, like any other teacher.
+
+## RUNGS P1 / P1.5 / P2 / P3-FIRST-BITE — all run 2026-07-17, the
+## same day as the design ("lets find out how much we can find out")
+
+**netdecode_probe.py 8/8:**
+- P1 planted circuit: AND(0,1) read from weights at coefficient
+  2.00 (true 2.0) — carried by an ASSEMBLY [neurons 6,7], per-
+  neuron contributions 0.80+1.19 summing to the coefficient (the
+  receipt). First-pass lesson, wrong-kept: NO single neuron
+  implements the gate — trained nets distribute; the truthful unit
+  is the assembly. THE COUNTERFACTUAL RECEIPT: the cards predicted
+  the ablation outcome (excess 0.00, linear path 1.00) BEFORE the
+  intervention; the run confirmed (0.01, 1.00).
+- P1.5 THE BLIND DRILL 5/5: five foreign nets, decoder saw ONLY
+  weight matrices — every hidden pair named, every coefficient
+  within 0.03, every readable summary carried the behavior (table
+  max-err <= 0.021). "Someone provided only the weights" is now a
+  practiced motion.
+- P2 inverted — THE HALLUCINATION LAW ON THE DECODER: planted
+  weights -> structure DECLARED (12.5x sparse gain, restart
+  stability 1.00); random pool weights -> NO STRUCTURE declared
+  (1.0x, 0.54) — unlearned, not present, no invented atoms.
+
+**netdecode_higgs.py — REAL PHYSICS (machinery 2/2, predictions
+filed first, both CONFIRMED):**
+- Specimen: 28->32->1 ReLU net trained here on 800k HIGGS rows,
+  test AUC 0.7959 on 200k fresh (the 0.885 deep monster remains
+  the prize).
+- FROM THE WEIGHTS ALONE, with names: the net's top-5 carriers are
+  m_bb, m_wbb, m_jjj, m_wwbb, m_jlv — ALL seven engineered mass
+  invariants outrank the low-level detector features (HP1 CONFIRMED
+  at 4.3x mean share) — the physics story read straight off W.
+- HP2 CONFIRMED: 6/7 phi angles land in ranks 23-28 — the net
+  LEARNED rotational symmetry and the decode sees it in the
+  weights.
+- THE RECEIPT AT RATIO 1605x: ablating the decode's top-3 named
+  features costs 0.1605 AUC; its bottom-3 cost -0.0001. The
+  reading is the computation.
+- HONEST FINDING, filed: the REAL first layer shows NO sparse
+  atomic structure (gain 0.99x vs scrambled) — dense mixing, not
+  dictionary packing, at this width/inputs. The carried-weight +
+  card reads work anyway; the sparse-atom tool applies where
+  packing exists (P0's regime), and the toolkit needs both reads.
+  Named open door: activation-space atoms (the superposition may
+  live in activations, not first-layer weights).
