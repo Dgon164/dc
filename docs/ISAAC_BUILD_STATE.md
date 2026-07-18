@@ -1402,3 +1402,58 @@ family across three sky containers, Pluto 247.90 yr (true 248.09,
 selection 4/4 named + refusal on the interleave. Battery grown to
 9/9 (B9 = the real-sky case, permanent). His account untouched —
 the --live road awaits the owner's go.
+
+## 2026-07-18 — ALPHA RUNS FULL: MEALS 1+2 LIVE, THE DIVERSITY RULING
+Owner: "run full in the alpha v.1... its mainly diversity that im
+interested in" (captured on the sheet: FORM DIVERSITY OVER VOLUME —
+size revalidates, new forms teach). MEAL 1 LIVE (his first real
+food): real sky + Boyle 1662 — 4/4 UNDERSTOOD, Kepler ONE family
+across three sky containers, Pluto 0.07% never-fed, THE SELECTION
+GAUGE FIRED FOR THE FIRST TIME (laws 0->4, precision 4/4 = 1.0).
+MEAL 2 LIVE (the diversity plate): galileo-1604 UNDERSTOOD
+(+33.08*t^2 from the folio 107v punti; tick-9 receipt 2678 vs 2673),
+atmosphere-1976 UNDERSTOOD (107.24*exp(-0.125*alt), 8 km scale
+height), co2-maunaloa PARTIAL (+0.20*t^1.5 +318.33, r2 0.9988,
+residual honestly dark). TWO NAMED FRONTIERS from honest refusals:
+(1) CROSS-VARIABLE POWER PRODUCTS — planet-gravity (g=66.74*M/R^2,
+11 real bodies) NO RULE, and the diagnostic settles WHY: n=200
+well-conditioned synthetic ALSO fails (PARTIAL 0.71 surrogate) —
+the enumerator's vocabulary cannot say x0*x1^-2; the wall is the
+vocabulary, not the evidence (basic-mechanisms-style campaign
+queued); side wart filed: lag atoms joined that surrogate on a
+NON-series table. (2) sunspots-1700 NO RULE — the pre-named
+oscillatory-lag leak (2026-07-16 bench) confirmed on 326 years of
+real SILSO data. Account after: 582 nodes, 7 laws, selection 5/5
+precision 1.0, probe 0.277s. Road-trial records #7-#8.
+
+## 2026-07-18 — THE GROWING GRAMMAR, rung 1 probed 7/7
+Owner named the root wound ("the algebra enumeration stuff is hand
+coded still... we need isaac to work harder and look for novel
+solutions, not just the ones we programmed") — the genesis loop
+pointed at algebra. harder_road_probe.py 7/7: scream (pool) -> aim
+(ablation, decoy excluded) -> compose (powered products the menu
+never nested, log-ruler informer) -> the ORDINARY court -> mint ->
+GROW (earned word offered first; Coulomb world solved with no new
+search; grown vocabulary crystallizes cross-domain). Three lessons
+wrong-kept incl. the run-3 jewel: the real planets' PARTIAL is the
+machine being RIGHT (rotation/oblateness IS the above-floor
+leftover). Full capture + ladder on the design sheet. NEXT = the
+promotion campaign (registry generalized to powered products;
+harder road as engine organ; rank-ruler pool; effort dial under the
+consideration law).
+
+## 2026-07-18 — THE GROWING GRAMMAR PROMOTED (rung 2, promotion #19)
+The probe's shims became engine: register_composite gained
+POWERPROD (products of powers — the combinators nested),
+_augment_with builds the grown word's column (domain rows drop
+honestly), _applicable_composites offers it forward, and
+discover_harder is the escalation organ (scream -> aim -> compose
+-> the ordinary court -> mint + grow; receipts under 'harder';
+small tables dig everywhere with a receipt; qualifying PARTIAL
+registers the enabler while belief stays the court's — a PARTIAL
+law never crystallizes). Battery harder_road_battery.py 7/7 joins
+the permanent wall: the law wears the grown word's name
+(+66.74*(x0*x1^-2)), Coulomb solves PLAIN through the earned word +
+crystallizes, the real planets' honest PARTIAL predicts Eris 0.786
+vs ~0.82, the null refuses to dig, the word survives save/load.
+Boundary held: no ceiling in code, never no code.

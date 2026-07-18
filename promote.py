@@ -164,6 +164,10 @@ def main():
         # (owner, 2026-07-17, the feeding design — promotion #17)
         ("container-crystal battery", ["container_crystal_battery.py"],
          os.path.join(DC, "experiments"), None),
+        # the growing grammar's harder road (owner, 2026-07-18 —
+        # promotion #19: novel coordinates, court unchanged)
+        ("harder-road battery", ["harder_road_battery.py"],
+         os.path.join(DC, "experiments"), None),
         ("flow battery", ["flow_promotion_battery.py"],
          os.path.join(DC, "experiments"), None),
         ("flow-election battery", ["flow_election_battery.py"],
