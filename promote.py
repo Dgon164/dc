@@ -176,6 +176,10 @@ def main():
         # promotion #21: the alignment null, spurious trap refused)
         ("analyst-relate battery", ["analyst_relate_battery.py"],
          os.path.join(DC, "experiments"), None),
+        # A3 the watch (owner, 2026-07-18 — promotion #22: laws
+        # defend their seats; drift duels on arrival)
+        ("analyst-watch battery", ["analyst_watch_battery.py"],
+         os.path.join(DC, "experiments"), None),
         ("flow battery", ["flow_promotion_battery.py"],
          os.path.join(DC, "experiments"), None),
         ("flow-election battery", ["flow_election_battery.py"],
