@@ -180,6 +180,10 @@ def main():
         # defend their seats; drift duels on arrival)
         ("analyst-watch battery", ["analyst_watch_battery.py"],
          os.path.join(DC, "experiments"), None),
+        # A4 the analyst face (owner, 2026-07-18 — promotion #23:
+        # the segment closes; the face assembles, never judges)
+        ("analyst-face battery", ["analyst_face_battery.py"],
+         os.path.join(DC, "experiments"), None),
         ("flow battery", ["flow_promotion_battery.py"],
          os.path.join(DC, "experiments"), None),
         ("flow-election battery", ["flow_election_battery.py"],
