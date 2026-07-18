@@ -1,7 +1,7 @@
 # PROVENANCE — what is live, and where it came from
 
-- promoted: 2026-07-17 20:18:46
-- research commit: isaac-paperclip @ 60f3cf9
+- promoted: 2026-07-17 20:25:47
+- research commit: isaac-paperclip @ f63df19
 - copied: PAPERCLIP_MANUAL.md, alpha.py, askisaac.py, demos, discovery_battery_results.csv, docs, experiments, face.py, gauntlet_results.csv, isaac.py, isaac_store, requirements.txt, research, spatial, standalone, ui, worker.py
 - gates:
   - engine suite: PASS — One file. One class. One operation.
@@ -41,12 +41,12 @@
   - cross-check battery: PASS — ======================================================================
   - vet-intake battery: PASS — ======================================================================
   - audit battery: PASS — ======================================================================
-  - sparring battery: PASS — SPARRING BATTERY: 22/22 checks passed
-  - mechanisms battery: PASS — BATTERY: 8 passed, 0 failed of 8  (28.3s)
-  - outlier-source battery: PASS — BATTERY: 5 passed, 0 failed of 5  (13.2s)
+  - sparring battery: PASS — SPARRING BATTERY: 27/27 checks passed
+  - mechanisms battery: PASS — BATTERY: 8 passed, 0 failed of 8  (28.2s)
+  - outlier-source battery: PASS — BATTERY: 5 passed, 0 failed of 5  (13.5s)
   - containers battery: PASS — BATTERY: 10 passed, 0 failed of 10  (0.0s)
-  - flow battery: PASS — BATTERY: 12 passed, 0 failed of 12  (0.5s)
-  - flow-election battery: PASS — BATTERY: 6 passed, 0 failed of 6  (12.3s)
+  - flow battery: PASS — BATTERY: 14 passed, 0 failed of 14  (0.4s)
+  - flow-election battery: PASS — BATTERY: 6 passed, 0 failed of 6  (12.0s)
   - verdict duel gate: PASS — GATE: 4 passed, 0 failed of 4
   - inherit battery: PASS — ======================================================================
   - road-trial battery: PASS — ======================================================================
