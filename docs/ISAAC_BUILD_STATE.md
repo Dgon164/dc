@@ -1539,3 +1539,68 @@ Memory survives save/load; mind with a 20k-row law = 7 KB. Battery
 facts_layer_battery.py 7/7 permanent. Also this hour: THE PUSH —
 both repos verified clean @ origin; isaac_home + prologue backed up
 (timestamped zips, copies never moves).
+
+## 2026-07-18 — THE ENGINEER LANE: E0 + C1-C2 PROBE-GREEN
+Owner's parallel-session bundle (D1-D14) filed at docs/engineer/;
+sheet capture done. E0 gate 8/8 (engineer_e0_probe: tube court w/
+derive/corroborate/refuse-residual/DOF-OPEN; kind-vs-scrambled;
+multi-view machine-exact + cone WOUND; slot signatures w/ mandatory
+residue; TMS propagate + VERIFY-NEVER-REPAIR — run-1 lesson: a
+verifier that repairs can never flag). C1-C2 8/8
+(engineer_c12_probe: read->map AS DOORS, exactly-once completeness,
+map-alone regeneration, valid-scramble null — run-1's line shuffle
+broke syntax and passed cheap, wrong-kept, AST-shuffle now; the
+containment court's three verdicts: holey's 3 planted escapes
+NAMED w/ input/exception/line + reproduced, solid CONTAINED
+201/201 by enumeration, mystery REFUSED w/ eval named — vocabulary
+scan BEFORE enumeration because enumerating unreasoned code is not
+proof). NEXT: G-rung (game goal recovery), engine promotion of the
+lane's courts, fidelity harness.
+
+## 2026-07-18 — THE G-RUNG GREEN 8/8: goals recovered from mechanism
+engineer_grung_probe: Snake instrumented by blind drivers (random /
+ring / scout / STARVER); the goal sheet EARNED from logs — score
+celebrated at +10 measured (79 events), the do by association
+(head==food at 1.0), energy a buffer by LAWFUL DRAIN (-1 constant;
++39 uncapped refill observable only once a starving driver joined —
+THE CORPUS DECIDES WHAT IS KNOWABLE), reverse = LOCKOUT (197
+attempts, 0 taken — the transition does not exist) vs wall = exists
+and kills (P=1.0, base 0.009), fatal predicates at P=1 w/ innocent
+decoys, lucky filed FREE. THE MOD NULL: inverted reward line read
+from code (-10, score dethroned), not culture. THE SUPERSTITION
+NULL: policy bit-identical across lucky streams — no rituals.
+CONSTRUCTION: sheet-policy 15.3x survival, 172-vs-1 score over
+blind random. Four wrong-kept lessons in the docstring (trapped
+start; cap-hidden refill; threshold-vs-evidence; buffer tooth).
+
+## 2026-07-18 — THE READ ROAD (owner correction: "read the code
+## directly and learn information") — engineer_gread_probe 8/8
+The G-rung's behavioral recovery was THE INSTRUMENT, not the point.
+The read road recovers the goal sheet STATICALLY from the program
+text: reward +10 and its food-guard READ from the AST; growth
+structural (insert-always/pop-unless-food); the TRUE +40 refill and
+its cap 100 READ (which behavior could only see as +39-at-best —
+the read sees the mechanism, the instrument sees the
+manifestation); the lockout from shape (input overwritten from
+state = the transition does not exist); fatal guards split on OR
+and classified (wall/collision/exhaustion); lucky FREE by DEAD DATA
+FLOW. THE MOD NULL literal: -10 read from the modded text with zero
+execution. THE INSTRUMENT COURT: the behavioral road corroborates
+every read claim, and the read's cap law reproduces every observed
+refill delta exactly. Read proposes, execution confirms — the
+black-box road (no source: ROMs, binaries) remains the instrument
+road's honest domain.
+
+## 2026-07-18 — THE ENGINEER LANE'S COURTS PROMOTED (#25)
+isaac_store/engineer.py: the probe-proven foundation courts as a
+module — tube_court (derive/corroborate/refuse-with-residual/
+DOF-OPEN), view_court (multi-view identity; wounds routed),
+slot_court (residue mandatory; signatures pluggable),
+tms_propagate/tms_verify (verify NEVER repairs), code_map/
+map_signature (programs as doors; map-alone regeneration),
+containment_court (three verdicts; vocabulary scan before
+enumeration), read_goal_sheet (goal sheets FROM PROGRAM TEXT: the
+owner's read-the-code correction). Battery test_engineer.py 10/10
+joins the permanent wall (incl. the literal mod null and the
+instrument court: behavior reproduces the read's cap law exactly).
+v1 vocabulary limits named in the module docstring.

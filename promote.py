@@ -188,6 +188,11 @@ def main():
         # structure + memory; the replay court)
         ("facts-layer battery", ["facts_layer_battery.py"],
          os.path.join(DC, "experiments"), None),
+        # the engineer lane's foundation courts (owner D1-D5 + the
+        # read road — promotion #25: E0 + C1-C2 + goal sheets from
+        # program text)
+        ("engineer battery", ["test_engineer.py"],
+         os.path.join(DC, "isaac_store"), None),
         ("flow battery", ["flow_promotion_battery.py"],
          os.path.join(DC, "experiments"), None),
         ("flow-election battery", ["flow_election_battery.py"],
