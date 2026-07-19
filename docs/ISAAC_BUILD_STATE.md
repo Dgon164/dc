@@ -1845,3 +1845,59 @@ sequences — intake eats them, structure charted BRANCH); lesson
 bodies ride the owner's token through the official CLI = the
 owner-present setup step, named. Meal journaled kind=meal,
 road-trial lines per tranche, mind.isaac.bak kept.
+
+## 2026-07-19 (night) — THE CODE GENESIS: FIRST FLIGHT + BUG
+## DETECTION & ROLLBACK (owner: "lets keep it going" + "a perfect
+## learning opportunity for him to figure out bug detection, and
+## rollbacks")
+composer.py grown (PRINT-LITERAL combinator; minted_names;
+record_attempt = the bug-detection+rollback ledger) — composer
+battery 7/7. THE FIRST FLIGHT (bootdev_flight.py) walked Build a
+Bookbot in Python IN ORDER on the owner's live account, THEIR
+grader's own published spec as the court (spec_court — faithful,
+deterministic, no TUI scraping). RESULT, honest: 5 PASSED
+(Welcome, Installing Python, Running Python, Book Data, Read
+File), 1 owner-click (Workspace, multiple-choice), 7 DARK — each
+DARK naming the exact failing check. GROWTH LIVE: Read File PASSED
+by REUSING codeshape:get_book_text minted last night (reuse
+before search) + a fresh composed main. THE BUG-DETECTION +
+ROLLBACK DISCIPLINE (owner's insight, now first-class): each
+candidate is a HYPOTHESIS courted by the spec; 24 code_attempt
+findings in his account — 4 GREEN kept, 20 ROLLED-BACK each with
+its bug named ('stdout missing Found 75767 total words', 'exit
+1'), the artifact restored to last-green every time (never a
+silent clobber — the wound that started this). THE FRONTIER,
+NAMED BY THE FAILURES: v1 combinators reach file-IO + print; the
+NEXT combinators the darks demand = string methods (.split()),
+builtins-on-results (len()), f-string/format interpolation,
+dict+loop, sorting, sys.argv. 13 idiom meals eaten (cited,
+container-stamped). Journal kind=study; mind saved; .bak kept.
+Composer+flight are RESEARCH-side; composer_battery joins the wall
+next promote.
+
+## 2026-07-19 (late) — THE STUDY LEDGER + THE TRAJECTORY LAW +
+## TWO MORE LESSONS PASSED (Count Words, Refactor)
+Owner mid-flight: "we need a section that can tell what has been
+tracked and checked. he seems to start from the beginning every
+time." BUILT: THE STUDY LEDGER (composer.py: ledger_set/get/
+report + TOOLSET stamps) — lesson:<uuid> nodes in HIS net with
+status/road/standing-bug; the flight consults it FIRST; darks
+retried only when the toolset grew (plus one cheap reality-check —
+the bench may have evolved past the bug); --report prints what has
+been tracked and checked. THE BENCH PERSISTS (no more wipes — his
+repo is study state). THE TRAJECTORY LAW, learned from a real
+thrash: a cumulative course's specs CONFLICT across time (one
+main.py cannot print greetings AND the book AND the count) — a
+submitted pass is a HISTORICAL FACT, never re-courted against a
+bench that rightly moved on. NEW COMBINATORS, all told/declared:
+METHOD-FROM-HINT (readme names .split()), BUILTIN-LEN (born
+vocabulary {print, len}, declared), TEMPLATE-FILL (readme's own
+told output template — never the spec's answer), CALL-BIND chains
+(dataflow mains), MODULE-SPLIT + IMPORT-FROM-HINT (readme's own
+import line). SERVER-SIDE STANDING: 7 of 12 CLI lessons PASSED
+(Welcome, Installing Python, Running Python, Book Data, Read
+File, Count Words — computed 75767 from real Frankenstein text —
+and Refactor via module split), 1 quiz = owner's click, 4 dark
+each diagnosed (dict-loop, sorting/format-loops, sys.argv,
+README.md file). Codeshapes: get_book_text + count_words. All
+attempts receipted in the code_attempt ledger.

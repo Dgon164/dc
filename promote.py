@@ -217,6 +217,16 @@ def main():
         # edit at the reading's location -> echo -> RUN both)
         ("retune battery", ["retune_battery.py"],
          os.path.join(DC, "experiments"), None),
+        # the code composer (owner, 2026-07-19 — code genesis:
+        # read_lesson -> compose -> court -> mint; idiom meals
+        # cited; the Read-File receipt recomposed exactly)
+        ("composer battery", ["composer_battery.py"],
+         os.path.join(DC, "experiments"), None),
+        # the tense tracker (owner, 2026-07-19: present/candidate/
+        # past; THE DESYNC LAW; predictions confirmed by real
+        # `git status` — read proposes, the instrument confirms)
+        ("tense battery", ["tense_battery.py"],
+         os.path.join(DC, "experiments"), None),
         ("flow battery", ["flow_promotion_battery.py"],
          os.path.join(DC, "experiments"), None),
         ("flow-election battery", ["flow_election_battery.py"],

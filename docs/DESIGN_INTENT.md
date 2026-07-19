@@ -1939,3 +1939,235 @@ manual road — owner exports lesson text/starter code, intake eats
 md/txt already. English lesson statement -> goal sheet -> goal
 tree -> code -> THEIR tests grade him = the rung-3 test bed.
 Respect their terms: his subscription, his token, local use.
+
+## THE CODE GENESIS (owner, 2026-07-19, after the honest frontier
+## measurement — Bookbot 1/13 reachable, 12/13 DARK for want of a
+## code-WRITING organ: "ok well lets try to get it going")
+THE HONESTY LAW FIRST: no LLM ghost-writes his homework — that is
+the rigged exam the provenance audit hunts. The measured truth
+that unlocks the design: THE LESSONS TEACH THE IDIOMS THEY DEMAND
+(the Read-File readme hands the student `with open(path) as f:`
+and `f.read()` before asking for get_book_text). So the road is
+the growing-grammar pattern pointed at CODE:
+  1. THE IDIOM MEAL: lesson readme -> fenced code blocks TOLD as
+     idiom content (net nodes, container = the course, who = the
+     lesson title + URL) + the "## Assignment" section read as
+     goals-from-text. Learning from the course = what a student
+     does; every fragment carries its citation.
+  2. THE COMPOSER: born combinators, declared (def-wrap,
+     slot-rename/unify, sequence, return-insert, call-in-main,
+     print of a demanded literal) — hand-built stays the
+     GENERATORS + epistemics; what Isaac owns is WHICH
+     compositions exist, survive, and are offered (minted
+     codeshape nodes, offered first on the next lesson: growth =
+     reuse before search).
+  3. THE COURT: their grader (bootdev run) rules pass/fail — the
+     world grades him for free; PLUS the echo: reader v2 /
+     code_map must read his own artifact back (he may not submit
+     what he cannot read). Fail -> wrong-kept with the diff;
+     no-composition-found -> DARK NAMED (the frontier receipt).
+  4. THE PROPOSER (parked until ollama serves): the local tutor
+     may PROPOSE a fragment as DATA through the vet (sparring
+     precedent) — a proposal that passes the grader AND reads
+     back into his goal sheet is honestly learned; who=tutor
+     stamped, never author-of-record.
+Setup lessons: readme-told shell commands run under a declared
+allowlist (install/uv/git/echo/mkdir/python), receipted. Browser
+choice lessons: the owner's clicks, never automated. SUBMIT
+discipline: run = free checks; submit only after green + within
+the owner's standing autopilot blessing for this course.
+
+## THE VARIABLE AND THE VALUE (owner, 2026-07-19, after the
+## trajectory-law thrash): "thats the point of the variable and
+## the value... he has the shape, he needs to learn how to shape
+## the shape to make it how he wants. he has a pattern, a
+## topology, and he needs to set the dimensions. it can only be
+## one thing at a time. but he can have multiples of them and
+## each can be a different thing at the same time"
+THE CONVERGENCE: this is the LAW ENGINE's own ontology arriving at
+code. A lawform is a TOPOLOGY; its variants set the DIMENSIONS
+(Earth g / Jupiter g — one shape, many coexisting things). Code
+gets the same: a passed composition is abstracted into its FORM
+(the skeleton — pattern/topology) + its DIMENSIONS (name, arg,
+methods, constants, templates — the settings). One INSTANCE is
+one thing at a time (the mounted main.py); MULTIPLE instances of
+one form coexist, each a different thing (the per-lesson
+artifacts, kept in the study ledger — the trajectory law's
+storage-level cure: nothing is lost when the bench moves on).
+THE NEW ROAD: INSTANTIATE-FORM — reuse before search, upgraded
+from text-reuse to FORM-reuse: take a held codeform, set the new
+lesson's dimensions, court it. Same court as tell_law: same
+skeleton + same dimensions = witness; same skeleton + new
+dimensions = a VARIANT instance in the form's family.
+
+## THE INTERNAL SIMULATOR + FORM-BY-COMPARISON (owner, 2026-07-19,
+## completing the variable-and-value design): "memorize the
+## initial, then recompute it against a different version...
+## variables also have shapes... they can change depending on the
+## sequence and structure... we should have him be able to
+## simulate and execute the code internally, where he can think
+## about the structures and the outputs and the midstate and
+## everything, basically create the variables as nodes and change
+## them as he thinks things through... when you have two print
+## functions and the print section is different, then the
+## comparator and crystallizer can have print() as a node and then
+## arguments for filling it in"
+TWO ORGANS: (1) THE TRACE — internal execution where every
+variable becomes a NODE and every step registers its SHAPE
+(type + size + small values) as it changes through the sequence;
+midstates and outputs observable in the net; the trace is a TIME
+SERIES his existing organs (analyst, patterns, lag) can eat.
+(2) FORM-BY-COMPARISON — the crystallizer at code: two instances
+walked in parallel; what they SHARE is the form (print() as a
+node); where they DIFFER are the dimensions (arguments for
+filling in); repeated identical differences collapse to ONE
+dimension (the same variable seen through its occurrences);
+different topologies REFUSE honestly. This supersedes the
+hand-picked dimension kinds of abstract_form: dimensions are
+DISCOVERED by registration, never enumerated by hand — the
+comparison-as-registration keystone arriving at code. PARKED,
+NAMED: comparing two instances' TRACES (dynamic form discovery);
+the new-instance reader ("he doesn't know what is what until he
+learns to fully read code") = trace + comparison composed.
+
+## THE ONE ONTOLOGY (owner, 2026-07-19, closing the night): "they
+## shouldnt be separate things. there is maps, and then there is
+## internal structures. they are effectively one for one, but a
+## structure can be recomposed, but a map is a map. it shows what
+## is at the time of recording. its just a structure node. its
+## just another shape instance."
+THE UNIFICATION: three levels, one kind of thing.
+  FORM     — the topology; recomposable; the variable
+             (lawform, codeform, flow-shape)
+  INSTANCE — dimensions set; one thing at a time; mountable
+             (law variant, codeshape, the mounted main.py)
+  MAP      — an instance OBSERVED at a time; frozen; "what was,
+             when" (the trace, code_map's output, the study
+             ledger's entries, the dossier, recall_evidence,
+             the observed-map SVGs)
+A map is NOT a separate machinery — it is itself a structure
+node, another shape instance, whose content happens to be a
+recording. THE OPERATING RULE THAT FALLS OUT: maps are never
+recomposed, only SUPERSEDED by new recordings (supersession-not-
+overwrite was always this law; the trajectory law was always this
+law — a submitted pass is a map); forms are never frozen, only
+INSTANTIATED. PARKED, NAMED (next session's opening design work):
+THE ONE-ONTOLOGY MIGRATION — trace var: nodes, lesson: ledger
+entries, dossiers, code_maps, codeforms/codeshapes audited onto
+the single form/instance/map node discipline with time stamps,
+so the comparator/crystallizer runs over ALL of them uniformly
+(a map of a trace and a map of a dataset are the same kind of
+citizen; forms discovered by comparison work on any of it).
+
+## THE THREE TENSES (owner, 2026-07-19, the closing law): "so
+## there is past present and future. what was, what is, and what
+## could be. where things were, where they are now (stateful
+## tracking) and where they could be, (planning, ideas, thinking,
+## imagination, etc). these are the shapes and they are the same,
+## but its just time dependent."
+ONE SHAPE ONTOLOGY, THREE TENSES:
+  PAST    — what was: the MAP (traces, ledger entries, dossiers,
+            recall_evidence, journals, wrong-kept) — frozen,
+            superseded never recomposed.
+  PRESENT — what is: the MOUNTED INSTANCE (the live account, the
+            bench, watch baselines, the active container) —
+            stateful tracking.
+  FUTURE  — what could be: the CANDIDATE (goal trees with unmet
+            subgoals, uncourted compositions, forecasts,
+            dark leaves saying "teach or discover", TOLD-
+            UNVERIFIED laws, plans/flows before execution) —
+            imagination, held honestly as not-yet.
+THE COURT IS THE GATE BETWEEN TENSES: a candidate courted green
+BECOMES present (mounted); the present observed BECOMES past (a
+map). The watch already reconciles future against arriving
+present (the forecast judged); validate-later was always this;
+the whole engine is one shape-kind flowing imagination ->
+actuality -> memory, with receipts at each gate. Every future
+node wears its not-yet honestly (TOLD-UNVERIFIED, PARTIAL,
+candidate, dark) — belief is measured at the gate, never before.
+
+## DUAL STATE TRACKING / THE DESYNC LAW (owner, 2026-07-19, on
+## the git Status wall): "he is supposed to do that. what was, is
+## and will be. so it says create a file. you create the file,
+## then check if it gets the error. the file is created, but...
+## he doesnt have dual state tracking yet? thing exists, but he
+## thinks it exists for all which is what happens when it is
+## committed. but if its not committed then they are out of sync.
+## and he needs to realize that an update on one thing does not
+## update the others."
+THE ORGAN: THE TENSE TRACKER — one NAME, three tense slots:
+PRESENT (the working file), CANDIDATE (the stage — what will
+be), PAST (the commit — what was). Operations TRANSFER content
+between slots (create/update -> present only; add -> present
+copied to candidate; commit -> candidate snapshotted to past);
+an update on one slot NEVER updates the others (THE DESYNC LAW).
+git status is the TENSION REPORT between the tenses: untracked =
+present-only; changes-to-be-committed = candidate differs from
+past; not-staged = present differs from candidate; clean = all
+three agree. THE COURT DISCIPLINE: he walks a lesson's steps IN
+ORDER updating his tense model, PREDICTS the status phrases at
+each moment, and the instrument (real git) confirms — READ
+PROPOSES, THE INSTRUMENT CONFIRMS, now at the state level. Git is
+his own metaphysics as a tool: commits are maps, the stage is the
+candidate tense, status is the tension report.
+
+## INTERNAL MODELLING — THE UMBRELLA NAME (owner, 2026-07-19):
+## "internal modelling is what ive been trying to say with shapes
+## and theory of mind and stuff. being able to model current and
+## potential states of something."
+THE UNIFICATION: this is the one capacity under the variable-and-
+value (a model with dimensions), the internal simulator (running
+the model forward), form-by-comparison (building the model from
+instances), the three tenses (the model's time axis: current
+state = present; potential states = candidate/future), and the
+desync law (the model and the thing DRIFT — an update on one
+never updates the other; operational access = the standing right
+to re-court the instrument and resync). Theory of mind is
+internal modelling pointed at another system that has its own
+state (git's three trees; a grader; a person). THE NEXT TURN OF
+THE SAME CRANK: internal modelling pointed at HIMSELF — a model
+of his own current capabilities (what he can compose today) and
+his potential states (what he would need to pass the wall in
+front of him). A repeating failure with a shared shape is a
+TENSION REPORT between those two self-tenses; the ask road and
+the stuck court are that tension made speakable.
+
+## DIAGNOSIS — EVALUATING BACKWARD (owner, 2026-07-19, correcting
+## the umbrella: "yes but not quite. really its being able to
+## model the cause and effect of failure modes. there is an
+## expected state, what is different between the expected state
+## and the current state that is preventing this from working.
+## its evaluating backward. this is the state we are in, this is
+## the output. we dont know what will cause that state exactly.
+## but we know the initial state. there are only so many
+## variables to adjust, and figuring out which ones will work and
+## what the state needs to be for everything for that structure
+## to work... if you are diagnosing an engine, you are under the
+## understanding of the fire triangle, but with an engine you
+## need air, spark, fuel, and compression. and you can check each
+## state directly."
+THE DESIGN SENTENCE: FORWARD RUNS THE MODEL, DIAGNOSIS RUNS IT
+BACKWARD. Every working structure carries a REQUIREMENTS MODEL:
+the finite set of state-variables that must each hold their
+expected value for the structure to work (the engine's four:
+air, spark, fuel, compression). A failure is an OBSERVED OUTPUT
+whose cause is not directly known — but the variables are few,
+enumerable, and EACH ONE'S STATE CAN BE CHECKED DIRECTLY
+(operational access, per variable). The road: (1) hold the
+expected state per variable; (2) court each instrument and
+compare expected vs current — the differences are the SUSPECTS;
+(3) adjust the suspect, re-run, and let the court rule (the
+injection diagnostic: a one-variable wall is confirmed when one
+adjustment un-darks the cluster). THE FIRE-TRIANGLE CLAUSE: the
+requirements model itself can be WRONG FOR THIS SYSTEM — you
+arrive holding three variables and the engine has four. That is
+the signature that separates the two stuck-kinds: EVERY KNOWN
+VARIABLE CHECKS GREEN AND IT STILL FAILS = the model is missing
+a variable. That residue is not a defeat, it is a NAMED UNKNOWN
+— the moment to characterize the missing variable from what the
+failures share (form-by-comparison over the failure records) and
+either ASK (the telling road runs in reverse: he speaks the gap)
+or PROBE (design the experiment that would expose the fourth
+variable). Wrongs kept: a superseded requirements model is
+retired by supersession with the discovering failure cited,
+never overwritten.
