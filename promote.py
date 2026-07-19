@@ -208,6 +208,11 @@ def main():
         # is v=ir" — parse/vet/land/echo; validate later)
         ("telling battery", ["telling_battery.py"],
          os.path.join(DC, "experiments"), None),
+        # the goal tree (owner, 2026-07-19: "end goal
+        # decomposition" — solve_law promoted engine-side; dark
+        # leaves named; cycles refused; duels counted)
+        ("goal-tree battery", ["goal_tree_battery.py"],
+         os.path.join(DC, "experiments"), None),
         ("flow battery", ["flow_promotion_battery.py"],
          os.path.join(DC, "experiments"), None),
         ("flow-election battery", ["flow_election_battery.py"],
