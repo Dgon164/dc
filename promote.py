@@ -213,6 +213,10 @@ def main():
         # leaves named; cycles refused; duels counted)
         ("goal-tree battery", ["goal_tree_battery.py"],
          os.path.join(DC, "experiments"), None),
+        # the retune court (owner, 2026-07-19 — rung 3: read ->
+        # edit at the reading's location -> echo -> RUN both)
+        ("retune battery", ["retune_battery.py"],
+         os.path.join(DC, "experiments"), None),
         ("flow battery", ["flow_promotion_battery.py"],
          os.path.join(DC, "experiments"), None),
         ("flow-election battery", ["flow_election_battery.py"],
