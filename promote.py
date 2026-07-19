@@ -193,6 +193,15 @@ def main():
         # program text)
         ("engineer battery", ["test_engineer.py"],
          os.path.join(DC, "isaac_store"), None),
+        # the specifics layer (owner, 2026-07-18 evening: averages,
+        # extremes, mode, sigfigs, time frames, plots — THE DOSSIER
+        # DESCRIBES, THE COURT JUDGES; incl. the 18 review pins)
+        ("dossier battery", ["dossier_battery.py"],
+         os.path.join(DC, "experiments"), None),
+        # the telling road (owner, 2026-07-18 evening: "ohm's law
+        # is v=ir" — parse/vet/land/echo; validate later)
+        ("telling battery", ["telling_battery.py"],
+         os.path.join(DC, "experiments"), None),
         ("flow battery", ["flow_promotion_battery.py"],
          os.path.join(DC, "experiments"), None),
         ("flow-election battery", ["flow_election_battery.py"],

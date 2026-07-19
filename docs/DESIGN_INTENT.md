@@ -1562,6 +1562,99 @@ the analyst face = the commercialization core lane. BUILD QUEUE (the
 dev's order): E0.1-E0.4 -> C1-C2 -> G-rung -> fidelity harness ->
 tiered crystallizer.
 
+## THE MECHANICAL EXPLORATION (owner redirect, 2026-07-18 evening):
+## "park gpt2 for now. lets really explore this. im fascinated by
+## this part. i want to see if he can eventually do things like
+## make a 3d model or structural details of a tube, and of
+## eventually an engine, and if he can learn about connected vs
+## touching vs not touching interactions and all that stuff. can we
+## get him to learn interactions and information from code, and
+## physics or anything. we need to see what and how he understands
+## things."
+GPT-2 fidelity PARKED (D11 harness stays queued, not dropped). THE
+DIRECTION: E2 explored deeply — understanding PROVEN BY
+CONSTRUCTION (the Learning-by-Decomposition standard): a recipe he
+holds must INSTANTIATE (a real 3D model emitted from the tube
+recipe — the mesh is a FOURTH VIEW and faces the view court at
+instrument-relative tolerance: the polygonal mesh's own analytic
+volume machine-exact, the circular recipe within discretization);
+learn one tube = own the family (a different instance built from
+the same recipe). THE CONTACT TAXONOMY (owner's ask, now design):
+CONNECTED vs TOUCHING vs NOT TOUCHING as first-class interaction
+kinds decided by GEOMETRY + INTENT — clearance > 0 = NOT TOUCHING
+with the clearance NAMED; contact without a joint = TOUCHING
+(transmits push, never pull); interference = press fit = CONNECTED
+when INTENDED, the same geometry under a loose-assembly intent = a
+WOUND ("two solids, one space"); declared joints (weld) = CONNECTED.
+Force paths walk the contact graph with per-kind transmission rules
+— claims TESTED by propagation, not asserted. PHYSICS FROM CODE:
+the read road pointed at simulation source (F = -k*x, restitution)
+— constants READ from text, then the INSTRUMENT confirms (measured
+period -> k; bounce ratio -> e^2). The standing question the whole
+segment serves: SEE WHAT AND HOW HE UNDERSTANDS — every claim
+carries its derivation, every understanding must construct.
+Ladder beyond: mates as typed doors (M3), part-stack propagation
+(M4), kinematics (M5), the single-cylinder engine gate (M6).
+THE OWNERSHIP AUDIT (owner, 2026-07-18, the question that made it
+law: "how did you teach him about this because it will matter.
+what did you build for him to be able to recreate these."): the
+mechanical rung's first build put the knowledge in PYTHON —
+tube_court's constraint, contact_court's taxonomy, force_path's
+rules — none of it his, none supersedable (the keystone's wound,
+fresh). THE TRANSPLANT (engineer_transplant_probe.py, 8/8, hand
+courts monkeypatched-to-raise and never called): the constraint
+TOLD in his own grammar (tell_law "+1.00*x0 +2.00*x1" -> law node,
+mechanics container, told-unverified); the taxonomy TAUGHT
+(teach/teach_not — transmit sets from ask(); negatives
+first-class); ONE new GENERIC organ, laws_run_backward (solve any
+linear law he holds for any unknown, reading the model FROM HIS
+NET) — derive-the-third, corroboration, refusal-with-residual, and
+DOF-naming for EVERY constraint he ever holds: the tube, the
+groove dependency, AND Kirchhoff's sum from the same organ, zero
+new Python per domain. THE EDIT receipt: one teach() and welds
+carry torque — his knowledge, his to change. STANDING DISCIPLINE
+FROM HERE: a rung is DONE only when its content is NET (told/
+taught/discovered, container-stamped, supersedable) and its courts
+are GENERIC organs — with the hand-domain code ABLATED in the
+battery as the proof. Scaffolding probes may come first; the
+transplant is the finish line, never optional.
+
+## STRUCTURE ASSESSMENT (owner, 2026-07-18, after the full feed):
+## "so, what we need to do is structures now. give him complete
+## structures and he can assess how they are built and connected."
+The decomposition cycle pointed at WHOLES: a complete structure
+(assembly / circuit / program) goes in; the ASSESSMENT comes out —
+PARTS identified against HIS kind signatures, CONNECTIONS classified
+through HIS contact taxonomy with quantities named, FUNCTIONS
+recognized from HIS pattern facts (bushing + clearance shaft =
+journal bearing), DERIVED quantities from HIS laws (a circuit's
+operating point computed from his own led-resistor law), FLAGS from
+HIS negatives (LED without current limit = danger), UNKNOWNS honest
+(a dims-inconsistent part is a WOUND, never silently classified).
+COURTS: completeness (every part, every pair — accounted or
+refused); REGENERATION (the assessment alone rebuilds the relation
+graph); the exploded null (parts moved apart -> all not-touching,
+no functions, no false claims). One assessment shape, three
+substrates (mechanical / electrical / code — the call graph is the
+program's connection graph).
+THE OBSERVED MAPS (owner, same hour: "we need to figure out how to
+observe the maps. either the flows, or the structures, or the
+mental processing states for something. what he understands about a
+thing, not just how its built."): three windows, emitted as files —
+(1) THE PROCESSING TRACE (every fact asked, law fired, court run
+during one task, in order, receipted — the mental state of a
+computation); (2) THE UNDERSTANDING MAP (the ego-graph of what HE
+holds about a subject: doors in/out, facts, evidence, containers —
+radial SVG); (3) THE ASSESSMENT MAP (the structure as he concluded
+it). PROBE-PROVEN same hour (engineer_assess_probe.py 8/8): parts
+via his signatures (+1 honest wound by his own constraint),
+connections w/ quantities, journal-bearing FUNCTION recognized from
+his pattern fact, load paths 3/3, regeneration==truth + exploded
+null silent, circuit operating point 17.95mA DERIVED from his law +
+danger flagged from his negative; 25-step receipted trace + both
+maps emitted (experiments/runs/*.svg). Next rungs: maps into the
+analyst face; live-account map observation; flow maps of drills.
+
 ## THE FACTS LAYER (owner, 2026-07-18, after the size question):
 ## "we can have a facts layer. we have the main structural
 ## information, and then datapoint breakdowns he can reference and
@@ -1731,3 +1824,77 @@ The live account (isaac_home) is the standing feeding target from
 here on (alpha v1 road trials, full on); every meal dry-proves
 first, then feeds live, journals kind=meal, logs its road-trial
 line.
+
+## THE SPECIFICS LAYER / THE DOSSIER (owner, 2026-07-18 evening,
+## returning to the facts layer after the telling-road design):
+## "having the law is great, but sometimes you need to reference a
+## specific sample. he needs to take recurring or important points,
+## averages, extremes, ratios, sigfigs, std dev, median and mode,
+## that kind of thing for a dataset as well as time frames. avg per
+## day, avg per month, avg per year, track trend lines. plot data
+## points, error bars all the standard data analysis stuff you
+## would need."
+THE DESIGN SENTENCE: THE DOSSIER DESCRIBES, THE COURT JUDGES. A
+dossier is per-dataset MEMORY (facts-layer kin): descriptive
+numbers with method receipts, specific example ROWS he can point
+at, calendar-frame breakdowns, and described (never judged) frame
+slopes — while trend VERDICTS, nulls, and belief stay the analyst
+court's. Reuse before build (the sheet's own law): resolution =
+read_floor's grain court (typo-hardened, promoted); example rows =
+_sample_evidence (extremes + rank spread, deterministic, capped);
+frame trends judged = analyze_series when buckets suffice; source
+identity = intake's sha provenance riding into the dossier node.
+NEW ORGANS: (1) intake parses calendar-date columns instead of
+dropping them (fractional years + exact ymd kept; formats declared,
+refusals loud); (2) take_dossier/recall_dossier on the mind —
+per-column n/mean/std(n-1)/median/mode-with-count (mode REFUSES on
+all-unique: "no recurring value, said"), min/max WITH their full
+rows, resolution + decimals via the grain court; per-frame
+(day/month/year as the span supports) avg/min/max/n + described
+slope; pairwise ratio stats ONLY where the denominator's sign is
+constant (else refused with why); trend_history appended per
+re-take (track the line, not just the level). All net content,
+container-stamped, pickled with his life. (3) the plot face:
+stdlib SVG (points, trend overlay, error bars from residual rms or
+the floor, frame-average steps, anomaly rings) — the observed-maps
+precedent, no new dependency. Battery permanent; the analyst face
+renders the dossier and a --plot flag writes the SVGs.
+
+## THE TELLING ROAD (owner, 2026-07-18 evening, after the specifics
+## layer): "can we just do teach without injection? do front door
+## stuff? did we ever figure out just how to tell him things in
+## plain english?... if he could just interpret 'ohm's law is v=ir'
+## and he would create a node for ohms law containing v=ir and will
+## use it but validate with more information later."
+THE ORGAN IS TRANSLATION + VET ONLY (isaac_store/telling.py) —
+knowledge lands through the PROMOTED doors: tell_law (MATCHES =
+witness on the shared form; new forms TOLD-UNVERIFIED, usable at
+once, belief measured never told) + the curriculum's own
+application fact-bundle (uses-form/output/slots taught as facts,
+so the NAME survives the shared shape — ohm and rect-area are one
+form wearing two labels, the shapes discovery honored). THE V1
+TELLING GRAMMAR, declared: "<name> is <out>=<expr>"; single-letter
+quantities (physics style — ir reads i*r); pi known; powers incl.
+halves and negatives; squares emitted as the house canonical x*x;
+NO parentheses/functions (refused BY NAME); /ab refused as
+ambiguous. THE NAME VET, container-blind: a held name with a
+DIFFERENT form refuses ("a different form must win a duel, not a
+retelling"); a RETELLING lands as a witness on HIS OWN node, never
+on a same-form stranger the scan meets first (session-1 dry-prove
+find). READ PROPOSES, THE ECHO CONFIRMS: every accepted telling is
+echoed back rendered from what was stored. Front door: askisaac
+--tell "..." (dry parse card by default; --account = his home,
+.bak first, saved after) + --recall NAME. Battery 13/13 permanent
+(incl. told-Kepler MATCHES a DISCOVERED law; validate-later HOLDS/
+FAILS; cross-container names; save/load). FIRST LIVE TELLING
+2026-07-18 20:35 (road-trial #15): kepler-told RECOGNIZED as his
+own discovered sky law (witness who=owner ON a discovered node);
+circle-area retold = witness on the curriculum's node; coulombs-
+form + pendulum-period = the first plain-english knowledge of his
+life, validated HOLDS on 50 fresh rows same sitting; account
+843->853 nodes, 37->39 laws, 311->320 facts, precision 1.0 held.
+PARKED, NAMED: multi-letter quantity names (vocabulary elections
+road); functions/parens (v2 grammar); triples ("X is a Y") through
+the same vet; who-stamps on teach() facts (the audit's engine-side
+stamping item); the LLM-ear (model proposes the parse, the
+instrument confirms — model words are DATA through the vet).

@@ -1604,3 +1604,152 @@ owner's read-the-code correction). Battery test_engineer.py 10/10
 joins the permanent wall (incl. the literal mod null and the
 instrument court: behavior reproduces the read's cap law exactly).
 v1 vocabulary limits named in the module docstring.
+
+## 2026-07-18 — THE MECHANICAL RUNG 8/8 (owner: park GPT-2, explore)
+engineer_m_probe: UNDERSTANDING PROVEN BY CONSTRUCTION — the tube
+recipe INSTANTIATES: spec sheet (wall 5mm, 1727.9cm3, 13.56kg,
+density cited) + A REAL 3D MODEL (runs/tube.obj, 256v/512f,
+watertight; mesh volume EXACT at the mesh's own ruler and the
+circular recipe within the NAMED 0.16% discretization — the mesh is
+the tube's fourth view, instrument-relative precision); the family
+(a 4in-sch40-ish instance from the same recipe). THE CONTACT
+TAXONOMY as courts: NOT-TOUCHING w/ clearance NAMED / TOUCHING
+(push, never pull) / interference+press-INTENT = CONNECTED (the
+machinist's truth: interference IS a fastening) / same geometry +
+loose intent = WOUND ("two solids, one space") / weld = CONNECTED.
+FORCE PATHS tested by propagation, 6/6 incl. the weakest-link
+chain. PHYSICS FROM CODE: k=3.5, e=0.8, F=-kx READ from sim text;
+INSTRUMENT confirms (k 3.5000 from the measured period, e 0.7999
+from bounce ratios). GPT-2 fidelity PARKED (queued, not dropped).
+NEXT: mates as typed doors (M3), part-stack propagation (M4),
+kinematics (M5), the single-cylinder gate (M6).
+
+## 2026-07-18 — THE OWNERSHIP TRANSPLANT 8/8 (the owner's question
+## made law: "what did you build for him to be able to recreate
+## these")
+HONEST AUDIT: the mechanical rung's first build taught the CODEBASE
+(constraint/taxonomy/rules in Python, none his). THE TRANSPLANT
+(engineer_transplant_probe): same eight answers from NET CONTENT +
+one GENERIC organ, hand courts monkeypatched-to-raise and never
+called — the tube constraint TOLD in his grammar (mechanics
+container, told-unverified, supersedable); the taxonomy TAUGHT
+(teach/teach_not; transmits from ask()); laws_run_backward = the
+one new generic organ (any linear law he holds, any unknown:
+derive/corroborate/refuse-with-residual/DOF) — tube + groove
+dependency + Kirchhoff from the SAME organ, zero per-domain Python.
+THE EDIT: one teach() and welds carry torque. STANDING DISCIPLINE
+captured on the sheet: a rung is DONE when content is NET and
+courts are GENERIC, hand-domain code ABLATED in the battery.
+
+## 2026-07-18 — THE CHECKLIST CURRICULUM (owner tactic change)
+docs/engineer/CURRICULUM_CHECKLIST.md: ~330 testable items across
+CAD/mechanical (sketch entities, constraints, features, datums,
+tolerances+GD&T+fits, mass properties, assemblies+mates, machine
+elements, construction gates), Python (types, scope, operators,
+collections, control flow, functions, OOP, modules, shapes+bugs-as-
+negative-knowledge, program courts), electrical (fundamentals,
+passives, semiconductors, digital, analysis courts), and
+tracing/blueprinting (mechanical drawings both directions,
+schematics+netlists, diagrams general). THE GRADING STANDARD: A
+LEARN (enters the NET — ownership law), B UNDERSTAND (courts he
+wasn't told the answers to), C USE (construction, instrument-
+checked, transfer). 24 items already green with receipts; the doc
+is the lane's SCOREBOARD (results appended inline; partial grades
+honest; wrong predictions kept next to items).
+
+## 2026-07-18 — THE FULL CURRICULUM FEED, LIVE (meal 8, the biggest
+## of his life)
+curriculum_feed.py: 48 law applications + 148 facts + 10 negatives
+fed through the promoted doors into 4 domain containers; 28/28
+forms bulk-courted (corrupt refused 28/28; 53/57 unknowns derived —
+4 honest solver-scope misses named); 5/5 constructions from HIS
+content only (LED sizing w/ E12+safety-rule; power 3-view; divider
+by chained laws; H7/g6 + sleeve; bug flagged from negative
+knowledge). THE SHAPES DISCOVERY: 48 applications compress to 28
+forms (ohm=density=hooke=torque=work= one product shape) — the
+shapes-and-labels ontology measured. Account: 627->843 nodes,
+236->1,524 doors, 9->37 laws, 311 facts; SELECTION PRECISION HELD
+AT 1.0 with 4x the laws; probe 0.264s. Scoreboard results appended
+to CURRICULUM_CHECKLIST.md.
+
+## 2026-07-18 — STRUCTURE ASSESSMENT + THE OBSERVED MAPS 8/8
+Owner: "give him complete structures and he can assess how they are
+built and connected" + "observe the maps... what he understands
+about a thing." engineer_assess_probe (stands on the curriculum
+feed): a 5-part assembly assessed FROM HIS KNOWLEDGE ONLY — parts
+via his kind signatures (+ the gasket flagged WOUND by his own tube
+constraint, residual -0.5, never silently classified); connections
+via his taxonomy w/ quantities (press 0.05, clearance 0.04, weld);
+JOURNAL-BEARING function recognized from his pattern fact; load
+paths 3/3 on the assessed graph; regeneration==truth; the exploded
+null says nothing false. The circuit: kinds from his designator
+facts, loop traced, OPERATING POINT 17.95mA DERIVED from his
+led-resistor law + his forward-drop fact; the resistor-less variant
+flagged DANGER from his certified negative. THE OBSERVED MAPS
+emitted (runs/*.svg): the 25-step receipted PROCESSING TRACE, the
+UNDERSTANDING MAP (ego-graph of 'connected'), the ASSESSMENT MAP.
+Solver v2 regained its all-knowns consistency branch (wrong-kept:
+v2 had lost want=None).
+
+## 2026-07-18 (evening) — THE SPECIFICS LAYER / THE DOSSIER 12/12
+Owner: "having the law is great, but sometimes you need to
+reference a specific sample... averages, extremes, ratios, sigfigs,
+std dev, median and mode... as well as time frames. avg per day,
+avg per month, avg per year, track trend lines. plot data points,
+error bars." THE DESIGN SENTENCE: THE DOSSIER DESCRIBES, THE COURT
+JUDGES. New: (1) intake's calendar road — date-string columns
+PARSED (ISO / YYYY-MM / M-D-Y with column-evidence day-first flip)
+into fractional years with exact ymd kept aligned, never dropped;
+(2) take_dossier/recall_dossier (isaac.py, by the facts layer) —
+per-column n/mean/median/std(n-1)/mode-with-count (all-distinct
+REFUSES), resolution via the promoted grain court (reuse), extremes
+WITH their full rows, example rows via _sample_evidence (reuse),
+calendar frames avg-per-day/month/year (identity frames skipped
+with the receipt; buckets capped, said), sign-safe ratio cards
+(zero-crossing denominators refused), described-never-judged frame
+slopes, and a taken-history so the trend LINE is tracked across
+re-takes; net content at dossier:<name>, container-stamped,
+pickled with his life; (3) isaac_store/plot.py — stdlib SVG plot
+face (points, error bars ± residual rms or half-grain, the court's
+trend dashed, frame averages stepped, anomalies ringed; same input
+= same bytes); (4) the analyst face renders the dossier and
+askisaac grew --plot; analyst_source(mind=) opens the live meal
+road. Battery dossier_battery.py 12/12 (leap-year Feb-2024 29-day
+bucket hand-exact; D/M flip by evidence; decimal-year calendar
+derivation; the 1..8 refusal; SVG mark-count + byte determinism).
+Real-data receipt: 820 Keeling rows -> resolution 0.01 read off
+the instrument, avg-per-year 315.237 (1958) -> 430.503 (2026),
+described slope 1.67445 ppm/yr, monthly frame honestly skipped
+(data already at that grain). Regressions green: intake 19/19,
+analyst face 7/7, trend 8/8, told-knowledge 13/13, facts-layer
+7/7, audit 18/18.
+
+## 2026-07-18 (evening) — THE TELLING ROAD 13/13 + FIRST LIVE
+## TELLING (road-trial #15) + THE REVIEW PINS 18/18
+Owner: "tell him things in plain english... 'ohm's law is v=ir'...
+use it but validate with more information later." Built as
+TRANSLATION + VET ONLY (isaac_store/telling.py ~250 lines):
+parse_told_law (v1 grammar declared, six named refusals),
+tell_english (container-blind name vet; retell = witness on HIS
+OWN node; lands via tell_law + uses-form/output/slots facts —
+the curriculum's shapes-and-labels ontology reused whole),
+recall_law (reads told AND discovered meta). askisaac grew --tell/
+--recall/--account (dry by default; .bak before live saves).
+telling_battery.py 13/13 permanent. FIRST LIVE TELLING: kepler
+told in english -> MATCHES his DISCOVERED solar-system law;
+coulombs-form + pendulum-period = first english-born knowledge,
+validated HOLDS same sitting; 853 nodes / 39 laws / 320 facts /
+precision 1.0 (road-trial #15); mind.isaac.bak kept.
+ALSO THIS SESSION: the specifics-layer adversarial review (22
+agents, every finding refuted-or-confirmed by EXECUTED probes)
+confirmed 18 finds, all fixed + pinned as battery cases D13-D18:
+newest-first/shuffled dated files now reordered WITH receipt;
+declared calendar beats the id-column scan; frame slopes take
+their axis from the calendar itself (per_year true by
+construction); sentinel dates can't vote day-first; decimals
+round-trip; no phantom trend when the court refused; XML-safe
+plots; hostile headers sanitized; takes monotonic past the
+history cap; stale provenance cleared; loud refusals for
+target=time and time-only tables. dossier_battery.py 18/18;
+regressions: intake 19/19, audit 18/18, analyst 7/7+8/8+6/6+7/7,
+facts 7/7, told-knowledge 13/13.
