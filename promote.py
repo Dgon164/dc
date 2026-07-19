@@ -227,6 +227,13 @@ def main():
         # `git status` — read proposes, the instrument confirms)
         ("tense battery", ["tense_battery.py"],
          os.path.join(DC, "experiments"), None),
+        # the diagnosis court + the ask road (owner, 2026-07-19:
+        # "its evaluating backward... there are only so many
+        # variables to adjust, and you can check each state
+        # directly"; THE FIRE-TRIANGLE CLAUSE -> ask, never
+        # repair; live receipt: 5 of 7 git darks cured)
+        ("diagnosis battery", ["diagnosis_battery.py"],
+         os.path.join(DC, "experiments"), None),
         ("flow battery", ["flow_promotion_battery.py"],
          os.path.join(DC, "experiments"), None),
         ("flow-election battery", ["flow_election_battery.py"],
