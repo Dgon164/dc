@@ -193,6 +193,12 @@ def main():
         # program text)
         ("engineer battery", ["test_engineer.py"],
          os.path.join(DC, "isaac_store"), None),
+        # THE OWNERSHIP GATE (provenance audit 2026-07-18 -> cured
+        # 2026-07-19): the hand courts ABLATED, the same answers
+        # reproduced from net content — the discipline enforced on
+        # every promote, not proven once in research
+        ("engineer-transplant ablation", ["engineer_transplant_probe.py"],
+         os.path.join(DC, "experiments"), None),
         # the specifics layer (owner, 2026-07-18 evening: averages,
         # extremes, mode, sigfigs, time frames, plots — THE DOSSIER
         # DESCRIBES, THE COURT JUDGES; incl. the 18 review pins)

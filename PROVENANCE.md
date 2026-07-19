@@ -1,7 +1,7 @@
 # PROVENANCE — what is live, and where it came from
 
-- promoted: 2026-07-18 20:41:55
-- research commit: isaac-paperclip @ 3ec4e87 (working tree was DIRTY)
+- promoted: 2026-07-19 05:47:52
+- research commit: isaac-paperclip @ 05e040f (working tree was DIRTY)
 - copied: PAPERCLIP_MANUAL.md, README_ALPHA.md, alpha.py, askisaac.py, demos, discovery_battery_results.csv, docs, experiments, face.py, gauntlet_results.csv, isaac.py, isaac_store, requirements.txt, research, spatial, standalone, ui, worker.py
 - gates:
   - engine suite: PASS — One file. One class. One operation.
@@ -42,21 +42,22 @@
   - vet-intake battery: PASS — ======================================================================
   - audit battery: PASS — ======================================================================
   - sparring battery: PASS — SPARRING BATTERY: 33/33 checks passed
-  - mechanisms battery: PASS — BATTERY: 8 passed, 0 failed of 8  (28.1s)
-  - outlier-source battery: PASS — BATTERY: 5 passed, 0 failed of 5  (13.6s)
+  - mechanisms battery: PASS — BATTERY: 8 passed, 0 failed of 8  (28.3s)
+  - outlier-source battery: PASS — BATTERY: 5 passed, 0 failed of 5  (13.5s)
   - containers battery: PASS — BATTERY: 10 passed, 0 failed of 10  (0.0s)
-  - container-crystal battery: PASS — BATTERY: 9 passed, 0 failed of 9  (4.1s)
-  - harder-road battery: PASS — BATTERY: 7 passed, 0 failed of 7  (32.8s)
-  - analyst-trend battery: PASS — BATTERY: 8 passed, 0 failed of 8  (1.9s)
+  - container-crystal battery: PASS — BATTERY: 9 passed, 0 failed of 9  (4.3s)
+  - harder-road battery: PASS — BATTERY: 7 passed, 0 failed of 7  (34.3s)
+  - analyst-trend battery: PASS — BATTERY: 8 passed, 0 failed of 8  (2.0s)
   - analyst-relate battery: PASS — BATTERY: 6 passed, 0 failed of 6  (0.0s)
-  - analyst-watch battery: PASS — BATTERY: 7 passed, 0 failed of 7  (1.4s)
-  - analyst-face battery: PASS — BATTERY: 7 passed, 0 failed of 7  (2.8s)
+  - analyst-watch battery: PASS — BATTERY: 7 passed, 0 failed of 7  (1.3s)
+  - analyst-face battery: PASS — BATTERY: 7 passed, 0 failed of 7  (2.7s)
   - facts-layer battery: PASS — BATTERY: 7 passed, 0 failed of 7  (12.4s)
   - engineer battery: PASS — BATTERY: 10 passed, 0 failed of 10  (0.0s)
+  - engineer-transplant ablation: PASS — PROBE: 8 passed, 0 failed of 8  (0.0s)
   - dossier battery: PASS — BATTERY: 18 passed, 0 failed of 18  (1.3s)
   - telling battery: PASS — BATTERY: 13 passed, 0 failed of 13  (0.0s)
-  - flow battery: PASS — BATTERY: 14 passed, 0 failed of 14  (0.4s)
-  - flow-election battery: PASS — BATTERY: 6 passed, 0 failed of 6  (11.8s)
+  - flow battery: PASS — BATTERY: 14 passed, 0 failed of 14  (0.5s)
+  - flow-election battery: PASS — BATTERY: 6 passed, 0 failed of 6  (12.1s)
   - verdict duel gate: PASS — GATE: 4 passed, 0 failed of 4
   - inherit battery: PASS — ======================================================================
   - road-trial battery: PASS — ======================================================================
