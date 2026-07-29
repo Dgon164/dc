@@ -51,7 +51,11 @@ def normalize(path):
     except UnicodeDecodeError:
         text = raw.decode("latin-1")
         notes.append("decoded as latin-1 (not valid utf-8)")
-    lines = [ln for ln in text.splitlines() if ln.strip() != ""]
+    all_lines = text.splitlines()
+    lines = [ln for ln in all_lines if ln.strip() != ""]
+    n_blank = len(all_lines) - len(lines)
+    if n_blank:
+        notes.append(f"dropped {n_blank} blank line(s)")
     n_comments = sum(1 for ln in lines if ln.lstrip().startswith("#"))
     if n_comments:
         lines = [ln for ln in lines if not ln.lstrip().startswith("#")]
@@ -82,6 +86,16 @@ def normalize(path):
         notes.append(f"skipped title row: {' '.join(parsed[0])[:60]!r}")
         parsed.pop(0)
         skipped += 1
+    # ragged rows (wrong field count) cannot be aligned to columns.
+    # They are QUARANTINED with receipts — never silently dropped:
+    # one receipt per row, and the raw line is kept in the notes so
+    # nothing the client sent is ever lost without a trace.
+    ragged = [(i, r) for i, r in enumerate(parsed, start=1)
+              if len(r) != modal_w]
+    for i, r in ragged:
+        notes.append(f"QUARANTINED row {i}: {len(r)} fields where "
+                     f"the table has {modal_w} — cannot align to "
+                     f"columns; content: {best.join(r)[:80]!r}")
     parsed = [r for r in parsed if len(r) == modal_w]
 
     def numeric(cell):

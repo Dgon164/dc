@@ -14,7 +14,12 @@ cleaned file back. This wrapper squares the two honestly:
     a law is evidence, not a typo to overwrite.
 
     python standalone/clean_file.py dirty.csv
-    python standalone/clean_file.py dirty.xlsx --keep-dupes --no-audit
+    python standalone/clean_file.py dirty.tsv --keep-dupes --no-audit
+
+Known limits, stated plainly: delimited text only for now (csv/tsv/
+semicolon/pipe) — Excel .xlsx must be exported to CSV first;
+category variants ('east'/'East') and mixed date formats are left
+as-is in the output (flagged territory, not silently rewritten).
 
 Output: <out>/<name>/cleaned.csv + CHANGELOG.md + audit receipts.
 Exit 0 always means: cleaned file written, changelog complete.
