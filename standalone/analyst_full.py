@@ -60,8 +60,89 @@ def human(x):
 
 
 # ------------------------------------------------------------ columns
+def _tokens(name):
+    """Column-name words: 'InvoiceNo' -> {invoice, no};
+    'incident_zip' -> {incident, zip}."""
+    spaced = re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", name)
+    return {t for t in re.split(r"[^a-zA-Z0-9]+", spaced.lower())
+            if t}
+
+
+ID_TOKENS = {"id", "ids", "no", "num", "number", "key", "code",
+             "codes", "zip", "zipcode", "postal", "phone", "bbl",
+             "ssn", "ein", "uuid", "guid", "sku", "upc", "isbn",
+             "district", "precinct", "tract"}
+COORD_TOKENS = {"lat", "latitude", "lon", "lng", "long",
+                "longitude", "coordinate", "coordinates", "plane",
+                "geocode"}
+RATE_TOKENS = {"price", "rate", "cost", "fee", "pct", "percent",
+               "ratio"}
+CUSTOMER_TOKENS = {"customer", "client", "buyer", "member",
+                   "account", "user", "email", "patient", "donor"}
+ORDER_TOKENS = {"order", "invoice", "transaction", "receipt",
+                "ticket", "basket"}
+
+DT_RES = (
+    re.compile(r"^(\d{4})-(\d{1,2})-(\d{1,2})(?:[T ]\d{1,2}:\d{2}"
+               r"(?::\d{2}(?:\.\d+)?)?)?$"),
+    re.compile(r"^(\d{1,2})/(\d{1,2})/(\d{4})(?:\s+\d{1,2}:\d{2}"
+               r"(?::\d{2})?)?$"),
+)
+
+
+def parse_any_date(v):
+    """A date out of a date-or-datetime string, or None. Slash dates
+    read month-first (US); a first number over 12 flips to
+    day-first."""
+    m = DT_RES[0].match(v)
+    if m:
+        y, mo, d = map(int, m.groups())
+    else:
+        m = DT_RES[1].match(v)
+        if not m:
+            return None
+        a, b, y = map(int, m.groups())
+        mo, d = (a, b) if a <= 12 else (b, a)
+    try:
+        return datetime.date(y, mo, d)
+    except ValueError:
+        return None
+
+
+def normalize_dates(rows, header):
+    """Datetime-shaped columns become plain ISO dates IN PLACE, so
+    every daily organ can read them. Receipted: each conversion is
+    a note; times of day are set aside, said, never silently."""
+    notes = []
+    n = len(rows)
+    for i, h in enumerate(header):
+        sample = [r[i] for r in rows[:200] if i < len(r) and r[i]]
+        if not sample:
+            continue
+        parsed = [parse_any_date(v) for v in sample]
+        okf = sum(1 for p in parsed if p) / len(sample)
+        plain_iso = all(re.match(r"^\d{4}-\d{1,2}-\d{1,2}$", v)
+                        for v in sample)
+        if okf < 0.9 or plain_iso:
+            continue
+        changed = 0
+        for r in rows:
+            if i < len(r) and r[i]:
+                p = parse_any_date(r[i])
+                if p:
+                    r[i] = p.isoformat()
+                    changed += 1
+        notes.append(f"column '{h}': {changed:,} timestamp(s) read "
+                     f"as dates (time of day set aside for the "
+                     f"daily analysis, never silently)")
+    return notes
+
+
 def classify_columns(rows, header):
-    """Every column accounted for: numeric, date, category, or text."""
+    """Every column accounted for — and never a label mistaken for
+    a quantity: identifiers (invoice numbers, zip codes, ids) and
+    coordinates are counted or mapped, NEVER summed, trended,
+    correlated, or averaged."""
     cols = {}
     n = len(rows)
     for i, h in enumerate(header):
@@ -73,16 +154,34 @@ def classify_columns(rows, header):
                 nums.append(float(v))
             except ValueError:
                 pass
+        toks = _tokens(h)
         kind = "text"
         dates = _parse_dates(nonblank)
-        if nonblank and len(nums) / len(nonblank) >= 0.9:
-            kind = "numeric"
-        elif dates is not None:
+        numeric_frac = (len(nums) / len(nonblank)) if nonblank else 0
+        uniq = len(set(nonblank))
+        if dates is not None:
             kind = "date"
-        elif 1 < len(set(nonblank)) <= min(30, max(2, n // 3)):
+        elif toks & COORD_TOKENS and numeric_frac >= 0.9:
+            kind = "coordinate"
+        elif toks & (ID_TOKENS | ORDER_TOKENS | CUSTOMER_TOKENS) \
+                and (numeric_frac >= 0.9 or uniq > 30):
+            kind = "identifier"
+        elif toks & RATE_TOKENS and numeric_frac >= 0.9 \
+                and not (toks & {"revenue", "sales", "amount",
+                                 "total", "dollars"}):
+            kind = "rate"  # per-unit number: averaged, never summed
+        elif numeric_frac >= 0.9:
+            ints = nums and all(float(x).is_integer() for x in
+                                nums[:500])
+            if ints and uniq >= 0.95 * len(nonblank) and uniq > 50:
+                kind = "identifier"  # a counter wearing numbers
+            else:
+                kind = "numeric"
+        elif 1 < uniq <= min(30, max(2, n // 3)):
             kind = "category"
         cols[h] = dict(kind=kind, vals=vals, nums=np.array(nums),
-                       dates=dates, missing=n - len(nonblank))
+                       dates=dates, missing=n - len(nonblank),
+                       tokens=toks)
     return cols
 
 
@@ -126,6 +225,23 @@ def profile_block(cols, n_rows):
             d = c["dates"]
             md.append(f"- **{h}** (dates{miss}): {d[0].isoformat()} "
                       f"to {d[-1].isoformat()}, {len(d)} entries")
+        elif c["kind"] == "identifier":
+            uniq = len(set(v for v in c["vals"] if v != ""))
+            md.append(f"- **{h}** (identifier{miss}): {uniq:,} "
+                      f"distinct — a label wearing numbers; "
+                      f"counted, never summed or averaged")
+        elif c["kind"] == "rate" and len(c["nums"]):
+            v = c["nums"]
+            md.append(f"- **{h}** (per-unit number{miss}): "
+                      f"{human(v.min())} to {human(v.max())}, "
+                      f"typical {human(np.median(v))} — averaged "
+                      f"and trended, never summed (a total of "
+                      f"prices means nothing)")
+        elif c["kind"] == "coordinate":
+            uniq = len(set(v for v in c["vals"] if v != ""))
+            md.append(f"- **{h}** (coordinate{miss}): {uniq:,} "
+                      f"distinct positions — mapped, never treated "
+                      f"as a quantity")
         else:
             uniq = len(set(v for v in c["vals"] if v != ""))
             md.append(f"- **{h}** (text{miss}): {uniq} distinct "
@@ -149,17 +265,21 @@ def segments_block(rows, header, cols, chart_dir, findings):
     cats = [h for h, c in cols.items() if c["kind"] == "category"][:3]
     nums = [h for h, c in cols.items() if c["kind"] == "numeric"][:3]
     md, charts = [], []
-    if not cats or not nums:
-        return md, charts
+    if not cats:
+        return md, charts  # counts still work with zero measures
     md += ["## How the groups compare", ""]
     rng = np.random.default_rng(SEED)
     for cat in cats:
         ci = header.index(cat)
-        for num in nums:
-            ni = header.index(num)
-            pairs = [(r[ci], float(r[ni])) for r in rows
-                     if ci < len(r) and ni < len(r) and r[ci] != ""
-                     and _is_num(r[ni])]
+        for num in nums + ["volume (rows)"]:
+            if num == "volume (rows)":
+                pairs = [(r[ci], 1.0) for r in rows
+                         if ci < len(r) and r[ci] != ""]
+            else:
+                ni = header.index(num)
+                pairs = [(r[ci], float(r[ni])) for r in rows
+                         if ci < len(r) and ni < len(r)
+                         and r[ci] != "" and _is_num(r[ni])]
             if len(pairs) < 12:
                 continue
             groups = {}
@@ -227,20 +347,32 @@ def seasonality_block(rows, header, cols, findings):
                      if c["kind"] == "date"), None)
     nums = [h for h, c in cols.items() if c["kind"] == "numeric"][:2]
     md = []
-    if not date_col or not nums:
-        return md
+    if not date_col:
+        return md  # daily volume still works with zero measures
     ci = header.index(date_col)
     md += ["## What repeats", ""]
     rng = np.random.default_rng(SEED + 1)
-    for num in nums:
-        ni = header.index(num)
+    for num in nums + ["volume (rows per day)"]:
         recs = []
-        for r in rows:
-            if ci < len(r) and ni < len(r) and _is_num(r[ni]):
-                m = re.match(r"^(\d{4})-(\d{1,2})-(\d{1,2})$", r[ci])
-                if m:
-                    d = datetime.date(*map(int, m.groups()))
-                    recs.append((d, float(r[ni])))
+        if num == "volume (rows per day)":
+            per_day = {}
+            for r in rows:
+                if ci < len(r):
+                    m = re.match(r"^(\d{4})-(\d{1,2})-(\d{1,2})$",
+                                 r[ci])
+                    if m:
+                        d = datetime.date(*map(int, m.groups()))
+                        per_day[d] = per_day.get(d, 0) + 1
+            recs = sorted(per_day.items())
+        else:
+            ni = header.index(num)
+            for r in rows:
+                if ci < len(r) and ni < len(r) and _is_num(r[ni]):
+                    m = re.match(r"^(\d{4})-(\d{1,2})-(\d{1,2})$",
+                                 r[ci])
+                    if m:
+                        d = datetime.date(*map(int, m.groups()))
+                        recs.append((d, float(r[ni])))
         if len(recs) < 30:
             continue
         for label, keyf, names in (
@@ -494,8 +626,8 @@ def periods_block(rows, header, cols, findings):
     nums = [h for h, c in cols.items() if c["kind"] == "numeric"][:3]
     cats = [h for h, c in cols.items() if c["kind"] == "category"][:1]
     md, kpi_subs = [], {}
-    if not date_col or not nums:
-        return md, kpi_subs
+    if not date_col:
+        return md, kpi_subs  # monthly volume works with no measures
     ci = header.index(date_col)
 
     def month_of(r):
@@ -516,13 +648,19 @@ def periods_block(rows, header, cols, findings):
         return md, kpi_subs
     m1, m0 = full_months[-1], full_months[-2]
     md += ["## Month over month (period facts, exact)", ""]
-    for num in nums:
-        ni = header.index(num)
+    for num in nums + ["volume (rows)"]:
         tot = {}
-        for r in rows:
-            mo = month_of(r)
-            if mo and ni < len(r) and _is_num(r[ni]):
-                tot[mo] = tot.get(mo, 0.0) + float(r[ni])
+        if num == "volume (rows)":
+            for r in rows:
+                mo = month_of(r)
+                if mo:
+                    tot[mo] = tot.get(mo, 0.0) + 1.0
+        else:
+            ni = header.index(num)
+            for r in rows:
+                mo = month_of(r)
+                if mo and ni < len(r) and _is_num(r[ni]):
+                    tot[mo] = tot.get(mo, 0.0) + float(r[ni])
         if m1 not in tot or m0 not in tot or tot[m0] == 0:
             continue
         chg = (tot[m1] - tot[m0]) / abs(tot[m0])
@@ -585,23 +723,7 @@ def customers_block(rows, header, cols, findings):
     """The customer base — who buys, who comes back, who carries
     you. Exact counts on the table (facts, receipted), the analysis
     a small business almost never has."""
-    # the id column: named like a customer, or id-shaped text with
-    # real repeats. An every-row-unique column is an order id, not
-    # a customer base — skipped with its why.
-    cand = None
-    for h, c in cols.items():
-        if c["kind"] not in ("text", "category"):
-            continue
-        vals = [v for v in c["vals"] if v != ""]
-        uniq = len(set(vals))
-        if uniq < 5 or uniq == len(vals):
-            continue
-        if ID_NAME_RE.search(h):
-            cand = h
-            break
-        if cand is None and 1.3 <= len(vals) / uniq <= 50 and \
-                c["kind"] == "text":
-            cand = h
+    cand = find_customer_col(cols)
     if not cand:
         return []
     ci = header.index(cand)
@@ -617,27 +739,84 @@ def customers_block(rows, header, cols, findings):
                 best_tot, num = c["nums"].sum(), h
     ni = header.index(num) if num else None
 
+    # ORDERS, never rows — a 20-line invoice is ONE visit. The
+    # blind court caught the row-counting artifact; never again.
+    ogroups, _how = _find_orders(rows, header, cols)
     orders = {}
+    guest_rows, guest_val, total_val = 0, 0.0, 0.0
     for r in rows:
-        if ci < len(r) and r[ci] != "":
-            rec = dict(d=None, v=0.0)
-            if di is not None and di < len(r):
-                m = re.match(r"^(\d{4})-(\d{1,2})-(\d{1,2})$", r[di])
-                if m:
-                    rec["d"] = datetime.date(*map(int, m.groups()))
+        if ni is not None and ni < len(r) and _is_num(r[ni]):
+            total_val += float(r[ni])
+        if ci < len(r) and r[ci] == "":
+            guest_rows += 1
             if ni is not None and ni < len(r) and _is_num(r[ni]):
-                rec["v"] = float(r[ni])
-            orders.setdefault(r[ci], []).append(rec)
+                guest_val += float(r[ni])
+    if ogroups:
+        for okey, ls in ogroups.items():
+            c = ls[0][ci] if ci < len(ls[0]) else ""
+            if c == "":
+                continue
+            rec = dict(d=None, v=0.0)
+            for r in ls:
+                if di is not None and di < len(r):
+                    m = re.match(r"^(\d{4})-(\d{1,2})-(\d{1,2})$",
+                                 r[di])
+                    if m and rec["d"] is None:
+                        rec["d"] = datetime.date(
+                            *map(int, m.groups()))
+                if ni is not None and ni < len(r) \
+                        and _is_num(r[ni]):
+                    rec["v"] += float(r[ni])
+            orders.setdefault(c, []).append(rec)
+    else:
+        for r in rows:
+            if ci < len(r) and r[ci] != "":
+                rec = dict(d=None, v=0.0)
+                if di is not None and di < len(r):
+                    m = re.match(r"^(\d{4})-(\d{1,2})-(\d{1,2})$",
+                                 r[di])
+                    if m:
+                        rec["d"] = datetime.date(
+                            *map(int, m.groups()))
+                if ni is not None and ni < len(r) \
+                        and _is_num(r[ni]):
+                    rec["v"] = float(r[ni])
+                orders.setdefault(r[ci], []).append(rec)
     n_cust = len(orders)
     n_ord = sum(len(v) for v in orders.values())
     if n_cust < 5 or n_ord < 20:
         return []
     md = [f"## The customer base (from column '{cand}')", ""]
+    span_days = None
+    all_d = [o["d"] for v in orders.values() for o in v if o["d"]]
+    if all_d:
+        span_days = (max(all_d) - min(all_d)).days + 1
     repeat = [c for c, v in orders.items() if len(v) > 1]
-    md.append(f"- **{n_cust:,} distinct customers** across "
-              f"{n_ord:,} orders — {n_ord / n_cust:.1f} orders per "
-              f"customer; **{len(repeat) / n_cust:.0%} came back "
-              f"at least once**")
+    line = (f"- **{n_cust:,} identified customers** across "
+            f"{n_ord:,} orders — {n_ord / n_cust:.1f} orders per "
+            f"customer; {len(repeat) / n_cust:.0%} placed more "
+            f"than one order")
+    if span_days is not None and span_days < 30:
+        line += (f". CAUTION: this file covers only {span_days} "
+                 f"day(s) — no loyalty or repeat-rate conclusion "
+                 f"should be drawn from a window this short")
+    md.append(line)
+    if guest_rows and total_val > 0:
+        md.append(f"- **{guest_rows:,} rows have NO customer "
+                  f"attached** — carrying {guest_val / total_val:.0%}"
+                  f" of {num}. Every customer claim in this report "
+                  f"covers only the identified share; the blank "
+                  f"slice is where an owner should look first "
+                  f"(guest checkout? a channel booked without "
+                  f"ids?)")
+        if guest_val / total_val >= 0.15:
+            findings.append(
+                (guest_val / total_val,
+                 f"{guest_val / total_val:.0%} of {num} has no "
+                 f"customer attached — invisible to any customer "
+                 f"analysis",
+                 f"find out which channel books without ids; your "
+                 f"biggest orders may be living there"))
     if num:
         spend = sorted((sum(o['v'] for o in v), c)
                        for c, v in orders.items())[::-1]
@@ -678,18 +857,20 @@ def customers_block(rows, header, cols, findings):
             ds = sorted(o["d"] for o in v if o["d"])
             gaps += [(ds[i + 1] - ds[i]).days
                      for i in range(len(ds) - 1)]
-        if gaps:
+        if gaps and (span_days or 0) >= 30:
             md.append(f"- a returning customer typically comes "
                       f"back within {int(np.median(gaps))} days "
                       f"(median gap between orders) — silence "
                       f"much longer than that is a customer "
                       f"drifting away")
-        findings.append(
-            (len(repeat) / n_cust,
-             f"{len(repeat) / n_cust:.0%} of customers ordered "
-             f"more than once",
-             f"repeat business is the cheapest revenue there is — "
-             f"the gap number above says when to reach out"))
+        if (span_days or 0) >= 30:
+            findings.append(
+                (len(repeat) / n_cust,
+                 f"{len(repeat) / n_cust:.0%} of customers ordered "
+                 f"more than once",
+                 f"repeat business is the cheapest revenue there "
+                 f"is — the gap number above says when to reach "
+                 f"out"))
     md.append("")
     return md
 
@@ -793,12 +974,62 @@ ORDER_NAME_RE = re.compile(r"(order|invoice|transaction|receipt|"
                            r"ticket|basket)", re.I)
 
 
-def _find_orders(rows, header, cols):
-    """Group line items into orders: an order-id column by name, or
-    customer+date as the fallback key. None if no grouping exists."""
+def find_customer_col(cols):
+    """The customer column: NAMED like one (any kind — CustomerID
+    is numbers, still a customer), never a date, repeats required.
+    No shape-guessing: a column that merely repeats is not a
+    customer, and a wrong customer analysis is worse than none."""
     for h, c in cols.items():
-        if ORDER_NAME_RE.search(h) and c["kind"] in ("text",
-                                                     "category"):
+        if c["kind"] == "date":
+            continue
+        if c["tokens"] & CUSTOMER_TOKENS:
+            vals = [v for v in c["vals"] if v != ""]
+            if 4 < len(set(vals)) < len(vals):
+                return h
+    return None
+
+
+def derive_measures(rows, header, cols=None):
+    """What an analyst computes before analyzing: a quantity times
+    a price IS the revenue — derived, receipted, named as derived.
+    Only when no revenue-like column already exists."""
+    cols = cols or classify_columns(rows, header)
+    toks = {h: c["tokens"] for h, c in cols.items()}
+    has_money = any(t & {"revenue", "sales", "amount", "total",
+                         "dollars", "sale"}
+                    for h, t in toks.items()
+                    if cols[h]["kind"] in ("numeric",))
+    qty = next((h for h, c in cols.items() if c["kind"] == "numeric"
+                and c["tokens"] & {"quantity", "qty", "units",
+                                   "bottles", "count", "volume"}),
+               None)
+    rate = next((h for h, c in cols.items() if c["kind"] == "rate"
+                 and c["tokens"] & {"price", "cost"}), None)
+    if has_money or not qty or not rate:
+        return []
+    qi, ri = header.index(qty), header.index(rate)
+    name = f"revenue (derived: {qty} x {rate})"
+    header.append(name)
+    n_ok = 0
+    for r in rows:
+        try:
+            r.append(f"{float(r[qi]) * float(r[ri]):.2f}")
+            n_ok += 1
+        except (ValueError, IndexError):
+            r.append("")
+    return [f"derived column '{name}' — the money column your "
+            f"file implied but didn't carry ({n_ok:,} rows); "
+            f"marked as derived everywhere it appears"]
+
+
+def _find_orders(rows, header, cols):
+    """Group line items into orders: an order-NAMED column of any
+    kind (InvoiceNo is numbers, still an order id), never a date;
+    customer+date as the fallback key."""
+    for h, c in cols.items():
+        if c["kind"] == "date":
+            continue
+        if c["tokens"] & ORDER_TOKENS:
             vals = [v for v in c["vals"] if v != ""]
             if 1 < len(set(vals)) < len(vals):
                 i = header.index(h)
@@ -807,9 +1038,7 @@ def _find_orders(rows, header, cols):
                     if i < len(r) and r[i] != "":
                         orders.setdefault(r[i], []).append(r)
                 return orders, f"column '{h}'"
-    cust = next((h for h, c in cols.items()
-                 if ID_NAME_RE.search(h)
-                 and c["kind"] in ("text", "category")), None)
+    cust = find_customer_col(cols)
     date_col = next((h for h, c in cols.items()
                      if c["kind"] == "date"), None)
     if cust and date_col:
@@ -828,15 +1057,17 @@ def baskets_block(rows, header, cols, findings):
     orders, how = _find_orders(rows, header, cols)
     prod_col = None
     for h, c in cols.items():
-        if c["kind"] == "category" and not ID_NAME_RE.search(h) \
-                and h.lower() in ("product", "item", "sku",
-                                  "category", "service", "plan"):
+        if c["kind"] == "category" \
+                and not (c["tokens"] & CUSTOMER_TOKENS) \
+                and c["tokens"] & {"product", "item", "sku",
+                                   "category", "service", "plan"}:
             prod_col = h
             break
     if prod_col is None:
         prod_col = next((h for h, c in cols.items()
                          if c["kind"] == "category"
-                         and not ID_NAME_RE.search(h)), None)
+                         and not (c["tokens"] & CUSTOMER_TOKENS)),
+                        None)
     if not orders or not prod_col or len(orders) < 30:
         return []
     pi = header.index(prod_col)
@@ -922,8 +1153,7 @@ def coupons_block(rows, header, cols, findings):
     orders, how = _find_orders(rows, header, cols)
     if not orders or len(orders) < 30:
         return []
-    cust = next((h for h, c in cols.items() if ID_NAME_RE.search(h)
-                 and c["kind"] in ("text", "category")), None)
+    cust = find_customer_col(cols)
     date_col = next((h for h, c in cols.items()
                      if c["kind"] == "date"), None)
     n = len(orders)
@@ -1004,8 +1234,7 @@ def coupons_block(rows, header, cols, findings):
 def at_risk_block(rows, header, cols, findings):
     """High-value customers gone quiet past their OWN cadence —
     the call list. Facts on the table, named."""
-    cust = next((h for h, c in cols.items() if ID_NAME_RE.search(h)
-                 and c["kind"] in ("text", "category")), None)
+    cust = find_customer_col(cols)
     date_col = next((h for h, c in cols.items()
                      if c["kind"] == "date"), None)
     num, best_tot = None, -1

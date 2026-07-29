@@ -29,7 +29,9 @@ from datetime import date
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from analyst_full import build_extras, human  # noqa: E402
+from analyst_full import (build_extras, human,  # noqa: E402
+                          normalize_dates, classify_columns,
+                          derive_measures)
 
 DC = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -650,6 +652,8 @@ def main():
     os.makedirs(out_dir, exist_ok=True)
 
     rows, header, notes = normalize(args.source)
+    notes += normalize_dates(rows, header)
+    notes += derive_measures(rows, header)
     norm_csv = os.path.join(out_dir, f"{name}.normalized.csv")
     write_csv(rows, header, norm_csv)
     print(f"intake: {len(rows)} rows x {len(header)} cols; "
@@ -664,6 +668,13 @@ def main():
         print(f"audit face: {t2:.1f}s", flush=True)
 
     findings = parse_analyst(analyst_text)
+    # identifiers and coordinates are labels wearing numbers — the
+    # engine may analyze them, but they never trend, chart, or
+    # summarize as quantities in the client-facing layers
+    kinds = classify_columns(rows, header)
+    findings = [f for f in findings
+                if kinds.get(f["name"], {}).get("kind")
+                not in ("identifier", "coordinate")]
     audit = parse_audit(audit_text) if audit_text else None
     time_col = args.time
     if not time_col:
