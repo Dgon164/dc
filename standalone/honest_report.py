@@ -28,6 +28,9 @@ from datetime import date
 
 import numpy as np
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from analyst_full import build_extras  # noqa: E402
+
 DC = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # palette (single-series line + status marks; text never wears series color)
@@ -270,6 +273,21 @@ def descriptive_trend(x, y, n_sub=200, seed=17):
                 total=slope * float(np.ptp(x)), n=n)
 
 
+def _time_value(v):
+    """A time cell as a number: plain number, or ISO date as a
+    decimal year (2025-07-01 -> 2025.49...)."""
+    try:
+        return float(v)
+    except ValueError:
+        m = re.match(r"^(\d{4})-(\d{1,2})-(\d{1,2})$", v)
+        if not m:
+            return None
+        import datetime as _dt
+        y, mo, d = map(int, m.groups())
+        day = _dt.date(y, mo, d).timetuple().tm_yday
+        return y + (day - 1) / 365.25
+
+
 def describe_columns(rows, header, findings, time_col):
     """The descriptive look for every analyzed column; returns
     {column_name: sentence} — each sentence carries its receipt."""
@@ -285,7 +303,10 @@ def describe_columns(rows, header, findings, time_col):
         pairs = []
         for r in rows:
             try:
-                pairs.append((float(r[ti]), float(r[ci])))
+                t = _time_value(r[ti])
+                if t is None:
+                    continue
+                pairs.append((t, float(r[ci])))
             except (ValueError, IndexError):
                 continue
         if len(pairs) < 12:
@@ -451,12 +472,17 @@ def plain_summary(findings, audit, described=None):
 
 
 def render(name, header, n_rows, notes, findings, audit, charts,
-           analyst_text, audit_text, out_dir, secs, described=None):
+           analyst_text, audit_text, out_dir, secs, described=None,
+           extras=None):
     md = []
     md.append(f"# Data report — {name}")
     md.append(f"*{date.today().isoformat()} · {n_rows} rows · "
               f"{len(header)} columns · engine time {secs:.0f}s*")
-    md.append("\n## What we found (plain English)\n")
+    if extras:
+        heads, _blocks = extras
+        md.append("")
+        md += heads
+    md.append("\n## Column by column (plain English)\n")
     summary = plain_summary(findings, audit, described)
     md += [f"- {s}" for s in summary] or ["- (no findings)"]
     md.append("\n> Two kinds of claims above, kept honest: a "
@@ -470,6 +496,9 @@ def render(name, header, n_rows, notes, findings, audit, charts,
     if notes:
         md.append("\n## What we did to your file first (receipted)\n")
         md += [f"- {n}" for n in notes]
+    if extras:
+        md.append("")
+        md += extras[1]
     if charts:
         md.append("\n## Charts\n")
         for n, p in charts.items():
@@ -574,6 +603,15 @@ def main():
     described = describe_columns(rows, header, findings, time_col)
     charts = make_charts(rows, header, findings, time_col,
                          os.path.join(out_dir, "charts"), described)
+    try:
+        extras = build_extras(rows, header, time_col, described,
+                              os.path.join(out_dir, "charts"))
+    except Exception as e:
+        extras = (["## The headlines", "",
+                   f"- the full-analytics pass could not run "
+                   f"({type(e).__name__}: {e}) — everything else "
+                   f"in this report is unaffected; we say so "
+                   f"rather than hide it", ""], [])
     with open(os.path.join(out_dir, "receipts_analyst.txt"), "w",
               encoding="utf-8") as f:
         f.write(analyst_text)
@@ -582,7 +620,8 @@ def main():
                   encoding="utf-8") as f:
             f.write(audit_text)
     render(name, header, len(rows), notes, findings, audit, charts,
-           analyst_text, audit_text, out_dir, t1 + t2, described)
+           analyst_text, audit_text, out_dir, t1 + t2, described,
+           extras)
     print(f"report -> {os.path.join(out_dir, 'report.html')}", flush=True)
 
 

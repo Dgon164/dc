@@ -1,0 +1,32 @@
+THE ANALYST'S REPORT — business_demo.normalized.csv
+  1276 rows; time key: date (told — duplicate timestamps present (step read from median spacing))
+    date: 2025.00137 .. 2026.149315
+    units: 2.0 .. 28.0
+    revenue: 89.1 .. 3272.9
+  ── units ──
+    trend [NO RULE]: NO RULE (nothing beat the null)
+    cycle: period 409.9874 (shape refused past the null)
+    the books: trend 0.0% + seasonal 0.0% + residual 100.0% = 100
+    receipt: profile: explains -0.00 <= null 0.00 — period said, shape refused
+    receipt: trend: NO RULE — flat (mean) stands, said
+    forecast next 12: 0.0 .. 0.0 (last seen 26.0)
+    watch: BASELINE (err_norm 1.0) — arriving data will be judged
+  ── revenue ──
+    trend [NO RULE]: NO RULE (nothing beat the null)
+    the books: trend 0.0% + seasonal 0.0% + residual 100.0% = 100
+    receipt: period: best autocorr 0.10 <= null 0.12 — no cycle said
+    receipt: trend: NO RULE — flat (mean) stands, said
+    forecast next 12: 0.0 .. 0.0 (last seen 1164.72)
+    watch: BASELINE (err_norm 1.0) — arriving data will be judged
+  ── relations ──
+    units ~ revenue: RELATED corr 0.318 vs null 0.089 (same-step); levels 0.46 — levels co-move trivially under shared trends — reported, never judged
+  ── the dossier (node dossier:business_demo.normalized) ──
+    units: n 1276, mean 11.5039, median 10, std 5.45664
+      mode 8 (x109); resolution 1; lo 2 / hi 28 (rows kept)
+    revenue: n 1276, mean 1059.73, median 943.745, std 616.565
+      mode 180.36 (x2, 2 tied); resolution 0.01; lo 89.1 / hi 3272.9 (rows kept)
+    examples: 16 rows remembered of 1276 (extremes + even spread by outcome rank (the facts-layer sampler, reused))
+    frames/year: 2 buckets; revenue avg 1045.98 (2025) -> 1155.63 (2026)
+    frames/month: 14 buckets; revenue avg 948.883 (2025-01) -> 1207.3 (2026-02); slope 275.322/yr (described, not judged)
+    frames/day: 420 buckets; revenue avg 1296.19 (2025-06-30) -> 1041.24 (2026-02-24); slope 190.673/yr (described, not judged)
+    ratio units/revenue: mean 0.0125269 (0.0081729 .. 0.0340085)

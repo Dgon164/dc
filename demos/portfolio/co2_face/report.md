@@ -1,12 +1,32 @@
 # Data report — co2_face
 *2026-07-28 · 820 rows · 2 columns · engine time 17s*
 
-## What we found (plain English)
+## The headlines
+
+- co2 is rising (about +113.8 across the record) — SOLID
+
+
+## Column by column (plain English)
 
 - **co2** — found a pattern explaining 99% of the movement (trend 99%, cycle 0%, unexplained 1%); a repeating cycle (period 0.9987, profile swing 6.2265); forecast for the next 12 steps: 431.7863 .. 439.5327 (last seen 431.44); the fitted rule, readable, is `+0.21*x0^1.5 +316.26`. what's there: rising +1.668 per unit date (about +113.8 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+1.647, +1.692] per unit date
 - **Data quality** — audit verdict PARTIAL; 0 error / 0 news / 0 duplicate / 5 unvalidatable / 815 unflagged.
 
 > Two kinds of claims above, kept honest: a **certified rule** passed our strictest checks; a **what's-there** description reports the plain trend graded by whether it survives 200 random half-samples (SOLID / WEAK / UNSTABLE) — described, never certified. Every claim traces to a receipt at the bottom; where we can't stand behind a number at all, we say so instead of guessing.
+
+## What is in this data
+
+- **date** (number): 820 values, 1,958 to 2,026, typical 1,992, mean 1,992, total 1.634e+06
+- **co2** (number): 820 values, 312.4 to 432.3, typical 356.3, mean 361.2, total 2.962e+05
+
+## What moves together
+
+- no pair of number columns moves together beyond r=0.3 — said plainly.
+
+## Where the weight sits
+
+- **date**: top 20% of rows carry 20% of the total — fairly evenly spread.
+- **co2**: top 20% of rows carry 23% of the total — fairly evenly spread.
+
 
 ## Charts
 

@@ -1,7 +1,12 @@
 # Data report — sunspots_yearly
 *2026-07-28 · 326 rows · 5 columns · engine time 2s*
 
-## What we found (plain English)
+## The headlines
+
+- col1 and col2 move together (r=+0.47) — SOLID
+
+
+## Column by column (plain English)
 
 - **col1** — found a repeating cycle (period 10.4534, profile swing 60.6014); no law-grade trend certified. what's there: rising +0.07799 per unit col0 (about +25.35 across the whole record) — WEAK: direction held in 99% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.01249, +0.1543] per unit col0. Caution: values follow each other strongly here (persistence 0.82), and drifts like this can appear in wandering data — after accounting for that, the direction is not dependable
 - **col2** — found a repeating cycle (period 10.7285, profile swing 3.7814); no law-grade trend certified. what's there: rising +0.03372 per unit col0 (about +10.96 across the whole record) — WEAK: direction held in 100% of 200 random half-samples, NOT in both the early and late halves; half-sample spread [+0.02987, +0.03779] per unit col0
@@ -15,6 +20,25 @@
 
 - delimiter detected: ';' (converted to comma)
 - no header row found — generated column names
+
+## What is in this data
+
+- **col0** (number): 326 values, 1,700 to 2,026, typical 1,863, mean 1,863, total 6.073e+05
+- **col1** (number): 326 values, 0 to 269.3, typical 66.25, mean 78.9, total 2.572e+04
+- **col2** (number): 326 values, -1 to 22, typical 4.2, mean 4.801, total 1,565
+- **col3** (number): 326 values, -1 to 1.526e+04, typical 365, mean 1,263, total 4.118e+05
+- **col4** (number): 326 values, 1 to 1, typical 1, mean 1, total 326
+
+## What moves together
+
+- **col1 and col2** move together (r=+0.47) — SOLID (sign held in 100% of half-samples, spread [+0.38, +0.57]); still r=+0.50 with the shared time-trend removed. Link, not cause — we can't say which drives which from this table alone.
+
+## Where the weight sits
+
+- **col0**: top 20% of rows carry 21% of the total — fairly evenly spread.
+- **col1**: top 20% of rows carry 45% of the total — fairly evenly spread.
+- **col4**: top 20% of rows carry 20% of the total — fairly evenly spread.
+
 
 ## Charts
 
