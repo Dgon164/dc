@@ -1,0 +1,22 @@
+ISAAC — the audit
+============================================================
+
+TABLE sunspots.normalized.csv   target: col6   rows: 3330
+  VERDICT: NO RULE
+    col6 = NO RULE (nothing beat the null)
+  floor[col6]: UNEVIDENCED — ASK for the instrument's resolution
+  floor[col0]: 0.288675 via grain
+  floor[col1]: 0.288675 via grain
+  floor[col2]: 0.0242487 via grain
+  floor[col3]: 0.0288675 via grain
+  floor[col4]: 0.0288675 via grain
+  floor[col5]: 0.288675 via grain
+  flags: refused (no applicable law — rows counted unvalidatable, never silently passed)
+  counts: 0 error / 0 news / 0 duplicate / 3330 unvalidatable / 0 unflagged
+
+ASK: the instrument's resolution for: col6  (rerun with --resolution col=sigma)
+
+COMPLETE NUMBERS
+  1 tables, 3330 rows audited; 0 error / 0 news / 0 duplicate flags; 3330 unvalidatable; 0 laws; 1 flag refusals; asks: col6
+
+[8 records -> audit.jsonl]

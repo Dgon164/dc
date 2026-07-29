@@ -1,0 +1,15 @@
+ISAAC — the audit
+============================================================
+
+TABLE co2_face.normalized.csv   target: co2   rows: 820
+  VERDICT: PARTIAL
+    co2 = +0.00*date[t-5]*date[t-5] -474.89*|date-date[t-5]| -8.62*|date-date[t-5]|*[date>1963.5] +0.00*date[t-5]*date[t-5]*[date[t-3]>1987] -738.87
+  floor[co2]: 0.00288675 via grain
+  floor[date]: 0.0240466 via grain
+  flags: refused (evidenced floor 0.00288675 does not cover the residual spread 5.32712: EITHER the floor under-evidences — ASK for the true resolution, never loosen the gate — OR the discovered law does not hold at that precision and the residual carries structure the law missed; the verdict rewrite is the deeper cure)
+  counts: 0 error / 0 news / 0 duplicate / 5 unvalidatable / 815 unflagged
+
+COMPLETE NUMBERS
+  1 tables, 820 rows audited; 0 error / 0 news / 0 duplicate flags; 5 unvalidatable; 1 laws; 1 flag refusals; asks: none
+
+[3 records -> audit.jsonl]

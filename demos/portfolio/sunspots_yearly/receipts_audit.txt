@@ -1,0 +1,20 @@
+ISAAC — the audit
+============================================================
+
+TABLE sunspots_yearly.normalized.csv   target: col4   rows: 326
+  VERDICT: UNDERSTOOD
+    col4 = -0.00*cos(0.5*col1) +1.00
+  floor[col4]: UNEVIDENCED — ASK for the instrument's resolution
+  floor[col0]: 0.288675 via grain
+  floor[col1]: 0.0288675 via grain
+  floor[col2]: 0.0288675 via grain
+  floor[col3]: 0.288675 via grain
+  flags: refused (target floor UNEVIDENCED — ASK for the instrument's resolution; no ruler, no flags)
+  counts: 0 error / 0 news / 0 duplicate / 0 unvalidatable / 326 unflagged
+
+ASK: the instrument's resolution for: col4  (rerun with --resolution col=sigma)
+
+COMPLETE NUMBERS
+  1 tables, 326 rows audited; 0 error / 0 news / 0 duplicate flags; 0 unvalidatable; 1 laws; 1 flag refusals; asks: col4
+
+[6 records -> audit.jsonl]

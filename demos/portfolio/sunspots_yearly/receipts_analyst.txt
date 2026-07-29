@@ -1,0 +1,55 @@
+THE ANALYST'S REPORT — sunspots_yearly.normalized.csv
+  326 rows; time key: col0 (auto: 'col0' strictly increases)
+    col0: 1700.5 .. 2025.5
+    col1: 0.0 .. 269.3
+    col2: -1.0 .. 22.0
+    col3: -1.0 .. 15258.0
+    col4: 1.0 .. 1.0
+  ── col1 ──
+    trend [NO RULE]: NO RULE (nothing beat the null)
+    cycle: period 10.4534, profile swing 60.6014
+    the books: trend -0.0% + seasonal 12.0% + residual 88.0% = 100
+    receipt: trend: NO RULE — flat (mean) stands, said
+    forecast next 12: -25.1844 .. 35.417 (last seen 123.2)
+    watch: BASELINE (err_norm 0.983928) — arriving data will be judged
+  ── col2 ──
+    trend [NO RULE]: +0.00*exp(0.24*x0) -1.00
+    cycle: period 10.7285, profile swing 3.7814
+    the books: trend 0.0% + seasonal 6.9% + residual 93.1% = 100
+    receipt: trend: NO RULE — flat (mean) stands, said
+    forecast next 12: -1.8962 .. 1.8852 (last seen 17.8)
+    watch: BASELINE (err_norm 0.946951) — arriving data will be judged
+  ── col3 ──
+    trend [NO RULE]: +310.05*cos(0.1795*x0) +0.00*exp(0.25*x0) -0.00*exp(0.3*x0)*sin(0.1848*x0) +1.51
+    cycle: period 34.0074, profile swing 694.1504
+    the books: trend 0.0% + seasonal 1.5% + residual 98.5% = 100
+    receipt: trend: NO RULE — flat (mean) stands, said
+    anomalies: 5 flagged (worst 4.8x at t=2022.5) — flagged beyond 4x residual rms — named, never judged
+    forecast next 12: -84.8595 .. 327.2761 (last seen 12473.0)
+    watch: BASELINE (err_norm 0.995781) — arriving data will be judged
+  ── col4 ──
+    trend [UNDERSTOOD]: -0.00*x0 +1.00
+    the books: trend 100.0% + seasonal 0.0% + residual 0.0% = 100
+    forecast next 12: 1.0 .. 1.0 (last seen 1.0)
+    watch: BASELINE (err_norm 0.0) — arriving data will be judged
+  ── relations ──
+    col1 ~ col2: RELATED corr 0.7 vs null 0.365 (same-step); levels 0.47 — levels co-move trivially under shared trends — reported, never judged
+    col1 ~ col3: RELATED corr -0.158 vs null 0.137 (same-step); levels -0.016 — levels co-move trivially under shared trends — reported, never judged
+    refused pairs: 4 (the null was not beaten — receipts kept)
+  ── the dossier (node dossier:sunspots_yearly.normalized) ──
+    col1: n 326, mean 78.8963, median 66.25, std 61.9203
+      mode 18.3 (x5); resolution 0.1; lo 0 / hi 269.3 (rows kept)
+    col2: n 326, mean 4.80123, median 4.2, std 5.46321
+      mode -1 (x118); resolution 0.1; lo -1 / hi 22 (rows kept)
+    col3: n 326, mean 1263.33, median 365, std 2894.19
+      mode -1 (x118); resolution 1; lo -1 / hi 15258 (rows kept)
+    col4: n 326, mean 1, median 1, std 0
+      mode 1 (x326); resolution: none read; lo 1 / hi 1 (rows kept)
+    examples: 16 rows remembered of 326 (extremes + even spread by outcome rank (the facts-layer sampler, reused))
+    frames: no calendar time (none told, none derivable — a year-band column also needs a calendar-sounding name) — frames refused; the stats stand
+    ratio col1/col2: refused — denominator crosses or touches zero — a ratio there is a lie waiting
+    ratio col1/col3: refused — denominator crosses or touches zero — a ratio there is a lie waiting
+    ratio col1/col4: mean 78.8963 (0 .. 269.3)
+    ratio col2/col3: refused — denominator crosses or touches zero — a ratio there is a lie waiting
+    ratio col2/col4: mean 4.80123 (-1 .. 22)
+    ratio col3/col4: mean 1263.33 (-1 .. 15258)

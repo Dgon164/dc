@@ -1,0 +1,19 @@
+THE ANALYST'S REPORT — co2_face.normalized.csv
+  820 rows; time key: date (auto: 'date' strictly increases)
+    date: 1958.2027 .. 2026.4583
+    co2: 312.42 .. 432.34
+  ── co2 ──
+    trend [PARTIAL]: +0.21*x0^1.5 +316.26
+    cycle: period 0.9987, profile swing 6.2265
+    the books: trend 99.1% + seasonal 0.4% + residual 0.6% = 100
+    forecast next 12: 431.7863 .. 439.5327 (last seen 431.44)
+    watch: BASELINE (err_norm 0.012707) — arriving data will be judged
+  ── relations ──
+    none said
+  ── the dossier (node dossier:co2_face.normalized) ──
+    co2: n 820, mean 361.197, median 356.32, std 33.3326
+      mode 336.14 (x3); resolution 0.01; lo 312.42 / hi 432.34 (rows kept)
+    examples: 14 rows remembered of 820 (extremes + even spread by outcome rank (the facts-layer sampler, reused))
+    frames/year: 69 buckets; co2 avg 315.237 (1958) -> 430.503 (2026); slope 1.67446/yr (described, not judged)
+    frames/month: skipped — data already at this grain — averaging would change nothing
+    frames/day: skipped — data already at this grain — averaging would change nothing
