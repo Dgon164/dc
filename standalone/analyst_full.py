@@ -305,7 +305,8 @@ def seasonality_block(rows, header, cols, findings):
 
 
 # ------------------------------------------------------- relationships
-def relationships_block(rows, header, cols, time_col, findings):
+def relationships_block(rows, header, cols, time_col, findings,
+                        families=None):
     nums = [h for h, c in cols.items()
             if c["kind"] == "numeric" and len(c["nums"]) >= 12][:5]
     md = []
@@ -315,11 +316,26 @@ def relationships_block(rows, header, cols, time_col, findings):
     rng = np.random.default_rng(SEED + 2)
     t_idx = header.index(time_col) if time_col in header else None
     any_pair = False
+
+    def fam(h):
+        for k, f in enumerate(families or []):
+            if h in f:
+                return k
+        return None
+    seen_fams = set()
     for a_i in range(len(nums)):
         for b_i in range(a_i + 1, len(nums)):
             a, b = nums[a_i], nums[b_i]
             if time_col in (a, b):
                 continue
+            fa, fb = fam(a), fam(b)
+            if fa is not None and fa == fb:
+                continue  # bound by an arithmetic identity — trivial
+            fkey = (fa if fa is not None else f"c:{a}",
+                    fb if fb is not None else f"c:{b}")
+            if fkey in seen_fams:
+                continue  # one representative per family pair
+            seen_fams.add(fkey)
             ai, bi = header.index(a), header.index(b)
             triples = [(float(r[ai]), float(r[bi]),
                         float(r[t_idx]) if t_idx is not None
@@ -401,6 +417,9 @@ def concentration_block(rows, header, cols, findings):
         if c["kind"] != "numeric" or len(v) < 20 or v.min() < 0 \
                 or v.sum() <= 0:
             continue
+        if (v == 0).mean() > 0.5:
+            continue  # sparse column (coupons etc.) — trivially
+            # concentrated; the coupon organ owns that story
         s = np.sort(v)[::-1]
         k = max(1, len(s) // 5)
         share = s[:k].sum() / s.sum()
@@ -769,6 +788,408 @@ def window_block(rows, header, cols, w_start, w_end, w_label,
     return md
 
 
+# -------------------------------------------------------------- baskets
+ORDER_NAME_RE = re.compile(r"(order|invoice|transaction|receipt|"
+                           r"ticket|basket)", re.I)
+
+
+def _find_orders(rows, header, cols):
+    """Group line items into orders: an order-id column by name, or
+    customer+date as the fallback key. None if no grouping exists."""
+    for h, c in cols.items():
+        if ORDER_NAME_RE.search(h) and c["kind"] in ("text",
+                                                     "category"):
+            vals = [v for v in c["vals"] if v != ""]
+            if 1 < len(set(vals)) < len(vals):
+                i = header.index(h)
+                orders = {}
+                for r in rows:
+                    if i < len(r) and r[i] != "":
+                        orders.setdefault(r[i], []).append(r)
+                return orders, f"column '{h}'"
+    cust = next((h for h, c in cols.items()
+                 if ID_NAME_RE.search(h)
+                 and c["kind"] in ("text", "category")), None)
+    date_col = next((h for h, c in cols.items()
+                     if c["kind"] == "date"), None)
+    if cust and date_col:
+        ci, di = header.index(cust), header.index(date_col)
+        orders = {}
+        for r in rows:
+            if ci < len(r) and di < len(r) and r[ci] and r[di]:
+                orders.setdefault((r[ci], r[di]), []).append(r)
+        return orders, f"'{cust}' + '{date_col}' (no order id)"
+    return None, None
+
+
+def baskets_block(rows, header, cols, findings):
+    """What sells together — line items into baskets, pair lift vs
+    independence, graded by half-samples of ORDERS."""
+    orders, how = _find_orders(rows, header, cols)
+    prod_col = None
+    for h, c in cols.items():
+        if c["kind"] == "category" and not ID_NAME_RE.search(h) \
+                and h.lower() in ("product", "item", "sku",
+                                  "category", "service", "plan"):
+            prod_col = h
+            break
+    if prod_col is None:
+        prod_col = next((h for h, c in cols.items()
+                         if c["kind"] == "category"
+                         and not ID_NAME_RE.search(h)), None)
+    if not orders or not prod_col or len(orders) < 30:
+        return []
+    pi = header.index(prod_col)
+    baskets = [set(r[pi] for r in ls if pi < len(r) and r[pi])
+               for ls in orders.values()]
+    multi = [b for b in baskets if len(b) >= 2]
+    n = len(baskets)
+    if len(multi) < 10:
+        return []
+    md = [f"## What sells together (orders from {how})", ""]
+    sizes = [len(set(r[pi] for r in ls if pi < len(r)))
+             for ls in orders.values()]
+    md.append(f"- {n:,} orders; {len(multi) / n:.0%} carry more "
+              f"than one distinct {prod_col}; typical basket "
+              f"{np.median([len(ls) for ls in orders.values()]):.0f}"
+              f" line(s)")
+    items = sorted({x for b in baskets for x in b})
+    rate = {x: sum(1 for b in baskets if x in b) / n for x in items}
+    pairs = []
+    for i_a in range(len(items)):
+        for i_b in range(i_a + 1, len(items)):
+            a, b = items[i_a], items[i_b]
+            both = sum(1 for bk in baskets if a in bk and b in bk)
+            if both < max(5, n // 200):
+                continue
+            lift = (both / n) / (rate[a] * rate[b])
+            pairs.append((lift, both, a, b))
+    pairs.sort(reverse=True)
+    rng = np.random.default_rng(SEED + 11)
+    shown = 0
+    for lift, both, a, b in pairs:
+        if lift < 1.5 or shown >= 3:
+            break
+        hold = 0
+        idx = np.arange(n)
+        for _ in range(TRIALS):
+            pick = rng.choice(idx, size=n // 2, replace=False)
+            sub = [baskets[i] for i in pick]
+            ns = len(sub)
+            ra = sum(1 for bk in sub if a in bk) / ns
+            rb = sum(1 for bk in sub if b in bk) / ns
+            bo = sum(1 for bk in sub if a in bk and b in bk) / ns
+            if ra > 0 and rb > 0 and bo / (ra * rb) >= 1.2:
+                hold += 1
+        frac = hold / TRIALS
+        grade = _grade(frac)
+        if grade == "UNSTABLE":
+            continue
+        shown += 1
+        md.append(f"- **'{a}' and '{b}' go together**: bought in "
+                  f"the same order {lift:.1f}x more often than "
+                  f"chance ({both} orders) — {grade} (lift held in "
+                  f"{frac:.0%} of {TRIALS} half-samples of orders)")
+        if grade == "SOLID":
+            findings.append(
+                (min(1.0, lift / 4) + 0.2,
+                 f"'{a}' and '{b}' sell together at {lift:.1f}x "
+                 f"chance — SOLID",
+                 f"bundle them, shelve them together, or suggest "
+                 f"one at the other's checkout"))
+    if shown == 0:
+        md.append("- no product pair beats chance strongly enough "
+                  "to say — said plainly.")
+    md.append("")
+    return md
+
+
+# -------------------------------------------------------------- coupons
+COUPON_NAME_RE = re.compile(r"(coupon|discount|promo|rebate|"
+                            r"markdown|voucher)", re.I)
+
+
+def coupons_block(rows, header, cols, findings):
+    """Coupons: who redeems, what it costs, and the cannibalization
+    question — did discounts buy NEW traffic, or subsidize orders
+    the regulars were going to place anyway?"""
+    dcol = next((h for h, c in cols.items()
+                 if COUPON_NAME_RE.search(h)
+                 and c["kind"] == "numeric"), None)
+    if not dcol:
+        return []
+    di = header.index(dcol)
+    orders, how = _find_orders(rows, header, cols)
+    if not orders or len(orders) < 30:
+        return []
+    cust = next((h for h, c in cols.items() if ID_NAME_RE.search(h)
+                 and c["kind"] in ("text", "category")), None)
+    date_col = next((h for h, c in cols.items()
+                     if c["kind"] == "date"), None)
+    n = len(orders)
+    coup = {o: ls for o, ls in orders.items()
+            if any(di < len(r) and _is_num(r[di])
+                   and float(r[di]) > 0 for r in ls)}
+    if len(coup) < 5:
+        return []
+    md = [f"## The coupon question (column '{dcol}')", ""]
+    given = sum(float(r[di]) for ls in coup.values() for r in ls
+                if di < len(r) and _is_num(r[di]))
+    md.append(f"- **{len(coup) / n:.0%} of orders carried a "
+              f"{dcol}** ({len(coup):,} of {n:,}); total given "
+              f"away {human(given)} — that is the measurable cost "
+              f"side, exact")
+    if cust and date_col:
+        ci = header.index(cust)
+        cdi = header.index(date_col)
+        first = {}
+        for o, ls in sorted(orders.items(),
+                            key=lambda kv: kv[1][0][cdi]):
+            c = ls[0][ci]
+            first.setdefault(c, ls[0][cdi])
+        new_redeem = sum(1 for o, ls in coup.items()
+                         if first.get(ls[0][ci]) == ls[0][cdi])
+        md.append(f"- **who redeems**: {new_redeem:,} coupon "
+                  f"orders ({new_redeem / len(coup):.0%}) were a "
+                  f"customer's FIRST-EVER order (acquisition); "
+                  f"{len(coup) - new_redeem:,} "
+                  f"({1 - new_redeem / len(coup):.0%}) went to "
+                  f"customers you already had")
+        # cannibalization: repeat customers' coupon orders that
+        # arrived on their NORMAL cadence anyway
+        cad = {}
+        for o, ls in orders.items():
+            cad.setdefault(ls[0][ci], []).append(ls[0][cdi])
+        import datetime as _dt
+
+        def _d(s):
+            return _dt.date(*map(int, s.split("-")))
+        anyway = 0
+        judged = 0
+        for o, ls in coup.items():
+            c, dstr = ls[0][ci], ls[0][cdi]
+            ds = sorted(set(cad.get(c, [])))
+            if len(ds) < 4:
+                continue
+            gaps = [( _d(ds[i + 1]) - _d(ds[i])).days
+                    for i in range(len(ds) - 1)]
+            med = np.median(gaps)
+            i = ds.index(dstr)
+            if i == 0:
+                continue
+            judged += 1
+            if (_d(dstr) - _d(ds[i - 1])).days <= 1.5 * med:
+                anyway += 1
+        if judged >= 10:
+            md.append(f"- **the cannibalization signal**: of "
+                      f"{judged:,} coupon orders from established "
+                      f"repeat customers, {anyway / judged:.0%} "
+                      f"arrived on the customer's normal ordering "
+                      f"rhythm anyway — those discounts likely "
+                      f"subsidized purchases that were coming "
+                      f"regardless. Not a causal proof — a rhythm "
+                      f"receipt.")
+            findings.append(
+                (anyway / judged,
+                 f"{anyway / judged:.0%} of regulars' coupon "
+                 f"redemptions arrived on their normal rhythm — "
+                 f"likely subsidized anyway-purchases",
+                 f"aim coupons at first-timers and lapsed "
+                 f"customers, not the rhythm that already runs"))
+    md.append("")
+    return md
+
+
+# ------------------------------------------------------------- at risk
+def at_risk_block(rows, header, cols, findings):
+    """High-value customers gone quiet past their OWN cadence —
+    the call list. Facts on the table, named."""
+    cust = next((h for h, c in cols.items() if ID_NAME_RE.search(h)
+                 and c["kind"] in ("text", "category")), None)
+    date_col = next((h for h, c in cols.items()
+                     if c["kind"] == "date"), None)
+    num, best_tot = None, -1
+    for h, c in cols.items():
+        if c["kind"] == "numeric" and len(c["nums"]) \
+                and c["nums"].sum() > best_tot:
+            best_tot, num = c["nums"].sum(), h
+    if not cust or not date_col or not num:
+        return []
+    ci, di, ni = (header.index(cust), header.index(date_col),
+                  header.index(num))
+    per = {}
+    for r in rows:
+        if ci < len(r) and di < len(r) and r[ci] and r[di]:
+            v = (float(r[ni]) if ni < len(r) and _is_num(r[ni])
+                 else 0.0)
+            per.setdefault(r[ci], []).append((r[di], v))
+    if len(per) < 10:
+        return []
+    today = max(d for v in per.values() for d, _ in v)
+
+    def _d(s):
+        return datetime.date(*map(int, s.split("-")))
+    spend = sorted(((sum(v for _, v in recs), c)
+                    for c, recs in per.items()), reverse=True)
+    top = {c for _, c in spend[:max(1, len(spend) // 5)]}
+    risks = []
+    for c in top:
+        ds = sorted({d for d, _ in per[c]})
+        if len(ds) < 3:
+            continue
+        gaps = [(_d(ds[i + 1]) - _d(ds[i])).days
+                for i in range(len(ds) - 1)]
+        med = float(np.median(gaps))
+        silence = (_d(today) - _d(ds[-1])).days
+        if silence > max(14, 2 * med):
+            risks.append((silence / max(med, 1), c,
+                          sum(v for _, v in per[c]), ds[-1],
+                          silence, med))
+    if not risks:
+        return []
+    risks.sort(reverse=True)
+    md = ["## High-value customers going quiet", ""]
+    for _, c, s, last, silence, med in risks[:5]:
+        md.append(f"- **{c}** — {human(s)} lifetime {num}, "
+                  f"normally orders every ~{med:.0f} days, silent "
+                  f"for {silence} days (last seen {last}). That is "
+                  f"{silence / max(med, 1):.1f}x their own rhythm.")
+    findings.append(
+        (0.9,
+         f"{len(risks)} high-value customer(s) have gone quiet "
+         f"past twice their own ordering rhythm",
+         f"this is a call list, not a statistic — the names are "
+         f"in the report"))
+    md.append("")
+    return md
+
+
+# --------------------------------------------------------- reconcile
+def reconcile_block(rows, header, cols, findings):
+    """Columns that should obey arithmetic — tax as a rate of
+    revenue, totals as sums — verified row by row. Where the book
+    doesn't balance, the rows are named. This is the estimated-vs-
+    actually-paid check, generalized."""
+    nums = [h for h, c in cols.items()
+            if c["kind"] == "numeric" and len(c["nums"]) >= 20]
+    if len(nums) < 2:
+        return [], []
+    idx = {h: header.index(h) for h in nums}
+
+    def col(h):
+        out = []
+        for k, r in enumerate(rows):
+            i = idx[h]
+            if i < len(r) and _is_num(r[i]):
+                out.append((k + 2, float(r[i])))  # +2: header, 1-base
+            else:
+                out.append((k + 2, None))
+        return out
+    series = {h: col(h) for h in nums}
+    md_lines = []
+    ratio_pairs = []
+    # SUM laws first: A ~ B + C. A found sum implies the A:B and
+    # A:C ratios — those get suppressed below, per the owner's law:
+    # only submit the strongest, never six spellings of two rules.
+    implied = set()
+    for a in nums:
+        for i_b in range(len(nums)):
+            for i_c in range(i_b + 1, len(nums)):
+                b, c = nums[i_b], nums[i_c]
+                if a in (b, c):
+                    continue
+                trip = [(ra, va, vb, vc) for (ra, va), (_, vb),
+                        (_, vc) in zip(series[a], series[b],
+                                       series[c])
+                        if None not in (va, vb, vc)]
+                if len(trip) < 20:
+                    continue
+                res = np.array([va - vb - vc
+                                for _, va, vb, vc in trip])
+                scale = np.median([abs(va) for _, va, _, _
+                                   in trip]) or 1
+                ok = np.abs(res) <= max(0.02, 0.001 * scale)
+                if not (0.95 <= ok.mean() < 1.0):
+                    continue
+                bad = [(rw_, va, vb, vc) for (rw_, va, vb, vc), k
+                       in zip(trip, ok) if not k][:5]
+                implied.update({frozenset((a, b)),
+                                frozenset((a, c))})
+                md_lines.append(
+                    f"- **{a} = {b} + {c}** holds for "
+                    f"{ok.mean():.1%} of rows — but NOT these: " +
+                    "; ".join(f"row {rw_}: {a}={human(va)} vs "
+                              f"{human(vb + vc)} expected"
+                              for rw_, va, vb, vc in bad))
+                findings.append(
+                    (1.0,
+                     f"{len(bad)} row(s) break {a}={b}+{c} — the "
+                     f"book doesn't balance there",
+                     f"these are the rows an audit would circle; "
+                     f"fix or explain before anyone else finds "
+                     f"them"))
+    # constant-ratio laws: one direction per pair (the one with the
+    # small coefficient — 'tax = 0.08 x revenue', never both), and
+    # never a pair a sum law already implies.
+    for i_a in range(len(nums)):
+        for i_b in range(i_a + 1, len(nums)):
+            a, b = nums[i_a], nums[i_b]
+            if frozenset((a, b)) in implied:
+                continue
+            pairs = [(ra, va, vb) for (ra, va), (_, vb)
+                     in zip(series[a], series[b])
+                     if va is not None and vb not in (None, 0.0)
+                     and va != 0.0]
+            if len(pairs) < 20:
+                continue
+            ratios = np.array([va / vb for _, va, vb in pairs])
+            r_med = float(np.median(ratios))
+            if abs(r_med) > 1:  # flip so the coefficient is small
+                a, b = b, a
+                pairs = [(ra, vb, va) for ra, va, vb in pairs]
+                ratios = np.array([va / vb for _, va, vb in pairs])
+                r_med = float(np.median(ratios))
+            if not (0.001 <= abs(r_med) <= 1) or \
+                    abs(r_med - 1) < 0.005:
+                continue
+            ok = np.abs(ratios - r_med) <= max(0.01 * abs(r_med),
+                                               1e-9)
+            if not (0.95 <= ok.mean() < 1.0):
+                continue
+            bad = [(rw_, va, vb) for (rw_, va, vb), k
+                   in zip(pairs, ok) if not k][:5]
+            if not bad:
+                continue
+            ratio_pairs.append(frozenset((a, b)))
+            md_lines.append(
+                f"- **{a} runs at {r_med:.4g} x {b}** for "
+                f"{ok.mean():.1%} of rows — but NOT for these: " +
+                "; ".join(f"row {rw_}: {a}={human(va)} where "
+                          f"{r_med:.4g}x{b}={human(r_med * vb)} "
+                          f"expected" for rw_, va, vb in bad))
+            findings.append(
+                (1.0,
+                 f"{len(bad)} row(s) break the {a}={r_med:.3g}x"
+                 f"{b} rule the rest of the book obeys",
+                 f"each one is either an entry error or an "
+                 f"exception with a story — worth five minutes "
+                 f"with the source records"))
+    families = []
+    for key in list(implied) + ratio_pairs:
+        pair = set(key)
+        hit = [f for f in families if f & pair]
+        if hit:
+            merged = pair.union(*hit)
+            families = [f for f in families if not (f & pair)]
+            families.append(merged)
+        else:
+            families.append(pair)
+    if not md_lines:
+        return [], families
+    return (["## Where the book doesn't balance (reconciliation)",
+             ""] + md_lines + [""]), families
+
+
 # -------------------------------------------------------------- charts
 def _bar_chart(totals, title, chart_dir):
     try:
@@ -841,12 +1262,17 @@ def build_extras(rows, header, time_col, described, chart_dir,
                                window[1],
                                window[2] or "the window", findings)
     blocks += customers_block(rows, header, cols, findings)
+    blocks += at_risk_block(rows, header, cols, findings)
+    blocks += coupons_block(rows, header, cols, findings)
+    blocks += baskets_block(rows, header, cols, findings)
+    rec_md, families = reconcile_block(rows, header, cols, findings)
+    blocks += rec_md
     seg_md, _ = segments_block(rows, header, cols, chart_dir,
                                findings)
     blocks += seg_md
     blocks += seasonality_block(rows, header, cols, findings)
     blocks += relationships_block(rows, header, cols, time_col,
-                                  findings)
+                                  findings, families)
     blocks += concentration_block(rows, header, cols, findings)
     blocks += anomalies_block(rows, header, cols, findings)
 

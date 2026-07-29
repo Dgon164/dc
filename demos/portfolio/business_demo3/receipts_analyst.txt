@@ -1,0 +1,95 @@
+THE ANALYST'S REPORT — business_demo3.normalized.csv
+  2558 rows; time key: date (told — duplicate timestamps present (step read from median spacing))
+    date: 2025.00137 .. 2026.149315
+    units: 1.0 .. 6.0
+    unit_price: 30.0 .. 120.0
+    discount: 0.0 .. 178.15
+    revenue: 22.78 .. 720.0
+    tax: 1.82 .. 83.97
+    total: 24.6 .. 777.6
+  ── units ──
+    trend [NO RULE]: NO RULE (nothing beat the null)
+    the books: trend 0.0% + seasonal 0.0% + residual 100.0% = 100
+    receipt: period: best autocorr 0.07 <= null 0.09 — no cycle said
+    receipt: trend: NO RULE — flat (mean) stands, said
+    forecast next 12: 0.0 .. 0.0 (last seen 4.0)
+    watch: BASELINE (err_norm 1.0) — arriving data will be judged
+  ── unit_price ──
+    trend [NO RULE]: NO RULE (nothing beat the null)
+    the books: trend 0.0% + seasonal 0.0% + residual 100.0% = 100
+    receipt: period: best autocorr 0.07 <= null 0.09 — no cycle said
+    receipt: trend: NO RULE — flat (mean) stands, said
+    forecast next 12: 0.0 .. 0.0 (last seen 45.0)
+    watch: BASELINE (err_norm 1.0) — arriving data will be judged
+  ── discount ──
+    trend [NO RULE]: +7.86*sin(110*x0)*sin(112.5*x0) +5.91
+    the books: trend 0.0% + seasonal 0.0% + residual 100.0% = 100
+    receipt: period: best autocorr 0.09 <= null 0.12 — no cycle said
+    receipt: trend: NO RULE — flat (mean) stands, said
+    anomalies: 5 flagged (worst 7.8x at t=2025.3795) — flagged beyond 4x residual rms — named, never judged
+    forecast next 12: 0.0 .. 0.0 (last seen 0.0)
+    watch: BASELINE (err_norm 1.0) — arriving data will be judged
+  ── revenue ──
+    trend [NO RULE]: NO RULE (nothing beat the null)
+    the books: trend 0.0% + seasonal 0.0% + residual 100.0% = 100
+    receipt: period: best autocorr 0.07 <= null 0.09 — no cycle said
+    receipt: trend: NO RULE — flat (mean) stands, said
+    forecast next 12: 0.0 .. 0.0 (last seen 180.0)
+    watch: BASELINE (err_norm 1.0) — arriving data will be judged
+  ── tax ──
+    trend [NO RULE]: NO RULE (nothing beat the null)
+    the books: trend 0.0% + seasonal 0.0% + residual 100.0% = 100
+    receipt: period: best autocorr 0.07 <= null 0.08 — no cycle said
+    receipt: trend: NO RULE — flat (mean) stands, said
+    forecast next 12: 0.0 .. 0.0 (last seen 14.4)
+    watch: BASELINE (err_norm 1.0) — arriving data will be judged
+  ── total ──
+    trend [NO RULE]: NO RULE (nothing beat the null)
+    the books: trend 0.0% + seasonal 0.0% + residual 100.0% = 100
+    receipt: period: best autocorr 0.07 <= null 0.09 — no cycle said
+    receipt: trend: NO RULE — flat (mean) stands, said
+    forecast next 12: 0.0 .. 0.0 (last seen 194.4)
+    watch: BASELINE (err_norm 1.0) — arriving data will be judged
+  ── relations ──
+    units ~ revenue: RELATED corr 0.161 vs null 0.057 (same-step); levels 0.192 — levels co-move trivially under shared trends — reported, never judged
+    units ~ tax: RELATED corr 0.162 vs null 0.057 (same-step); levels 0.195 — levels co-move trivially under shared trends — reported, never judged
+    units ~ total: RELATED corr 0.161 vs null 0.057 (same-step); levels 0.192 — levels co-move trivially under shared trends — reported, never judged
+    unit_price ~ revenue: RELATED corr -0.142 vs null 0.054 (a leads by 1); levels 0.079 — levels co-move trivially under shared trends — reported, never judged
+    unit_price ~ tax: RELATED corr -0.142 vs null 0.054 (a leads by 1); levels 0.079 — levels co-move trivially under shared trends — reported, never judged
+    unit_price ~ total: RELATED corr -0.142 vs null 0.054 (a leads by 1); levels 0.079 — levels co-move trivially under shared trends — reported, never judged
+    revenue ~ tax: RELATED corr 0.211 vs null 0.054 (same-step); levels 0.195 — levels co-move trivially under shared trends — reported, never judged
+    revenue ~ total: RELATED corr 0.21 vs null 0.053 (same-step); levels 0.193 — levels co-move trivially under shared trends — reported, never judged
+    tax ~ total: RELATED corr 0.211 vs null 0.052 (same-step); levels 0.194 — levels co-move trivially under shared trends — reported, never judged
+    refused pairs: 6 (the null was not beaten — receipts kept)
+  ── the dossier (node dossier:business_demo3.normalized) ──
+    units: n 2558, mean 3.10321, median 3, std 1.64493
+      mode 2 (x563); resolution 1; lo 1 / hi 6 (rows kept)
+    unit_price: n 2558, mean 82.6798, median 80, std 30.2629
+      mode 120 (x718); resolution: none read; lo 30 / hi 120 (rows kept)
+    discount: n 2558, mean 7.48745, median 0, std 21.7094
+      mode 0 (x2124); resolution 0.01; lo 0 / hi 178.15 (rows kept)
+    revenue: n 2558, mean 248.994, median 204.37, std 168.975
+      mode 240 (x226); resolution 0.01; lo 22.78 / hi 720 (rows kept)
+    tax: n 2558, mean 19.9717, median 16.425, std 13.6243
+      mode 19.2 (x226); resolution 0.01; lo 1.82 / hi 83.97 (rows kept)
+    total: n 2558, mean 268.995, median 221.325, std 182.545
+      mode 259.2 (x225); resolution 0.01; lo 24.6 / hi 777.6 (rows kept)
+    examples: 21 rows remembered of 2558 (extremes + even spread by outcome rank (the facts-layer sampler, reused))
+    frames/year: 2 buckets; total avg 270.615 (2025) -> 258.975 (2026)
+    frames/month: 14 buckets; total avg 260.093 (2025-01) -> 265.317 (2026-02); slope -7.24361/yr (described, not judged)
+    frames/day: 420 buckets; total avg 196.791 (2025-06-30) -> 311.85 (2026-02-24); slope -13.1389/yr (described, not judged)
+    ratio units/unit_price: mean 0.0449895 (0.00833333 .. 0.2)
+    ratio units/discount: refused — denominator crosses or touches zero — a ratio there is a lie waiting
+    ratio units/revenue: mean 0.0150111 (0.00833333 .. 0.0439367)
+    ratio units/tax: mean 0.187428 (0.0476361 .. 0.549451)
+    ratio units/total: mean 0.0138955 (0.00709258 .. 0.0406835)
+    ratio unit_price/discount: refused — denominator crosses or touches zero — a ratio there is a lie waiting
+    ratio unit_price/revenue: mean 0.479902 (0.166667 .. 1.3296)
+    ratio unit_price/tax: mean 5.99205 (1.14279 .. 16.6205)
+    ratio unit_price/total: mean 0.444234 (0.154321 .. 1.23105)
+    ratio discount/revenue: mean 0.0371383 (0 .. 0.332889)
+    ratio discount/tax: mean 0.463737 (0 .. 4.1625)
+    ratio discount/total: mean 0.0343815 (0 .. 0.308238)
+    ratio revenue/tax: mean 12.486 (4.77042 .. 12.5282)
+    ratio revenue/total: mean 0.925665 (0.808898 .. 0.92608)
+    ratio tax/total: mean 0.0742328 (0.0647118 .. 0.173298)
