@@ -635,6 +635,14 @@ def main():
     ap.add_argument("--brand", default=None, metavar="NAME",
                     help="the analyst's name/business for the "
                          "report footer — this is YOUR deliverable")
+    ap.add_argument("--window", nargs=2, default=None,
+                    metavar=("START", "END"),
+                    help="did-it-work analysis: YYYY-MM-DD "
+                         "YYYY-MM-DD (a promo, a change, an ad "
+                         "campaign) vs the weekday-matched "
+                         "surrounding eight weeks")
+    ap.add_argument("--window-label", default="the window",
+                    help="what to call the --window period")
     args = ap.parse_args()
 
     name = os.path.splitext(os.path.basename(args.source))[0]
@@ -666,8 +674,10 @@ def main():
     charts = make_charts(rows, header, findings, time_col,
                          os.path.join(out_dir, "charts"), described)
     try:
+        win = ((args.window[0], args.window[1], args.window_label)
+               if args.window else None)
         extras = build_extras(rows, header, time_col, described,
-                              os.path.join(out_dir, "charts"))
+                              os.path.join(out_dir, "charts"), win)
     except Exception as e:
         extras = (["## The headlines", "",
                    f"- the full-analytics pass could not run "

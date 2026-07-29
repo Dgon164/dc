@@ -1,0 +1,31 @@
+THE ANALYST'S REPORT — business_demo2.normalized.csv
+  1290 rows; time key: date (told — duplicate timestamps present (step read from median spacing))
+    date: 2025.00137 .. 2026.149315
+    units: 2.0 .. 31.0
+    revenue: 88.26 .. 3734.2
+  ── units ──
+    trend [NO RULE]: +3.15*cos(327.5*x0) -3.86*cos(327.5*x0)*cos(327.5*x0) +12.87
+    the books: trend 0.0% + seasonal 0.0% + residual 100.0% = 100
+    receipt: period: best autocorr 0.12 <= null 0.13 — no cycle said
+    receipt: trend: NO RULE — flat (mean) stands, said
+    forecast next 12: 0.0 .. 0.0 (last seen 13.0)
+    watch: BASELINE (err_norm 1.0) — arriving data will be judged
+  ── revenue ──
+    trend [NO RULE]: +322.39*cos(327.5*x0) -323.02*cos(327.5*x0)*cos(327.5*x0) +153.80*[x0>0.226301] +1096.10
+    the books: trend -0.0% + seasonal 0.0% + residual 100.0% = 100
+    receipt: period: best autocorr 0.10 <= null 0.13 — no cycle said
+    receipt: trend: NO RULE — flat (mean) stands, said
+    forecast next 12: 0.0 .. 0.0 (last seen 1543.95)
+    watch: BASELINE (err_norm 1.0) — arriving data will be judged
+  ── relations ──
+    units ~ revenue: RELATED corr 0.285 vs null 0.086 (same-step); levels 0.415 — levels co-move trivially under shared trends — reported, never judged
+  ── the dossier (node dossier:business_demo2.normalized) ──
+    units: n 1290, mean 11.8837, median 11, std 5.58748
+      mode 7 (x107); resolution 1; lo 2 / hi 31 (rows kept)
+    revenue: n 1290, mean 1100.94, median 968.725, std 629.092
+      mode 734.1 (x2, 6 tied); resolution 0.01; lo 88.26 / hi 3734.2 (rows kept)
+    examples: 16 rows remembered of 1290 (extremes + even spread by outcome rank (the facts-layer sampler, reused))
+    frames/year: 2 buckets; revenue avg 1089.38 (2025) -> 1180.87 (2026)
+    frames/month: 14 buckets; revenue avg 923.2 (2025-01) -> 1126.67 (2026-02); slope 263.278/yr (described, not judged)
+    frames/day: 420 buckets; revenue avg 1499.87 (2025-06-30) -> 1816.38 (2026-02-24); slope 216.833/yr (described, not judged)
+    ratio units/revenue: mean 0.0124935 (0.00817031 .. 0.0340081)

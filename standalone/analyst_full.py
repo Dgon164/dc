@@ -557,6 +557,218 @@ def periods_block(rows, header, cols, findings):
     return md, kpi_subs
 
 
+# ------------------------------------------------------------ customers
+ID_NAME_RE = re.compile(r"(customer|client|buyer|member|account|"
+                        r"user|email|patient|donor)", re.I)
+
+
+def customers_block(rows, header, cols, findings):
+    """The customer base — who buys, who comes back, who carries
+    you. Exact counts on the table (facts, receipted), the analysis
+    a small business almost never has."""
+    # the id column: named like a customer, or id-shaped text with
+    # real repeats. An every-row-unique column is an order id, not
+    # a customer base — skipped with its why.
+    cand = None
+    for h, c in cols.items():
+        if c["kind"] not in ("text", "category"):
+            continue
+        vals = [v for v in c["vals"] if v != ""]
+        uniq = len(set(vals))
+        if uniq < 5 or uniq == len(vals):
+            continue
+        if ID_NAME_RE.search(h):
+            cand = h
+            break
+        if cand is None and 1.3 <= len(vals) / uniq <= 50 and \
+                c["kind"] == "text":
+            cand = h
+    if not cand:
+        return []
+    ci = header.index(cand)
+    date_col = next((h for h, c in cols.items()
+                     if c["kind"] == "date"), None)
+    di = header.index(date_col) if date_col else None
+    # revenue-like column: the numeric column with the largest total
+    num = None
+    best_tot = -1
+    for h, c in cols.items():
+        if c["kind"] == "numeric" and len(c["nums"]):
+            if c["nums"].sum() > best_tot:
+                best_tot, num = c["nums"].sum(), h
+    ni = header.index(num) if num else None
+
+    orders = {}
+    for r in rows:
+        if ci < len(r) and r[ci] != "":
+            rec = dict(d=None, v=0.0)
+            if di is not None and di < len(r):
+                m = re.match(r"^(\d{4})-(\d{1,2})-(\d{1,2})$", r[di])
+                if m:
+                    rec["d"] = datetime.date(*map(int, m.groups()))
+            if ni is not None and ni < len(r) and _is_num(r[ni]):
+                rec["v"] = float(r[ni])
+            orders.setdefault(r[ci], []).append(rec)
+    n_cust = len(orders)
+    n_ord = sum(len(v) for v in orders.values())
+    if n_cust < 5 or n_ord < 20:
+        return []
+    md = [f"## The customer base (from column '{cand}')", ""]
+    repeat = [c for c, v in orders.items() if len(v) > 1]
+    md.append(f"- **{n_cust:,} distinct customers** across "
+              f"{n_ord:,} orders — {n_ord / n_cust:.1f} orders per "
+              f"customer; **{len(repeat) / n_cust:.0%} came back "
+              f"at least once**")
+    if num:
+        spend = sorted((sum(o['v'] for o in v), c)
+                       for c, v in orders.items())[::-1]
+        whole = sum(s for s, _ in spend) or 1e-12
+        top5 = sum(s for s, _ in spend[:5])
+        topfifth = sum(s for s, _ in
+                       spend[:max(1, n_cust // 5)])
+        md.append(f"- **top 5 customers carry "
+                  f"{top5 / whole:.0%} of {num}** "
+                  f"({', '.join(c for _, c in spend[:5])}); the top "
+                  f"20% of customers carry {topfifth / whole:.0%}")
+        md.append(f"- average {num} per order {human(whole / n_ord)}"
+                  f"; per customer {human(whole / n_cust)}")
+        findings.append(
+            (topfifth / whole,
+             f"the top 20% of customers carry "
+             f"{topfifth / whole:.0%} of {num}",
+             f"these are the relationships to protect — a single "
+             f"defection up there outweighs dozens below"))
+    if date_col:
+        first = {c: min(o["d"] for o in v if o["d"])
+                 for c, v in orders.items()
+                 if any(o["d"] for o in v)}
+        months = sorted({d.strftime("%Y-%m")
+                         for d in first.values()})
+        if len(months) >= 3:
+            recent = months[-2]  # last full-ish month
+            new_m = sum(1 for c, d in first.items()
+                        if d.strftime("%Y-%m") == recent)
+            active = {c for c, v in orders.items()
+                      if any(o["d"] and o["d"].strftime("%Y-%m")
+                             == recent for o in v)}
+            md.append(f"- in {recent}: {len(active):,} active "
+                      f"customers, {new_m:,} of them first-timers "
+                      f"({(len(active) - new_m):,} returning)")
+        gaps = []
+        for c, v in orders.items():
+            ds = sorted(o["d"] for o in v if o["d"])
+            gaps += [(ds[i + 1] - ds[i]).days
+                     for i in range(len(ds) - 1)]
+        if gaps:
+            md.append(f"- a returning customer typically comes "
+                      f"back within {int(np.median(gaps))} days "
+                      f"(median gap between orders) — silence "
+                      f"much longer than that is a customer "
+                      f"drifting away")
+        findings.append(
+            (len(repeat) / n_cust,
+             f"{len(repeat) / n_cust:.0%} of customers ordered "
+             f"more than once",
+             f"repeat business is the cheapest revenue there is — "
+             f"the gap number above says when to reach out"))
+    md.append("")
+    return md
+
+
+# -------------------------------------------------------- did it work
+def window_block(rows, header, cols, w_start, w_end, w_label,
+                 findings):
+    """Campaign / promo / change effectiveness: actual during the
+    window vs what the SAME WEEKDAYS delivered in the surrounding
+    eight weeks. Uplift graded by resampling baseline days — an
+    honest answer to 'did it work', weekday pattern respected."""
+    date_col = next((h for h, c in cols.items()
+                     if c["kind"] == "date"), None)
+    nums = [h for h, c in cols.items() if c["kind"] == "numeric"][:3]
+    if not date_col or not nums:
+        return []
+    di = header.index(date_col)
+    try:
+        d0 = datetime.date(*map(int, w_start.split("-")))
+        d1 = datetime.date(*map(int, w_end.split("-")))
+    except (ValueError, AttributeError):
+        return [f"## Did it work — {w_label}", "",
+                f"- window dates unreadable ({w_start}..{w_end}) — "
+                f"use YYYY-MM-DD; nothing computed rather than "
+                f"guessed", ""]
+    base_lo = d0 - datetime.timedelta(days=28)
+    base_hi = d1 + datetime.timedelta(days=28)
+    md = [f"## Did it work — {w_label} "
+          f"({d0.isoformat()} → {d1.isoformat()})", ""]
+    rng = np.random.default_rng(SEED + 7)
+    for num in nums:
+        ni = header.index(num)
+        daily = {}
+        for r in rows:
+            if di < len(r) and ni < len(r) and _is_num(r[ni]):
+                m = re.match(r"^(\d{4})-(\d{1,2})-(\d{1,2})$", r[di])
+                if not m:
+                    continue
+                dd = datetime.date(*map(int, m.groups()))
+                daily[dd] = daily.get(dd, 0.0) + float(r[ni])
+        win_days = {d: v for d, v in daily.items() if d0 <= d <= d1}
+        base_days = {d: v for d, v in daily.items()
+                     if base_lo <= d <= base_hi
+                     and not (d0 <= d <= d1)}
+        if len(win_days) < 3 or len(base_days) < 7:
+            md.append(f"- **{num}**: not enough days in the window "
+                      f"or the surrounding weeks to judge — said "
+                      f"plainly rather than guessed")
+            continue
+        by_wd = {}
+        for d, v in base_days.items():
+            by_wd.setdefault(d.weekday(), []).append(v)
+        missing = [d for d in win_days if d.weekday() not in by_wd]
+        if missing:
+            md.append(f"- **{num}**: baseline lacks matching "
+                      f"weekdays for {len(missing)} window day(s) "
+                      f"— refused rather than mismatched")
+            continue
+        actual = sum(win_days.values())
+        expected = sum(float(np.mean(by_wd[d.weekday()]))
+                       for d in win_days)
+        uplift = (actual - expected) / abs(expected)
+        hold, uplifts = 0, []
+        for _ in range(TRIALS):
+            exp_i = sum(float(rng.choice(by_wd[d.weekday()],
+                                         size=len(by_wd[d.weekday()]),
+                                         replace=True).mean())
+                        for d in win_days)
+            uplifts.append((actual - exp_i) / abs(exp_i))
+            if (actual > exp_i) == (uplift > 0):
+                hold += 1
+        frac = hold / TRIALS
+        grade = _grade(frac)
+        lo, hi = np.percentile(uplifts, [2.5, 97.5])
+        line = (f"- **{num}** during the window: {human(actual)} "
+                f"actual vs {human(expected)} expected from the "
+                f"same weekdays in the surrounding eight weeks — "
+                f"**{uplift:+.1%}** (baseline uncertainty puts it "
+                f"{lo:+.0%} to {hi:+.0%}) — {grade} (direction "
+                f"held in {frac:.0%} of {TRIALS} baseline "
+                f"resamples)")
+        if len(win_days) < 14:
+            line += (f". A {len(win_days)}-day window also carries "
+                     f"its own luck — read the size as indicative, "
+                     f"the direction as solid")
+        md.append(line)
+        if grade == "SOLID" and abs(uplift) >= 0.05:
+            findings.append(
+                (abs(uplift) + 0.5,
+                 f"{w_label}: {num} ran {uplift:+.1%} vs the "
+                 f"weekday-matched baseline — SOLID",
+                 f"that is the measured effect, seasonality "
+                 f"respected — worth repeating if the margin "
+                 f"covered the cost"))
+    md.append("")
+    return md
+
+
 # -------------------------------------------------------------- charts
 def _bar_chart(totals, title, chart_dir):
     try:
@@ -599,10 +811,12 @@ def _bar_chart(totals, title, chart_dir):
 
 
 # ------------------------------------------------------------ assembly
-def build_extras(rows, header, time_col, described, chart_dir):
-    """Returns (headline_md, section_md). Every line traces to
+def build_extras(rows, header, time_col, described, chart_dir,
+                 window=None):
+    """Returns (headline_md, section_md, kpis). Every line traces to
     arithmetic on the table; every comparative claim carries its
-    half-sample grade."""
+    half-sample grade. window=(start,end,label) adds the
+    did-it-work analysis."""
     cols = classify_columns(rows, header)
     findings = []  # (score, text[, so_what]) for the headlines
     for name, d in (described or {}).items():
@@ -622,6 +836,11 @@ def build_extras(rows, header, time_col, described, chart_dir):
     blocks += profile_block(cols, len(rows))
     per_md, kpi_subs = periods_block(rows, header, cols, findings)
     blocks += per_md
+    if window and window[0] and window[1]:
+        blocks += window_block(rows, header, cols, window[0],
+                               window[1],
+                               window[2] or "the window", findings)
+    blocks += customers_block(rows, header, cols, findings)
     seg_md, _ = segments_block(rows, header, cols, chart_dir,
                                findings)
     blocks += seg_md
