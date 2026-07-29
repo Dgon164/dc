@@ -46,6 +46,14 @@ def normalize(path):
     transformation is recorded in notes — the client sees the list."""
     notes = []
     raw = open(path, "rb").read()
+    if raw[:4] in (b"PK\x03\x04", b"PK\x05\x06") or \
+            b"\x00" in raw[:4096]:
+        raise SystemExit(
+            f"REFUSED: {os.path.basename(path)} is a binary file "
+            f"(Excel workbook or similar), not delimited text. We "
+            f"refuse to guess at binary rather than hand you "
+            f"garbage with a straight face. In Excel: File > Save "
+            f"As > 'CSV (Comma delimited)', then run this again.")
     try:
         text = raw.decode("utf-8-sig")
     except UnicodeDecodeError:

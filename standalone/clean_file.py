@@ -92,8 +92,16 @@ def audit_view(rows, header):
             def to_day(v, pat=pat, conv=conv):
                 y, mo, d = conv(_re.match(pat, v))
                 return str(datetime.date(y, mo, d).toordinal())
-            keep.append((h, [to_day(r[i]) if r[i] != "" else ""
-                             for r in rows]))
+            try:
+                converted = [to_day(r[i]) if r[i] != "" else ""
+                             for r in rows]
+            except ValueError:
+                notes.append(f"audit view: '{h}' looks date-shaped "
+                             f"but does not parse as month-first "
+                             f"dates (day/month order ambiguous?) — "
+                             f"excluded rather than guessed")
+                continue
+            keep.append((h, converted))
             notes.append(f"audit view: '{h}' dates converted to "
                          f"day numbers (receipted, view only)")
             continue
@@ -132,9 +140,14 @@ def mad_extremes(view_rows, view_header, k=8.0, cap_frac=0.05):
     cap = max(1, int(len(vals) * cap_frac))
     if not hits or len(hits) > cap:
         return [], []
-    receipts = [f"row {i + 2}: {view_header[tgt]}={v:,.2f} sits "
-                f"{abs(v - med) / mad:,.0f} MADs from the median "
-                f"{med:,.2f} (threshold {k:g})" for i, v in hits]
+    degenerate = mad <= 1e-9 * max(abs(med), 1.0)
+    receipts = [(f"row {i + 2}: {view_header[tgt]}={v:,.2f} differs "
+                 f"where every other row agrees on {med:,.2f} (the "
+                 f"column's typical spread is zero)") if degenerate
+                else (f"row {i + 2}: {view_header[tgt]}={v:,.2f} "
+                      f"sits {abs(v - med) / mad:,.0f} MADs from "
+                      f"the median {med:,.2f} (threshold {k:g})")
+                for i, v in hits]
     return [i for i, _ in hits], receipts
 
 
@@ -182,11 +195,49 @@ def main():
     cleaned = os.path.join(out_dir, "cleaned.csv")
     write_csv(rows, header, cleaned)
 
-    # 4. the engine's judgment flags — attached, never applied
+    # 4. the engine's judgment flags — attached, never applied.
+    # NOTHING in this section may cost the client the changelog:
+    # any failure is reported inside it, honestly, and we move on.
     flags_section = []
-    if not args.no_audit:
-        vrows, vheader, vnotes = audit_view(rows, header)
-        flags_section += vnotes
+    try:
+        run_audit_section(args, rows, header, out_dir, flags_section)
+    except Exception as e:
+        flags_section.append(
+            f"engine audit could not run ({type(e).__name__}: {e}) "
+            f"— the cleaned file and every receipt above are "
+            f"unaffected; we say so rather than pretend it was "
+            f"checked")
+
+    with open(os.path.join(out_dir, "CHANGELOG.md"), "w",
+              encoding="utf-8") as f:
+        f.write(f"# Cleaning changelog — {name}\n\n")
+        f.write(f"{len(rows)} rows out; every change below; "
+                f"nothing else was touched.\n\n")
+        f.write("## Changes made (mechanical, receipted)\n\n")
+        f.write("".join(f"- {ln}\n" for ln in log))
+        f.write("\n## Left for your judgment (we flag, we don't "
+                "guess)\n\n")
+        f.write("".join(f"- {ln}\n" for ln in flags_section)
+                or "- (audit skipped)\n")
+        f.write("\nA flagged cell is evidence, not a typo — "
+                "overwriting it silently is how other people's "
+                "cleaning loses real signal. Tell us the intended "
+                "value and we apply it, receipted.\n")
+
+    print(f"cleaned  -> {cleaned}")
+    print(f"changelog-> {os.path.join(out_dir, 'CHANGELOG.md')}")
+    print(f"changes: {len(log)}  flags: "
+          f"{sum(1 for x in flags_section if x.startswith('FLAGGED'))}")
+
+
+def run_audit_section(args, rows, header, out_dir, flags_section):
+    """The engine's look at the cleaned table. Isolated so that NO
+    failure here can ever cost the client the changelog."""
+    if args.no_audit:
+        return
+    vrows, vheader, vnotes = audit_view(rows, header)
+    flags_section += vnotes
+    if True:
         if len(vheader) >= 2 and len(vrows) >= 10:
             view_csv = os.path.join(out_dir, "audit_view.csv")
             write_csv(vrows, vheader, view_csv)
@@ -256,27 +307,6 @@ def main():
                 f"thin ({len(vrows)} rows x {len(vheader)} numeric "
                 f"column(s); need >=10 rows and >=2 columns) — "
                 f"we say so rather than pretend it was checked")
-
-    with open(os.path.join(out_dir, "CHANGELOG.md"), "w",
-              encoding="utf-8") as f:
-        f.write(f"# Cleaning changelog — {name}\n\n")
-        f.write(f"{len(rows)} rows out; every change below; "
-                f"nothing else was touched.\n\n")
-        f.write("## Changes made (mechanical, receipted)\n\n")
-        f.write("".join(f"- {ln}\n" for ln in log))
-        f.write("\n## Left for your judgment (we flag, we don't "
-                "guess)\n\n")
-        f.write("".join(f"- {ln}\n" for ln in flags_section)
-                or "- (audit skipped)\n")
-        f.write("\nA flagged cell is evidence, not a typo — "
-                "overwriting it silently is how other people's "
-                "cleaning loses real signal. Tell us the intended "
-                "value and we apply it, receipted.\n")
-
-    print(f"cleaned  -> {cleaned}")
-    print(f"changelog-> {os.path.join(out_dir, 'CHANGELOG.md')}")
-    print(f"changes: {len(log)}  flags: "
-          f"{sum(1 for x in flags_section if x.startswith('FLAGGED'))}")
 
 
 if __name__ == "__main__":
