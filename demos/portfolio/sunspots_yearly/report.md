@@ -1,9 +1,10 @@
 # Data report — sunspots_yearly
-*2026-07-28 · 326 rows · 5 columns · engine time 2s*
+*2026-07-29 · 326 rows · 5 columns · engine time 2s*
 
 ## The headlines
 
 - col1 and col2 move together (r=+0.47) — SOLID
+- ↳ useful for sanity-checking a forecast of one from the other; it does not say which causes which
 
 
 ## Column by column (plain English)
@@ -23,10 +24,10 @@
 
 ## What is in this data
 
-- **col0** (number): 326 values, 1,700 to 2,026, typical 1,863, mean 1,863, total 6.073e+05
-- **col1** (number): 326 values, 0 to 269.3, typical 66.25, mean 78.9, total 2.572e+04
-- **col2** (number): 326 values, -1 to 22, typical 4.2, mean 4.801, total 1,565
-- **col3** (number): 326 values, -1 to 1.526e+04, typical 365, mean 1,263, total 4.118e+05
+- **col0** (number): 326 values, 1,700 to 2,026, typical 1,863, mean 1,863, total 607,338
+- **col1** (number): 326 values, 0 to 269, typical 66.2, mean 78.9, total 25,720
+- **col2** (number): 326 values, -1 to 22, typical 4.2, mean 4.8, total 1,565
+- **col3** (number): 326 values, -1 to 15,258, typical 365, mean 1,263, total 411,844
 - **col4** (number): 326 values, 1 to 1, typical 1, mean 1, total 326
 
 ## What moves together

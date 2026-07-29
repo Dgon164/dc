@@ -29,7 +29,7 @@ from datetime import date
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from analyst_full import build_extras  # noqa: E402
+from analyst_full import build_extras, human  # noqa: E402
 
 DC = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -410,6 +410,11 @@ def make_charts(rows, header, findings, time_col, chart_dir,
         for side in ("left", "bottom"):
             ax.spines[side].set_color(MUTED)
         ax.tick_params(colors=INK2, labelsize=8)
+        from matplotlib.ticker import FuncFormatter
+        ax.yaxis.set_major_formatter(
+            FuncFormatter(lambda v, _: human(v)))
+        if time_col:
+            ax.set_xlabel(time_col, fontsize=8, color=INK2)
         ax.set_title(f["name"], loc="left", fontsize=10, color=INK,
                      fontweight="bold")
         fig.tight_layout()
@@ -473,15 +478,22 @@ def plain_summary(findings, audit, described=None):
 
 def render(name, header, n_rows, notes, findings, audit, charts,
            analyst_text, audit_text, out_dir, secs, described=None,
-           extras=None):
+           extras=None, narrative=None):
     md = []
     md.append(f"# Data report — {name}")
     md.append(f"*{date.today().isoformat()} · {n_rows} rows · "
               f"{len(header)} columns · engine time {secs:.0f}s*")
     if extras:
-        heads, _blocks = extras
+        heads = extras[0]
         md.append("")
         md += heads
+    if narrative:
+        md.append("\n## The analyst's note "
+                  "*(every figure verified against the receipts)*\n")
+        for para in narrative.split("\n"):
+            if para.strip():
+                md.append(para.strip())
+                md.append("")
     md.append("\n## Column by column (plain English)\n")
     summary = plain_summary(findings, audit, described)
     md += [f"- {s}" for s in summary] or ["- (no findings)"]
@@ -547,17 +559,58 @@ def render(name, header, n_rows, notes, findings, audit, charts,
         else:
             body.append(html_mod.escape(block) + "<br>"
                         if block.strip() else "")
+    kpi_html = ""
+    if extras and len(extras) > 2 and extras[2]:
+        cards = "".join(
+            f"<div class='kpi'><div class='kl'>"
+            f"{html_mod.escape(k['label'])}</div><div class='kv'>"
+            f"{html_mod.escape(str(k['value']))}</div><div class='ks'>"
+            f"{html_mod.escape(k['sub'])}</div></div>"
+            for k in extras[2])
+        kpi_html = f"<div class='kpis'>{cards}</div>"
+    body_text = "\n".join(body)
+    if kpi_html and "</i></p>" in body_text:
+        body_text = body_text.replace("</i></p>",
+                                      "</i></p>" + kpi_html, 1)
     html_text = (
         "<!doctype html><meta charset='utf-8'>"
+        "<meta name='viewport' content='width=device-width, "
+        "initial-scale=1'>"
         f"<title>Data report — {html_mod.escape(name)}</title>"
-        "<style>body{font-family:Segoe UI,system-ui,sans-serif;"
-        f"max-width:820px;margin:2em auto;padding:0 1em;color:{INK};"
-        f"background:{SURFACE}}}h1,h2{{color:{INK}}}"
-        "pre{background:#f2f1ee;padding:1em;overflow-x:auto;"
-        "font-size:12px}blockquote{border-left:3px solid " + BLUE +
-        f";margin:1em 0;padding:.3em 1em;color:{INK2}}}"
-        "code{background:#f2f1ee;padding:1px 4px}</style>" +
-        "\n".join(body))
+        "<style>"
+        "body{font-family:'Segoe UI',system-ui,-apple-system,"
+        f"sans-serif;max-width:880px;margin:2.5em auto;"
+        f"padding:0 1.2em;color:{INK};background:{SURFACE};"
+        "line-height:1.55}"
+        "h1{font-size:1.9rem;margin-bottom:.1em;letter-spacing:"
+        "-.02em}"
+        f"h2{{color:{INK};font-size:1.15rem;margin-top:2.2em;"
+        f"border-left:4px solid {BLUE};padding-left:.6em}}"
+        f"p i{{color:{INK2}}}"
+        "ul{padding-left:1.3em}li{margin:.45em 0}"
+        ".kpis{display:flex;flex-wrap:wrap;gap:12px;margin:1.4em 0}"
+        ".kpi{flex:1 1 150px;background:#ffffff;border:1px solid "
+        "#e6e4df;border-radius:10px;padding:12px 16px}"
+        f".kl{{font-size:.68rem;text-transform:uppercase;"
+        f"letter-spacing:.06em;color:{MUTED}}}"
+        ".kv{font-size:1.45rem;font-weight:600;margin:.1em 0}"
+        f".ks{{font-size:.75rem;color:{INK2}}}"
+        "img{max-width:100%;border:1px solid #e6e4df;"
+        "border-radius:8px;margin:.5em 0;display:block}"
+        "pre{background:#f4f3f0;padding:1em;overflow-x:auto;"
+        "font-size:11px;border-radius:8px;border:1px solid #e6e4df}"
+        f"blockquote{{border-left:3px solid {BLUE};margin:1.2em 0;"
+        f"padding:.6em 1em;color:{INK2};background:#f2f6fc;"
+        "border-radius:0 8px 8px 0}"
+        "code{background:#f4f3f0;padding:1px 5px;border-radius:4px;"
+        "font-size:.85em}"
+        f"footer{{margin:3em 0 1em;color:{MUTED};font-size:.8rem;"
+        "border-top:1px solid #e6e4df;padding-top:1em}"
+        "</style>" + body_text +
+        "<footer>Prepared with the Isaac engine — every number in "
+        "this report traces to a receipt above. Where the data "
+        "could not support a claim, the report says so instead of "
+        "guessing.</footer>")
     with open(os.path.join(out_dir, "report.html"), "w",
               encoding="utf-8") as f:
         f.write(html_text)
@@ -573,6 +626,10 @@ def main():
     ap.add_argument("--time", default=None,
                     help="time column passed to the analyst")
     ap.add_argument("--no-audit", action="store_true")
+    ap.add_argument("--narrative", default=None, metavar="FILE",
+                    help="a closing note (written by anyone — human "
+                         "or AI); included ONLY if every number in "
+                         "it verifies against the receipts")
     args = ap.parse_args()
 
     name = os.path.splitext(os.path.basename(args.source))[0]
@@ -611,7 +668,42 @@ def main():
                    f"- the full-analytics pass could not run "
                    f"({type(e).__name__}: {e}) — everything else "
                    f"in this report is unaffected; we say so "
-                   f"rather than hide it", ""], [])
+                   f"rather than hide it", ""], [], [])
+
+    narrative = None
+    if args.narrative:
+        note = open(args.narrative,
+                    encoding="utf-8-sig").read().strip()
+        corpus = " ".join([analyst_text, audit_text,
+                           "\n".join(extras[0]),
+                           "\n".join(extras[1])])
+        # numbers as TOKENS with tolerance, never substrings — a
+        # stray '73' inside '3.735' must not certify a fake 73%
+        def tokens(text):
+            out = []
+            for t in re.findall(r"\d[\d,]*\.?\d*", text):
+                try:
+                    out.append(float(t.replace(",", "")))
+                except ValueError:
+                    pass
+            return out
+        have = np.array(sorted(set(tokens(corpus))))
+        fails = []
+        for t in re.findall(r"\d[\d,]*\.?\d*", note):
+            v = float(t.replace(",", ""))
+            close = have[np.isclose(have, v, rtol=0.005,
+                                    atol=0.005)] if len(have) else []
+            if len(close) == 0:
+                fails.append(t)
+        if fails:
+            print(f"NARRATIVE REFUSED: {len(fails)} number(s) not "
+                  f"found in the receipts: {', '.join(fails[:8])} "
+                  f"— fix the note or the note stays out.",
+                  flush=True)
+        else:
+            narrative = note
+            print("narrative verified: every number traces to the "
+                  "receipts — included.", flush=True)
     with open(os.path.join(out_dir, "receipts_analyst.txt"), "w",
               encoding="utf-8") as f:
         f.write(analyst_text)
@@ -621,7 +713,7 @@ def main():
             f.write(audit_text)
     render(name, header, len(rows), notes, findings, audit, charts,
            analyst_text, audit_text, out_dir, t1 + t2, described,
-           extras)
+           extras, narrative)
     print(f"report -> {os.path.join(out_dir, 'report.html')}", flush=True)
 
 

@@ -1,15 +1,22 @@
 # Data report — gistemp_glb
-*2026-07-28 · 147 rows · 19 columns · engine time 7s*
+*2026-07-29 · 147 rows · 19 columns · engine time 8s*
 
 ## The headlines
 
-- Mar is rising (about +1.354 across the record) — SOLID
-- Jan is rising (about +1.318 across the record) — SOLID
-- Feb is rising (about +1.31 across the record) — SOLID
-- DJF is rising (about +1.279 across the record) — SOLID
-- MAM is rising (about +1.268 across the record) — SOLID
-- Apr is rising (about +1.251 across the record) — SOLID
-- Jun is rising (about +1.215 across the record) — SOLID
+- Mar is rising (about 1.35 across the record) — SOLID
+- ↳ if the pace holds, roughly 0.3384 more over the next quarter of a record this length — extrapolation, plainly labeled
+- Jan is rising (about 1.32 across the record) — SOLID
+- ↳ if the pace holds, roughly 0.3295 more over the next quarter of a record this length — extrapolation, plainly labeled
+- Feb is rising (about 1.31 across the record) — SOLID
+- ↳ if the pace holds, roughly 0.3275 more over the next quarter of a record this length — extrapolation, plainly labeled
+- DJF is rising (about 1.28 across the record) — SOLID
+- ↳ if the pace holds, roughly 0.3198 more over the next quarter of a record this length — extrapolation, plainly labeled
+- MAM is rising (about 1.27 across the record) — SOLID
+- ↳ if the pace holds, roughly 0.317 more over the next quarter of a record this length — extrapolation, plainly labeled
+- Apr is rising (about 1.25 across the record) — SOLID
+- ↳ if the pace holds, roughly 0.3128 more over the next quarter of a record this length — extrapolation, plainly labeled
+- Jun is rising (about 1.21 across the record) — SOLID
+- ↳ if the pace holds, roughly 0.3037 more over the next quarter of a record this length — extrapolation, plainly labeled
 
 
 ## Column by column (plain English)
@@ -42,25 +49,25 @@
 
 ## What is in this data
 
-- **Year** (number): 147 values, 1,880 to 2,026, typical 1,953, mean 1,953, total 2.871e+05
-- **Jan** (number): 147 values, -0.81 to 1.38, typical -0.01, mean 0.08449, total 12.42
-- **Feb** (number): 147 values, -0.63 to 1.43, typical -0.03, mean 0.09367, total 13.77
-- **Mar** (number): 147 values, -0.63 to 1.39, typical 0.02, mean 0.112, total 16.46
-- **Apr** (number): 147 values, -0.59 to 1.32, typical 0, mean 0.08408, total 12.36
-- **May** (number): 147 values, -0.55 to 1.16, typical -0.03, mean 0.07204, total 10.59
+- **Year** (number): 147 values, 1,880 to 2,026, typical 1,953, mean 1,953, total 287,091
+- **Jan** (number): 147 values, -0.81 to 1.38, typical -0.01, mean 0.08449, total 12.4
+- **Feb** (number): 147 values, -0.63 to 1.43, typical -0.03, mean 0.09367, total 13.8
+- **Mar** (number): 147 values, -0.63 to 1.39, typical 0.02, mean 0.112, total 16.5
+- **Apr** (number): 147 values, -0.59 to 1.32, typical 0, mean 0.08408, total 12.4
+- **May** (number): 147 values, -0.55 to 1.16, typical -0.03, mean 0.07204, total 10.6
 - **Jun** (number): 147 values, -0.52 to 1.23, typical -0.05, mean 0.06075, total 8.93
-- **Jul** (number, 1 missing): 146 values, -0.51 to 1.2, typical -0.03, mean 0.07685, total 11.22
+- **Jul** (number, 1 missing): 146 values, -0.51 to 1.2, typical -0.03, mean 0.07685, total 11.2
 - **Aug** (number, 1 missing): 146 values, -0.55 to 1.3, typical -0.04, mean 0.07671, total 11.2
-- **Sep** (number, 1 missing): 146 values, -0.58 to 1.48, typical -0.05, mean 0.08308, total 12.13
-- **Oct** (number, 1 missing): 146 values, -0.58 to 1.35, typical 0.01, mean 0.1074, total 15.68
-- **Nov** (number, 1 missing): 146 values, -0.57 to 1.4, typical 0.02, mean 0.09938, total 14.51
-- **Dec** (number, 1 missing): 146 values, -0.82 to 1.35, typical -0.04, mean 0.07308, total 10.67
-- **J-D** (number, 1 missing): 146 values, -0.49 to 1.28, typical -0.03, mean 0.08164, total 11.92
-- **D-N** (number, 2 missing): 145 values, -0.49 to 1.29, typical -0.04, mean 0.08297, total 12.03
-- **DJF** (number, 1 missing): 146 values, -0.67 to 1.35, typical -0.025, mean 0.085, total 12.41
-- **MAM** (number): 147 values, -0.58 to 1.29, typical 0, mean 0.08946, total 13.15
-- **JJA** (number, 1 missing): 146 values, -0.5 to 1.24, typical -0.04, mean 0.06911, total 10.09
-- **SON** (number, 1 missing): 146 values, -0.52 to 1.41, typical -0.01, mean 0.09644, total 14.08
+- **Sep** (number, 1 missing): 146 values, -0.58 to 1.48, typical -0.05, mean 0.08308, total 12.1
+- **Oct** (number, 1 missing): 146 values, -0.58 to 1.35, typical 0.01, mean 0.1074, total 15.7
+- **Nov** (number, 1 missing): 146 values, -0.57 to 1.4, typical 0.02, mean 0.09938, total 14.5
+- **Dec** (number, 1 missing): 146 values, -0.82 to 1.35, typical -0.04, mean 0.07308, total 10.7
+- **J-D** (number, 1 missing): 146 values, -0.49 to 1.28, typical -0.03, mean 0.08164, total 11.9
+- **D-N** (number, 2 missing): 145 values, -0.49 to 1.29, typical -0.04, mean 0.08297, total 12
+- **DJF** (number, 1 missing): 146 values, -0.67 to 1.35, typical -0.025, mean 0.085, total 12.4
+- **MAM** (number): 147 values, -0.58 to 1.29, typical 0, mean 0.08946, total 13.1
+- **JJA** (number, 1 missing): 146 values, -0.5 to 1.24, typical -0.04, mean 0.06911, total 10.1
+- **SON** (number, 1 missing): 146 values, -0.52 to 1.41, typical -0.01, mean 0.09644, total 14.1
 
 ## What moves together
 

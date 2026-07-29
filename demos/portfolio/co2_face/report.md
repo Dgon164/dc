@@ -1,9 +1,10 @@
 # Data report — co2_face
-*2026-07-28 · 820 rows · 2 columns · engine time 17s*
+*2026-07-29 · 820 rows · 2 columns · engine time 17s*
 
 ## The headlines
 
-- co2 is rising (about +113.8 across the record) — SOLID
+- co2 is rising (about 114 across the record) — SOLID
+- ↳ if the pace holds, roughly 28.5 more over the next quarter of a record this length — extrapolation, plainly labeled
 
 
 ## Column by column (plain English)
@@ -15,8 +16,8 @@
 
 ## What is in this data
 
-- **date** (number): 820 values, 1,958 to 2,026, typical 1,992, mean 1,992, total 1.634e+06
-- **co2** (number): 820 values, 312.4 to 432.3, typical 356.3, mean 361.2, total 2.962e+05
+- **date** (number): 820 values, 1,958 to 2,026, typical 1,992, mean 1,992, total 1.63M
+- **co2** (number): 820 values, 312 to 432, typical 356, mean 361, total 296,182
 
 ## What moves together
 
