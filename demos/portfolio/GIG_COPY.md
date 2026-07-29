@@ -10,13 +10,22 @@ market scan — receipts in the session record. Paste-ready.)*
 
 ## The three offers (research-ranked by conversion)
 
-### 1. Spreadsheet Audit with Receipts — the volume gig
-"I will audit your Excel/CSV and flag every error — **with a receipt
-for each flag** (the cell, the rule it broke, the evidence)."
-- Basic $15: one file ≤5k rows, flag log, 24h
-- Standard $50: flag log + cleaned file, 24h
-- Premium $95: multi-file + cleaned + re-audit proving zero
-  remaining flags, 48h
+### 1. Spreadsheet Cleaning + Audit with Receipts — the volume gig
+"I will clean your Excel/CSV and hand back the cleaned file **plus a
+changelog receipting every single change** — and an audit that flags
+what needs your judgment instead of silently 'fixing' it."
+- Basic $15: one file ≤5k rows, cleaned file + changelog, 24h
+- Standard $50: + the audit (error/duplicate/outlier flags with
+  receipts; we ask your tolerance rather than assume), 24h
+- Premium $95: multi-file + joins + re-audit proving the mechanical
+  passes are clean, 48h
+- Run: `python standalone/clean_file.py file.csv [--resolution
+  col=sigma]` → cleaned.csv + CHANGELOG.md. Mechanical fixes only
+  (delimiters, headers, whitespace, missing markers, exact dupes —
+  each receipted); anything needing judgment is FLAGGED, never
+  guessed. A wild value that poisons the law gets the PASS B
+  hold-out road and comes back as an OUTLIER-CANDIDATE with its
+  receipt. See `cleaning_demo/` for the planted-error catch.
 - The commodity cleaning market is $15–50 with 2–4 day turnaround
   and zero verifiability — we undercut on **turnaround and proof**,
   not price.

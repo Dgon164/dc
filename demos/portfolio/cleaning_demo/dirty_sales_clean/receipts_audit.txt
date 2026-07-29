@@ -1,0 +1,16 @@
+ISAAC — the audit
+============================================================
+
+TABLE audit_view.csv   target: revenue   rows: 59
+  VERDICT: NO RULE
+    revenue = +103.69*units -2.85
+  floor[revenue]: 2.5 via told
+  floor[date]: 0.288675 via grain
+  floor[units]: 0.288675 via grain
+  flags: refused (no applicable law — rows counted unvalidatable, never silently passed)
+  counts: 0 error / 0 news / 0 duplicate / 59 unvalidatable / 0 unflagged
+
+COMPLETE NUMBERS
+  1 tables, 59 rows audited; 0 error / 0 news / 0 duplicate flags; 59 unvalidatable; 0 laws; 1 flag refusals; asks: none
+
+[4 records -> audit.jsonl]
