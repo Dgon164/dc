@@ -3,10 +3,10 @@
 
 ## What we found (plain English)
 
-- **co2** — found a pattern explaining 99% of the movement (trend 99%, cycle 0%, unexplained 1%); a repeating cycle (period 0.9987, profile swing 6.2265); forecast for the next 12 steps: 431.7863 .. 439.5327 (last seen 431.44); the fitted rule, readable, is `+0.21*x0^1.5 +316.26`.
+- **co2** — found a pattern explaining 99% of the movement (trend 99%, cycle 0%, unexplained 1%); a repeating cycle (period 0.9987, profile swing 6.2265); forecast for the next 12 steps: 431.7863 .. 439.5327 (last seen 431.44); the fitted rule, readable, is `+0.21*x0^1.5 +316.26`. what's there: rising +1.668 per unit date (about +113.8 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+1.647, +1.692] per unit date
 - **Data quality** — audit verdict PARTIAL; 0 error / 0 news / 0 duplicate / 5 unvalidatable / 815 unflagged.
 
-> Every claim above traces to a receipt at the bottom of this report. Where evidence was insufficient, the analysis says **NO RULE** instead of guessing — that honesty is the product.
+> Two kinds of claims above, kept honest: a **certified rule** passed our strictest checks; a **what's-there** description reports the plain trend graded by whether it survives 200 random half-samples (SOLID / WEAK / UNSTABLE) — described, never certified. Every claim traces to a receipt at the bottom; where we can't stand behind a number at all, we say so instead of guessing.
 
 ## Charts
 

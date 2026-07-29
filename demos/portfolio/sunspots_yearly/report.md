@@ -3,13 +3,13 @@
 
 ## What we found (plain English)
 
-- **col1** — found a repeating cycle (period 10.4534, profile swing 60.6014), but no overall trend passed our checks — on the trend we say so rather than guess (receipt below).
-- **col2** — found a repeating cycle (period 10.7285, profile swing 3.7814), but no overall trend passed our checks — on the trend we say so rather than guess (receipt below).
-- **col3** — found a repeating cycle (period 34.0074, profile swing 694.1504), but no overall trend passed our checks — on the trend we say so rather than guess (receipt below).
+- **col1** — found a repeating cycle (period 10.4534, profile swing 60.6014); no law-grade trend certified. what's there: rising +0.07799 per unit col0 (about +25.35 across the whole record) — WEAK: direction held in 99% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.01249, +0.1543] per unit col0. Caution: values follow each other strongly here (persistence 0.82), and drifts like this can appear in wandering data — after accounting for that, the direction is not dependable
+- **col2** — found a repeating cycle (period 10.7285, profile swing 3.7814); no law-grade trend certified. what's there: rising +0.03372 per unit col0 (about +10.96 across the whole record) — WEAK: direction held in 100% of 200 random half-samples, NOT in both the early and late halves; half-sample spread [+0.02987, +0.03779] per unit col0
+- **col3** — found a repeating cycle (period 34.0074, profile swing 694.1504); no law-grade trend certified. what's there: rising +18.55 per unit col0 (about +6028 across the whole record) — WEAK: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+14.62, +22.45] per unit col0. Caution: values follow each other strongly here (persistence 0.99), and drifts like this can appear in wandering data — after accounting for that, the direction is not dependable
 - **col4** — found a pattern explaining 100% of the movement (trend 100%, cycle 0%, unexplained 0%); forecast for the next 12 steps: 1.0 .. 1.0 (last seen 1.0); the fitted rule, readable, is `-0.00*x0 +1.00`.
 - **Data quality** — audit verdict UNDERSTOOD; 0 error / 0 news / 0 duplicate / 0 unvalidatable / 326 unflagged.
 
-> Every claim above traces to a receipt at the bottom of this report. Where evidence was insufficient, the analysis says **NO RULE** instead of guessing — that honesty is the product.
+> Two kinds of claims above, kept honest: a **certified rule** passed our strictest checks; a **what's-there** description reports the plain trend graded by whether it survives 200 random half-samples (SOLID / WEAK / UNSTABLE) — described, never certified. Every claim traces to a receipt at the bottom; where we can't stand behind a number at all, we say so instead of guessing.
 
 ## What we did to your file first (receipted)
 

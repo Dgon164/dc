@@ -36,6 +36,12 @@ sales/finance/e-commerce CSV — every number traced to a receipt.
 **If a column can't support a forecast, the report says NO RULE and
 shows why. You will never get a made-up number.**"
 - Core $45–95 (report + charts, 48h) · $125+ with dashboard, 72h
+- Two tiers of claims in every report (owner ruling 2026-07-28):
+  a **certified rule** passed the strictest checks; a **what's-there
+  description** reports the plain trend graded SOLID/WEAK/UNSTABLE
+  by whether it survives 200 random half-samples + a wandering-data
+  check. Clients always get told what's in their data — with the
+  honesty grade attached, never a guess dressed as certainty.
 - Direct anti-workslop positioning: 40% of businesses hit AI slop
   (~2h/incident to fix), 39% distrust AI accuracy. Charts included
   — buyers expect them; the wrapper makes them.

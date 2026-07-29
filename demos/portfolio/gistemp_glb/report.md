@@ -3,26 +3,26 @@
 
 ## What we found (plain English)
 
-- **Jan** — no reliable pattern passed our checks. We say so rather than guess; the refusal receipt is below.
-- **Feb** — no reliable pattern passed our checks. We say so rather than guess; the refusal receipt is below.
-- **Mar** — no reliable pattern passed our checks. We say so rather than guess; the refusal receipt is below.
-- **Apr** — found a pattern explaining 88% of the movement (trend 85%, cycle 3%, unexplained 12%); a repeating cycle (period 46.964, profile swing 0.431); forecast for the next 12 steps: 0.9737 .. 1.3833 (last seen 1.24); the fitted rule, readable, is `+0.00*x0*x0 +0.54*exp(-0.8*x0) -0.35`.
-- **May** — no reliable pattern passed our checks. We say so rather than guess; the refusal receipt is below.
-- **Jun** — no reliable pattern passed our checks. We say so rather than guess; the refusal receipt is below.
-- **Jul** — no reliable pattern passed our checks. We say so rather than guess; the refusal receipt is below.
-- **Aug** — found a repeating cycle (period 14.0471 (shape refused past the null)), but no overall trend passed our checks — on the trend we say so rather than guess (receipt below).
-- **Sep** — no reliable pattern passed our checks. We say so rather than guess; the refusal receipt is below.
-- **Oct** — no reliable pattern passed our checks. We say so rather than guess; the refusal receipt is below.
-- **Nov** — no reliable pattern passed our checks. We say so rather than guess; the refusal receipt is below.
-- **Dec** — no reliable pattern passed our checks. We say so rather than guess; the refusal receipt is below.
-- **J-D** — no reliable pattern passed our checks. We say so rather than guess; the refusal receipt is below.
-- **D-N** — no reliable pattern passed our checks. We say so rather than guess; the refusal receipt is below.
-- **DJF** — no reliable pattern passed our checks. We say so rather than guess; the refusal receipt is below.
-- **MAM** — found a repeating cycle (period 36.9871 (shape refused past the null)), but no overall trend passed our checks — on the trend we say so rather than guess (receipt below).
-- **JJA** — no reliable pattern passed our checks. We say so rather than guess; the refusal receipt is below.
-- **SON** — no reliable pattern passed our checks. We say so rather than guess; the refusal receipt is below.
+- **Jan** — no law-grade rule certified. what's there: rising +0.009027 per unit Year (about +1.318 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.007857, +0.01002] per unit Year
+- **Feb** — no law-grade rule certified. what's there: rising +0.008972 per unit Year (about +1.31 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.008019, +0.01005] per unit Year
+- **Mar** — no law-grade rule certified. what's there: rising +0.009272 per unit Year (about +1.354 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.008182, +0.01037] per unit Year
+- **Apr** — found a pattern explaining 88% of the movement (trend 85%, cycle 3%, unexplained 12%); a repeating cycle (period 46.964, profile swing 0.431); forecast for the next 12 steps: 0.9737 .. 1.3833 (last seen 1.24); the fitted rule, readable, is `+0.00*x0*x0 +0.54*exp(-0.8*x0) -0.35`. what's there: rising +0.00857 per unit Year (about +1.251 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.007532, +0.009526] per unit Year
+- **May** — no law-grade rule certified. what's there: rising +0.008203 per unit Year (about +1.198 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.007271, +0.009104] per unit Year
+- **Jun** — no law-grade rule certified. what's there: rising +0.008321 per unit Year (about +1.215 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.007346, +0.009218] per unit Year
+- **Jul** — no law-grade rule certified. what's there: rising +0.007669 per unit Year (about +1.112 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.006679, +0.008499] per unit Year
+- **Aug** — found a repeating cycle (period 14.0471 (shape refused past the null)); no law-grade trend certified. what's there: rising +0.007995 per unit Year (about +1.159 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.007068, +0.008865] per unit Year
+- **Sep** — no law-grade rule certified. what's there: rising +0.007969 per unit Year (about +1.155 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.007028, +0.008839] per unit Year
+- **Oct** — no law-grade rule certified. what's there: rising +0.00796 per unit Year (about +1.154 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.007108, +0.008893] per unit Year
+- **Nov** — no law-grade rule certified. what's there: rising +0.008169 per unit Year (about +1.185 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.007265, +0.009244] per unit Year
+- **Dec** — no law-grade rule certified. what's there: rising +0.008257 per unit Year (about +1.197 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.007054, +0.009256] per unit Year
+- **J-D** — no law-grade rule certified. what's there: rising +0.0083 per unit Year (about +1.203 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.007294, +0.00916] per unit Year
+- **D-N** — no law-grade rule certified. what's there: rising +0.008365 per unit Year (about +1.205 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.007461, +0.009396] per unit Year
+- **DJF** — no law-grade rule certified. what's there: rising +0.008821 per unit Year (about +1.279 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.007765, +0.009815] per unit Year
+- **MAM** — found a repeating cycle (period 36.9871 (shape refused past the null)); no law-grade trend certified. what's there: rising +0.008685 per unit Year (about +1.268 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.007676, +0.009617] per unit Year
+- **JJA** — no law-grade rule certified. what's there: rising +0.00795 per unit Year (about +1.153 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.007012, +0.008762] per unit Year
+- **SON** — no law-grade rule certified. what's there: rising +0.008034 per unit Year (about +1.165 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.00719, +0.008928] per unit Year
 
-> Every claim above traces to a receipt at the bottom of this report. Where evidence was insufficient, the analysis says **NO RULE** instead of guessing — that honesty is the product.
+> Two kinds of claims above, kept honest: a **certified rule** passed our strictest checks; a **what's-there** description reports the plain trend graded by whether it survives 200 random half-samples (SOLID / WEAK / UNSTABLE) — described, never certified. Every claim traces to a receipt at the bottom; where we can't stand behind a number at all, we say so instead of guessing.
 
 ## What we did to your file first (receipted)
 

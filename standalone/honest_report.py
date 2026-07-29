@@ -26,6 +26,8 @@ import sys
 import time
 from datetime import date
 
+import numpy as np
+
 DC = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # palette (single-series line + status marks; text never wears series color)
@@ -205,8 +207,125 @@ def parse_audit(text):
     return d
 
 
+# ------------------------------------------------- the descriptive look
+# THE OWNER'S RULING (2026-07-28, verbatim): "for data processing or
+# data cleanup he doesnt need to be so absolutely rigorous. what he
+# should do is subsample and trend random samples to validate and say
+# if its spurious or weak but he just says what is there."
+# So: the certified-law court stays what it is; THIS layer describes.
+# It fits the plain trend, re-fits it on random half-samples and on
+# the early/late halves of the record, and labels what it sees:
+#   SOLID    — direction held in >=99% of random half-samples, in
+#              both halves of the record, and the spread excludes 0
+#   WEAK     — direction held in >=80% of half-samples but a check
+#              failed (spread touches 0, or one half disagrees)
+#   UNSTABLE — direction depends on which rows you look at (<80%)
+# Never called a law. Always receipted.
+def descriptive_trend(x, y, n_sub=200, seed=17):
+    x = np.asarray(x, dtype=float)
+    y = np.asarray(y, dtype=float)
+    n = len(x)
+    if n < 12 or np.ptp(x) == 0:
+        return None
+    slope, intercept = np.polyfit(x, y, 1)
+    rng = np.random.default_rng(seed)
+    idx = np.arange(n)
+    slopes = []
+    for _ in range(n_sub):
+        pick = rng.choice(idx, size=max(6, n // 2), replace=False)
+        slopes.append(np.polyfit(x[pick], y[pick], 1)[0])
+    slopes = np.array(slopes)
+    agree = float(np.mean(np.sign(slopes) == np.sign(slope))) \
+        if slope != 0 else 0.0
+    lo, hi = np.percentile(slopes, [2.5, 97.5])
+    order = np.argsort(x)
+    mid = n // 2
+    s_early = np.polyfit(x[order[:mid]], y[order[:mid]], 1)[0]
+    s_late = np.polyfit(x[order[mid:]], y[order[mid:]], 1)[0]
+    halves = (np.sign(s_early) == np.sign(slope)
+              and np.sign(s_late) == np.sign(slope))
+    excl0 = (lo > 0) or (hi < 0)
+    # the wandering-data trap: values that follow each other
+    # strongly can fake a drift that half-samples all inherit.
+    # Standard cure: shrink the effective sample size by the
+    # residuals' persistence and re-test the slope against it.
+    resid = y - (slope * x + intercept)
+    r1 = float(np.corrcoef(resid[:-1], resid[1:])[0, 1]) \
+        if n > 3 else 0.0
+    n_eff = n * (1 - r1) / (1 + r1) if r1 > 0 else float(n)
+    n_eff = max(4.0, n_eff)
+    sxx = float(np.sum((x - x.mean()) ** 2))
+    se = float(np.sqrt(np.sum(resid ** 2) / max(n - 2, 1) / sxx))
+    se_adj = se * float(np.sqrt(n / n_eff))
+    persist_ok = abs(slope) > 2 * se_adj
+    if agree >= 0.99 and halves and excl0 and persist_ok:
+        grade = "SOLID"
+    elif agree >= 0.80 and (halves or excl0):
+        grade = "WEAK"
+    else:
+        grade = "UNSTABLE"
+    return dict(slope=slope, intercept=intercept, lo=lo, hi=hi,
+                agree=agree, halves=halves, grade=grade, r1=r1,
+                persist_ok=persist_ok,
+                total=slope * float(np.ptp(x)), n=n)
+
+
+def describe_columns(rows, header, findings, time_col):
+    """The descriptive look for every analyzed column; returns
+    {column_name: sentence} — each sentence carries its receipt."""
+    if not time_col or time_col not in header:
+        return {}
+    ti = header.index(time_col)
+    out = {}
+    for f in findings:
+        name = f["name"]
+        if name not in header or name == time_col:
+            continue
+        ci = header.index(name)
+        pairs = []
+        for r in rows:
+            try:
+                pairs.append((float(r[ti]), float(r[ci])))
+            except (ValueError, IndexError):
+                continue
+        if len(pairs) < 12:
+            continue
+        x, y = zip(*pairs)
+        d = descriptive_trend(x, y)
+        if d is None:
+            continue
+        direction = ("rising" if d["slope"] > 0 else
+                     "falling" if d["slope"] < 0 else "flat")
+        checks = (f"direction held in {d['agree']:.0%} of 200 "
+                  f"random half-samples, "
+                  f"{'in both' if d['halves'] else 'NOT in both'} "
+                  f"the early and late halves; half-sample spread "
+                  f"[{d['lo']:+.4g}, {d['hi']:+.4g}] per unit "
+                  f"{time_col}")
+        if d["grade"] == "UNSTABLE":
+            sent = (f"what's there: no dependable direction — the "
+                    f"apparent slope flips depending on which rows "
+                    f"you look at ({checks}). We'd call this "
+                    f"spurious rather than report it.")
+        else:
+            sent = (f"what's there: {direction} "
+                    f"{d['slope']:+.4g} per unit {time_col} "
+                    f"(about {d['total']:+.4g} across the whole "
+                    f"record) — {d['grade']}: {checks}")
+            if not d["persist_ok"]:
+                sent += (f". Caution: values follow each other "
+                         f"strongly here (persistence "
+                         f"{d['r1']:.2f}), and drifts like this "
+                         f"can appear in wandering data — after "
+                         f"accounting for that, the direction is "
+                         f"not dependable")
+        out[name] = dict(sentence=sent, d=d)
+    return out
+
+
 # ---------------------------------------------------------------- charts
-def make_charts(rows, header, findings, time_col, chart_dir):
+def make_charts(rows, header, findings, time_col, chart_dir,
+                described=None):
     """One line chart per analyzed column. Data drawn verbatim; the
     only overlay is the engine's own forecast range, shaded."""
     try:
@@ -245,6 +364,15 @@ def make_charts(rows, header, findings, time_col, chart_dir):
         fig.patch.set_facecolor(SURFACE)
         ax.set_facecolor(SURFACE)
         ax.plot(xs, ys, color=BLUE, linewidth=2, solid_capstyle="round")
+        desc = (described or {}).get(f["name"])
+        if desc and desc["d"]["grade"] == "SOLID" and x is not None:
+            d = desc["d"]
+            xa = np.array([min(xs), max(xs)])
+            ax.plot(xa, d["slope"] * xa + d["intercept"],
+                    color=INK2, linewidth=1.2, linestyle="--")
+            ax.annotate("descriptive trend (SOLID)",
+                        (xa[0], d["slope"] * xa[0] + d["intercept"]),
+                        fontsize=7, color=INK2, va="bottom")
         m = re.match(r"([-\d.]+) \.\. ([-\d.]+)", f.get("forecast") or "")
         if m and f["verdict"] not in (None, "NO RULE"):
             lo, hi = float(m.group(1)), float(m.group(2))
@@ -273,23 +401,28 @@ def make_charts(rows, header, findings, time_col, chart_dir):
 
 
 # ---------------------------------------------------------------- render
-def plain_summary(findings, audit):
+def plain_summary(findings, audit, described=None):
     """Translate the engine's findings to plain English. STRICT: every
-    sentence traces to an engine line; refusals stay refusals."""
+    sentence traces to an engine line; refusals stay refusals — but
+    per the owner's ruling, the descriptive look then says what is
+    there, graded by subsample stability, never called a law."""
+    described = described or {}
     out = []
     for f in findings:
         n = f["name"]
+        desc = described.get(n)
         if f["verdict"] == "NO RULE":
             if f["cycle"]:
-                out.append(f"**{n}** — found a repeating cycle "
-                           f"(period {f['cycle']}), but no overall "
-                           f"trend passed our checks — on the trend "
-                           f"we say so rather than guess (receipt "
-                           f"below).")
+                lead = (f"**{n}** — found a repeating cycle "
+                        f"(period {f['cycle']}); no law-grade trend "
+                        f"certified.")
             else:
-                out.append(f"**{n}** — no reliable pattern passed "
-                           f"our checks. We say so rather than "
-                           f"guess; the refusal receipt is below.")
+                lead = (f"**{n}** — no law-grade rule certified.")
+            if desc:
+                out.append(f"{lead} {desc['sentence']}")
+            else:
+                out.append(f"{lead} We say so rather than guess; "
+                           f"the refusal receipt is below.")
             continue
         bits = []
         if f["books"]:
@@ -307,7 +440,10 @@ def plain_summary(findings, audit):
             bits.append(f"the fitted rule, readable, is "
                         f"`{f['equation']}`")
         if bits:
-            out.append(f"**{n}** — found " + "; ".join(bits) + ".")
+            line = f"**{n}** — found " + "; ".join(bits) + "."
+            if desc and desc["d"]["grade"] in ("SOLID", "WEAK"):
+                line += f" {desc['sentence']}"
+            out.append(line)
     if audit and audit.get("counts"):
         out.append(f"**Data quality** — audit verdict "
                    f"{audit.get('verdict') or 'n/a'}; {audit['counts']}.")
@@ -315,18 +451,22 @@ def plain_summary(findings, audit):
 
 
 def render(name, header, n_rows, notes, findings, audit, charts,
-           analyst_text, audit_text, out_dir, secs):
+           analyst_text, audit_text, out_dir, secs, described=None):
     md = []
     md.append(f"# Data report — {name}")
     md.append(f"*{date.today().isoformat()} · {n_rows} rows · "
               f"{len(header)} columns · engine time {secs:.0f}s*")
     md.append("\n## What we found (plain English)\n")
-    summary = plain_summary(findings, audit)
+    summary = plain_summary(findings, audit, described)
     md += [f"- {s}" for s in summary] or ["- (no findings)"]
-    md.append("\n> Every claim above traces to a receipt at the bottom "
-              "of this report. Where evidence was insufficient, the "
-              "analysis says **NO RULE** instead of guessing — that "
-              "honesty is the product.")
+    md.append("\n> Two kinds of claims above, kept honest: a "
+              "**certified rule** passed our strictest checks; a "
+              "**what's-there** description reports the plain trend "
+              "graded by whether it survives 200 random half-samples "
+              "(SOLID / WEAK / UNSTABLE) — described, never "
+              "certified. Every claim traces to a receipt at the "
+              "bottom; where we can't stand behind a number at all, "
+              "we say so instead of guessing.")
     if notes:
         md.append("\n## What we did to your file first (receipted)\n")
         md += [f"- {n}" for n in notes]
@@ -431,8 +571,9 @@ def main():
         m = re.search(r"time key: (.+?) \(", analyst_text)
         if m:
             time_col = m.group(1).strip()
+    described = describe_columns(rows, header, findings, time_col)
     charts = make_charts(rows, header, findings, time_col,
-                         os.path.join(out_dir, "charts"))
+                         os.path.join(out_dir, "charts"), described)
     with open(os.path.join(out_dir, "receipts_analyst.txt"), "w",
               encoding="utf-8") as f:
         f.write(analyst_text)
@@ -441,7 +582,7 @@ def main():
                   encoding="utf-8") as f:
             f.write(audit_text)
     render(name, header, len(rows), notes, findings, audit, charts,
-           analyst_text, audit_text, out_dir, t1 + t2)
+           analyst_text, audit_text, out_dir, t1 + t2, described)
     print(f"report -> {os.path.join(out_dir, 'report.html')}", flush=True)
 
 

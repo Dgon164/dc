@@ -1,17 +1,17 @@
 # Data report — sunspots
-*2026-07-28 · 3330 rows · 7 columns · engine time 22s*
+*2026-07-28 · 3330 rows · 7 columns · engine time 21s*
 
 ## What we found (plain English)
 
-- **col0** — found a pattern explaining 100% of the movement (trend 100%, cycle 0%, unexplained 0%); a repeating cycle (period 1.008 (shape refused past the null)); forecast for the next 12 steps: 2026.035 .. 2026.959 (last seen 2026.0); the fitted rule, readable, is `+1.00*x0 +1748.55`.
-- **col1** — found a repeating cycle (period 1.008, profile swing 0.8188), but no overall trend passed our checks — on the trend we say so rather than guess (receipt below).
-- **col3** — no reliable pattern passed our checks. We say so rather than guess; the refusal receipt is below.
-- **col4** — no reliable pattern passed our checks. We say so rather than guess; the refusal receipt is below.
-- **col5** — found a repeating cycle (period 1.0086, profile swing 31.2579), but no overall trend passed our checks — on the trend we say so rather than guess (receipt below).
-- **col6** — no reliable pattern passed our checks. We say so rather than guess; the refusal receipt is below.
+- **col0** — found a pattern explaining 100% of the movement (trend 100%, cycle 0%, unexplained 0%); a repeating cycle (period 1.008 (shape refused past the null)); forecast for the next 12 steps: 2026.035 .. 2026.959 (last seen 2026.0); the fitted rule, readable, is `+1.00*x0 +1748.55`. what's there: rising +1 per unit col2 (about +277.4 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.9999, +1] per unit col2
+- **col1** — found a repeating cycle (period 1.008, profile swing 0.8188); no law-grade trend certified. what's there: no dependable direction — the apparent slope flips depending on which rows you look at (direction held in 50% of 200 random half-samples, NOT in both the early and late halves; half-sample spread [-0.001298, +0.001372] per unit col2). We'd call this spurious rather than report it.
+- **col3** — no law-grade rule certified. what's there: rising +0.03856 per unit col2 (about +10.7 across the whole record) — WEAK: direction held in 99% of 200 random half-samples, NOT in both the early and late halves; half-sample spread [+0.0131, +0.06359] per unit col2. Caution: values follow each other strongly here (persistence 0.92), and drifts like this can appear in wandering data — after accounting for that, the direction is not dependable
+- **col4** — no law-grade rule certified. what's there: rising +0.0286 per unit col2 (about +7.935 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+0.02641, +0.03073] per unit col2
+- **col5** — found a repeating cycle (period 1.0086, profile swing 31.2579); no law-grade trend certified. what's there: rising +2.071 per unit col2 (about +574.7 across the whole record) — SOLID: direction held in 100% of 200 random half-samples, in both the early and late halves; half-sample spread [+1.948, +2.203] per unit col2
+- **col6** — no law-grade rule certified. what's there: falling -3.889e-05 per unit col2 (about -0.01079 across the whole record) — WEAK: direction held in 99% of 200 random half-samples, NOT in both the early and late halves; half-sample spread [-6.66e-05, -1.268e-05] per unit col2. Caution: values follow each other strongly here (persistence 0.91), and drifts like this can appear in wandering data — after accounting for that, the direction is not dependable
 - **Data quality** — audit verdict NO RULE; 0 error / 0 news / 0 duplicate / 3330 unvalidatable / 0 unflagged.
 
-> Every claim above traces to a receipt at the bottom of this report. Where evidence was insufficient, the analysis says **NO RULE** instead of guessing — that honesty is the product.
+> Two kinds of claims above, kept honest: a **certified rule** passed our strictest checks; a **what's-there** description reports the plain trend graded by whether it survives 200 random half-samples (SOLID / WEAK / UNSTABLE) — described, never certified. Every claim traces to a receipt at the bottom; where we can't stand behind a number at all, we say so instead of guessing.
 
 ## What we did to your file first (receipted)
 
