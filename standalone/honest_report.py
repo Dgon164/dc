@@ -478,7 +478,7 @@ def plain_summary(findings, audit, described=None):
 
 def render(name, header, n_rows, notes, findings, audit, charts,
            analyst_text, audit_text, out_dir, secs, described=None,
-           extras=None, narrative=None):
+           extras=None, narrative=None, brand=None):
     md = []
     md.append(f"# Data report — {name}")
     md.append(f"*{date.today().isoformat()} · {n_rows} rows · "
@@ -607,10 +607,12 @@ def render(name, header, n_rows, notes, findings, audit, charts,
         f"footer{{margin:3em 0 1em;color:{MUTED};font-size:.8rem;"
         "border-top:1px solid #e6e4df;padding-top:1em}"
         "</style>" + body_text +
-        "<footer>Prepared with the Isaac engine — every number in "
-        "this report traces to a receipt above. Where the data "
-        "could not support a claim, the report says so instead of "
-        "guessing.</footer>")
+        "<footer>" +
+        (f"Prepared by {html_mod.escape(brand)} · "
+         if brand else "") +
+        "Every number in this report traces to a receipt above. "
+        "Where the data could not support a claim, the report "
+        "says so instead of guessing.</footer>")
     with open(os.path.join(out_dir, "report.html"), "w",
               encoding="utf-8") as f:
         f.write(html_text)
@@ -630,6 +632,9 @@ def main():
                     help="a closing note (written by anyone — human "
                          "or AI); included ONLY if every number in "
                          "it verifies against the receipts")
+    ap.add_argument("--brand", default=None, metavar="NAME",
+                    help="the analyst's name/business for the "
+                         "report footer — this is YOUR deliverable")
     args = ap.parse_args()
 
     name = os.path.splitext(os.path.basename(args.source))[0]
@@ -713,7 +718,7 @@ def main():
             f.write(audit_text)
     render(name, header, len(rows), notes, findings, audit, charts,
            analyst_text, audit_text, out_dir, t1 + t2, described,
-           extras, narrative)
+           extras, narrative, args.brand)
     print(f"report -> {os.path.join(out_dir, 'report.html')}", flush=True)
 
 
