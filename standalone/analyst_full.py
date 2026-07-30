@@ -364,6 +364,30 @@ def seasonality_block(rows, header, cols, findings):
                         d = datetime.date(*map(int, m.groups()))
                         per_day[d] = per_day.get(d, 0) + 1
             recs = sorted(per_day.items())
+            # ABSENCE is a finding: a weekday with zero activity
+            # across the whole record is how the operation runs
+            if len(recs) >= 12:
+                span = (recs[-1][0] - recs[0][0]).days + 1
+                if span >= 12:
+                    present = {d.weekday() for d, _ in recs}
+                    names7 = ["Monday", "Tuesday", "Wednesday",
+                              "Thursday", "Friday", "Saturday",
+                              "Sunday"]
+                    for wd in range(7):
+                        if wd not in present and span >= 12:
+                            md.append(f"- **no activity on any "
+                                      f"{names7[wd]}** in "
+                                      f"{span} days of record — "
+                                      f"the operation doesn't run "
+                                      f"that day (or that data "
+                                      f"never lands in this file)")
+                            findings.append(
+                                (0.85,
+                                 f"zero activity on every "
+                                 f"{names7[wd]} in the record",
+                                 f"if that's by design, fine — if "
+                                 f"not, a whole day of business "
+                                 f"is missing from this file"))
         else:
             ni = header.index(num)
             for r in rows:
@@ -871,6 +895,162 @@ def customers_block(rows, header, cols, findings):
                  f"repeat business is the cheapest revenue there "
                  f"is — the gap number above says when to reach "
                  f"out"))
+    md.append("")
+    return md
+
+
+# --------------------------------------------- returns & adjustments
+def _money_col(cols):
+    num, best = None, -1
+    for h, c in cols.items():
+        if c["kind"] == "numeric" and len(c["nums"]) \
+                and c["nums"].sum() > best:
+            best, num = c["nums"].sum(), h
+    return num
+
+
+def negatives_block(rows, header, cols, findings):
+    """Negative money is a story, never just noise: returns,
+    reversals, write-offs. Named by source, clustered by day —
+    the blind court's biggest miss, cured."""
+    num = _money_col(cols)
+    if not num:
+        return []
+    ni = header.index(num)
+    neg = [(k + 2, float(r[ni])) for k, r in enumerate(rows)
+           if ni < len(r) and _is_num(r[ni]) and float(r[ni]) < 0]
+    if len(neg) < 3:
+        return []
+    gross = sum(float(r[ni]) for r in rows
+                if ni < len(r) and _is_num(r[ni])
+                and float(r[ni]) > 0) or 1e-12
+    tot_neg = sum(v for _, v in neg)
+    md = ["## Returns, reversals, and write-offs", ""]
+    md.append(f"- **{len(neg):,} rows carry negative {num}**, "
+              f"totaling {human(tot_neg)} against {human(gross)} "
+              f"gross ({abs(tot_neg) / gross:.1%} of gross)")
+    # name the sources: which label concentrates the negative value
+    neg_idx = {k for k, _ in neg}
+    best_col, best_share, best_top = None, 0, []
+    for h, c in cols.items():
+        if c["kind"] not in ("identifier", "category", "text"):
+            continue
+        hi = header.index(h)
+        by = {}
+        for k, r in enumerate(rows):
+            if (k + 2) in neg_idx and hi < len(r) and r[hi]:
+                by[r[hi]] = by.get(r[hi], 0.0) + float(r[ni])
+        if not by or len(by) > 2000:
+            continue
+        top = sorted(by.items(), key=lambda kv: kv[1])[:3]
+        share = top[0][1] / tot_neg if tot_neg else 0
+        # a source only counts if negatives concentrate there MORE
+        # than the business does overall (UK being 95% of sales
+        # makes 'UK' a non-answer for where reversals live)
+        n_all = sum(1 for r in rows if hi < len(r) and r[hi])
+        base = sum(1 for r in rows if hi < len(r)
+                   and r[hi] == top[0][0]) / max(n_all, 1)
+        score = share - base
+        if score > best_share:
+            best_col, best_share, best_top = h, score, top
+    if best_col:
+        md.append(f"- **where the negatives live** (by {best_col}): "
+                  + "; ".join(f"'{g}' {human(v)}"
+                              for g, v in best_top))
+    # day clusters: one bad day carrying a big share of negatives
+    dcol = next((h for h, c in cols.items()
+                 if c["kind"] == "date"), None)
+    if dcol:
+        di = header.index(dcol)
+        by_day = {}
+        for k, r in enumerate(rows):
+            if (k + 2) in neg_idx and di < len(r) and r[di]:
+                by_day.setdefault(r[di], []).append(float(r[ni]))
+        if by_day:
+            worst = min(by_day.items(), key=lambda kv: sum(kv[1]))
+            wsum = sum(worst[1])
+            if tot_neg and wsum / tot_neg >= 0.3:
+                md.append(f"- **a single day carries "
+                          f"{wsum / tot_neg:.0%} of all negative "
+                          f"{num}**: {worst[0]}, {len(worst[1])} "
+                          f"entries totaling {human(wsum)} — that "
+                          f"is an EVENT, not a trickle; worth "
+                          f"pulling the source records for that "
+                          f"day")
+                findings.append(
+                    (min(1.0, abs(wsum) / gross) + 0.6,
+                     f"{worst[0]}: {len(worst[1])} negative "
+                     f"entries totaling {human(wsum)} in one day "
+                     f"({abs(wsum) / gross:.1%} of gross {num})",
+                     f"one day, one story — find out what "
+                     f"happened on {worst[0]} before averaging "
+                     f"over it"))
+    if abs(tot_neg) / gross >= 0.05:
+        findings.append(
+            (abs(tot_neg) / gross,
+             f"negative {num} runs {abs(tot_neg) / gross:.1%} of "
+             f"gross" + (f", concentrated in "
+                         f"'{best_top[0][0]}'" if best_top else ""),
+             f"separate true returns from fees and write-offs "
+             f"before judging the business — they are different "
+             f"problems"))
+    md.append("")
+    return md
+
+
+# ------------------------------------------------------------- whales
+def orders_whales_block(rows, header, cols, findings):
+    """Orders as first-class objects: the size of a typical order,
+    and the whales — the blind court showed the biggest orders can
+    carry a fifth of the business and even lack a customer id."""
+    ogroups, how = _find_orders(rows, header, cols)
+    num = _money_col(cols)
+    if not ogroups or not num or len(ogroups) < 30:
+        return []
+    ni = header.index(num)
+    cust = find_customer_col(cols)
+    ci = header.index(cust) if cust else None
+    dcol = next((h for h, c in cols.items()
+                 if c["kind"] == "date"), None)
+    di = header.index(dcol) if dcol else None
+    vals = []
+    for okey, ls in ogroups.items():
+        v = sum(float(r[ni]) for r in ls
+                if ni < len(r) and _is_num(r[ni]))
+        guest = (ci is not None and ls[0][ci] == "") if ci is not \
+            None else False
+        d = ls[0][di] if di is not None and di < len(ls[0]) else ""
+        vals.append((v, str(okey), len(ls), guest, d))
+    pos = sorted((x for x in vals if x[0] > 0), reverse=True)
+    if len(pos) < 20:
+        return []
+    total = sum(v for v, *_ in pos)
+    top10 = sum(v for v, *_ in pos[:10])
+    med_v = float(np.median([v for v, *_ in pos]))
+    med_lines = float(np.median([n for _, _, n, _, _ in pos]))
+    md = ["## The orders themselves", ""]
+    md.append(f"- {len(pos):,} orders with positive {num}; the "
+              f"typical order is {human(med_v)} across "
+              f"{med_lines:.0f} line(s)")
+    md.append(f"- **the top 10 orders alone carry "
+              f"{top10 / total:.0%} of {num}**: " +
+              "; ".join(f"{okey} {human(v)}"
+                        + (f" on {d}" if d else "")
+                        + (" — NO CUSTOMER ID" if g else "")
+                        for v, okey, _, g, d in pos[:3]))
+    n_guest_top = sum(1 for _, _, _, g, _ in pos[:10] if g)
+    if n_guest_top:
+        md.append(f"- {n_guest_top} of the top 10 orders have no "
+                  f"customer attached — your biggest buyers are "
+                  f"invisible to any customer analysis")
+    if top10 / total >= 0.15:
+        findings.append(
+            (top10 / total + 0.3,
+             f"the top 10 orders carry {top10 / total:.0%} of "
+             f"{num}" + (f"; {n_guest_top} of them have no "
+                         f"customer id" if n_guest_top else ""),
+             f"key-account risk: know these buyers by name — one "
+             f"of them changing supplier is a bad quarter"))
     md.append("")
     return md
 
@@ -1492,6 +1672,8 @@ def build_extras(rows, header, time_col, described, chart_dir,
                                window[2] or "the window", findings)
     blocks += customers_block(rows, header, cols, findings)
     blocks += at_risk_block(rows, header, cols, findings)
+    blocks += negatives_block(rows, header, cols, findings)
+    blocks += orders_whales_block(rows, header, cols, findings)
     blocks += coupons_block(rows, header, cols, findings)
     blocks += baskets_block(rows, header, cols, findings)
     rec_md, families = reconcile_block(rows, header, cols, findings)
